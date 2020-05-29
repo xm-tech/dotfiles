@@ -1,0 +1,8 @@
+- [x] fzf buffers
+- [x] fzf with ag , just like ctrl shif f in sublime
+- [x] vim split ShortCut
+- [x] vim ag
+- [x] vim fzf
+- visual move
+- Makefile Study
+- NERDTree ignore

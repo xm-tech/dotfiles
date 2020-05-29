@@ -32,6 +32,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-scriptease'
 Plug 'tyru/open-browser.vim'
+Plug 'epmatsw/ag.vim'
 
 call plug#end()
 
@@ -271,6 +272,10 @@ nnoremap <leader>pr :Runtime<CR>
 " Close all but the current one
 nnoremap <leader>o :only<CR>
 
+" Split
+noremap <Leader>h :<C-u>split<CR>
+noremap <Leader>v :<C-u>vsplit<CR>
+
 " Better split switching
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -490,6 +495,22 @@ augroup END
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_layout = { 'down': '~20%' }
 
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+nnoremap <silent> <leader>e :FZF -m<CR>
+nnoremap <silent> <leader>b :FzfBuffers<CR>
+" work as 'ctrl shif f' in sublime
+nnoremap <silent> <leader>s :FzfAg<CR>
+
+" ==================== The Silver Searcher ====================
+" ag.vim
+if executable('ag')
+  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
+
+
 " search 
 nmap <C-p> :FzfHistory<cr>
 imap <C-p> <esc>:<C-u>FzfHistory<cr>
@@ -527,6 +548,14 @@ noremap <Leader>n :NERDTreeToggle<cr>
 noremap <Leader>f :NERDTreeFind<cr>
 
 let NERDTreeShowHidden=1
+" let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeWinSize = 50
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
 " ==================== ag ====================
 let g:ackprg = 'ag --vimgrep --smart-case'                                                   
