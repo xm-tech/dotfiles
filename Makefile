@@ -3,7 +3,7 @@ all: sync
 sync:
 	[ -f ~/.vimrc  ] || ln -s $(PWD)/vimrc ~/.vimrc
 	[ -f ~/.bashrc  ] || ln -s $(PWD)/bashrc ~/.bashrc
-	[ -f ~/.zshrc  ] || ln -s $(PWD)/zshrc ~/.zshrc
+	# [ -f ~/.zshrc  ] || ln -s $(PWD)/zshrc ~/.zshrc
 	[ -f ~/.tmux.conf  ] || ln -s $(PWD)/tmuxconf ~/.tmux.conf
 	[ -f ~/.tigrc  ] || ln -s $(PWD)/tigrc ~/.tigrc
 	[ -f ~/.git-prompt.sh  ] || ln -s $(PWD)/git-prompt.sh ~/.git-prompt.sh
@@ -15,7 +15,7 @@ sync:
 clean:
 	rm -f ~/.vimrc 
 	rm -f ~/.bashrc
-	rm -f ~/.zshrc
+	# rm -f ~/.zshrc
 	rm -f ~/.tmux.conf
 	rm -f ~/.tigrc
 	rm -f ~/.git-prompt.sh
