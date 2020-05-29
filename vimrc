@@ -285,6 +285,15 @@ map <C-l> <C-W>l
 " Print full path
 map <C-f> :echo expand("%:p")<cr>
 
+" Vmap for maintain Visual Mode after shifting > and <
+vmap < <gv
+vmap > >gv
+
+" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+
 " Terminal settings
 if has('terminal')
   " Kill job and close terminal window
@@ -314,10 +323,10 @@ if has('terminal')
 endif
 
 " Visual linewise up and down by default (and use gj gk to go quicker)
-noremap <Up> gk
-noremap <Down> gj
-noremap j gj
-noremap k gk
+" noremap <Up> gk
+" noremap <Down> gj
+" noremap j gj
+" noremap k gk
 
 " Exit on j
 imap jj <Esc>
