@@ -1,6 +1,6 @@
 My personal dotfiles
 
-On the old machine
+On the old machine(optional)
 ---
 
 ```
