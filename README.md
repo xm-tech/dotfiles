@@ -18,9 +18,3 @@ brew bundle
 # copy dotfiles to the appropriate places
 make
 ```
-
-TODO
----
-- NerdTree hide ignore files
-- vim Ag work flow
-- fzf shortcut
