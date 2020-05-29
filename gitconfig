@@ -1,0 +1,9 @@
+[commit]
+	template = /Users/maxiongmiao/.git.commit.template
+[user]
+	name = xm-tech
+	email = maxm09@163.com
+[core]
+	autocrlf = input
+[http]
+	postBuffer = 524288000

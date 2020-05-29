@@ -1,0 +1,136 @@
+# Set prefix key to c-f instead of default c-b
+# unbind C-b
+# set -g prefix C-f
+# bind C-f send-prefix
+unbind C-f
+set -g prefix C-b
+bind C-b send-prefix
+
+set-option -g default-shell /bin/zsh
+
+# toogle last window by hitting again C-f
+# bind-key C-f last-window
+bind-key C-b last-window
+
+# if multiple clients are attached to the same window, maximize it to the
+# bigger one
+set-window-option -g aggressive-resize
+
+# Start windows and pane numbering with index 1 instead of 0
+set -g base-index 1
+set -g pane-base-index 1
+# re-number windows when one is closed
+set -g renumber-windows on
+
+# word separators for automatic word selection
+setw -g word-separators ' @"=()[]_-:,.'
+setw -ag word-separators "'"
+
+# Show times longer than supposed
+set -g display-panes-time 2000
+
+# tmux messages are displayed for 4 seconds
+set -g display-time 4000
+
+# {n}vim compability
+set -g default-terminal "screen-256color"
+
+# Disable confirm before killing
+bind-key x kill-pane
+
+# This tmux statusbar config was created by tmuxline.vim
+# on Wed, 25 Nov 2015
+set -g status "on"
+set -g status-bg "colour236"
+set -g status-justify "left"
+set -g status-position "bottom"
+set -g status-left-length "100"
+set -g status-right-length "100"
+set -g status-left "#{prefix_highlight}#[fg=colour22,bg=colour148,bold] #S #[fg=colour148,bg=colour236,nobold,nounderscore,noitalics]"
+set -g status-right "#[fg=colour240,bg=colour236,nobold,nounderscore,noitalics]#[fg=colour250,bg=colour240] %Y-%m-%d %H:%M #[fg=colour252,bg=colour240,nobold,nounderscore,noitalics]#[fg=colour241,bg=colour252] #h "
+
+setw -g window-status-separator ""
+setw -g window-status-format "#[fg=colour245,bg=colour236] #I #[fg=colour245,bg=colour236]#W "
+setw -g window-status-current-format "#[fg=colour236,bg=colour240,nobold,nounderscore,noitalics]#[fg=colour231,bg=colour240] #I #[fg=colour231,bg=colour240]#{?window_zoomed_flag,#[fg=green][],}#W #[fg=colour240,bg=colour236,nobold,nounderscore,noitalics]"
+
+
+# {n}vim compability
+# set -g default-terminal "screen-256color"
+
+# 开启鼠标模式
+# set -g mode-mouse on
+# 允许鼠标选择窗格
+# set -g mouse-select-pane on
+# 如果喜欢给窗口自定义命名，那么需要关闭窗口的自动命名
+# set-option -g allow-rename off
+# 如果对 vim 比较熟悉，可以将 copy mode 的快捷键换成 vi 模式
+
+set -g @prefix_highlight_fg 'white' # default is 'colour231'
+set -g @prefix_highlight_bg 'blue'  # default is 'colour04'
+
+set -g @prefix_highlight_show_copy_mode 'on'
+set -g @prefix_highlight_copy_mode_attr 'fg=black,bg=yellow,bold' # default is 'fg=default,bg=yellow'
+set -g @prefix_highlight_show_sync_mode 'on'
+set -g @prefix_highlight_sync_mode_attr 'fg=black,bg=green' # default is 'fg=default,bg=yellow'
+
+# Source file
+unbind r
+bind r source-file ~/.tmux.conf \; display "Reloaded!"
+
+set-window-option -g mode-keys vi
+# Set title
+set -g set-titles on
+set -g set-titles-string "#T"
+
+set -g status-keys emacs
+
+# focus events enabled for terminals that support them
+set -g focus-events on
+
+# Sync panes (Send input to all panes in the window). When enabled, pane
+# borders become red as an indication.
+bind C-s if -F '#{pane_synchronized}' \
+                     'setw synchronize-panes off; \
+                      setw pane-active-border-style fg=colour63,bg=default; \
+                      setw pane-border-format       " #P "' \
+                   'setw synchronize-panes on; \
+                    setw pane-active-border-style fg=red; \
+                    setw pane-border-format       " #P - Pane Synchronization ON "'
+
+# Faster command sequence
+set -s escape-time 0
+
+# Have a very large history
+set -g history-limit 1000000
+
+# Equally resize all panes
+bind-key = select-layout even-horizontal
+bind-key | select-layout even-vertical
+
+# Resize panes
+bind-key J resize-pane -D 10
+bind-key K resize-pane -U 10
+bind-key H resize-pane -L 10
+bind-key L resize-pane -R 10
+
+# Select panes 
+# NOTE(arslan): See to prevent cycling https://github.com/tmux/tmux/issues/1158
+bind-key j select-pane -D
+bind-key k select-pane -U
+bind-key h select-pane -L
+bind-key l select-pane -R
+
+# List of plugins
+# see this https://github.com/tmux-plugins/tpm to installation
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'tmux-plugins/tmux-open'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-copycat'
+set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
+set -g @continuum-restore 'on'
+# set -g @plugin 'tmux-plugins/tmux-sidebar'
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run -b '~/.tmux/plugins/tpm/tpm'
