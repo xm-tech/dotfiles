@@ -3,6 +3,7 @@
 - [x] vim split ShortCut
 - [x] vim ag
 - [x] vim fzf
-- visual move
+- [x] visual move
+- mouse double click select && copy && color
 - Makefile Study
 - NERDTree ignore
