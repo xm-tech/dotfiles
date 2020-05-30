@@ -58,7 +58,7 @@ setw -g window-status-current-format "#[fg=colour236,bg=colour240,nobold,nounder
 # set -g default-terminal "screen-256color"
 
 # 开启鼠标模式
-# set -g mode-mouse on
+set -g mode-mouse on
 # 允许鼠标选择窗格
 # set -g mouse-select-pane on
 # 如果喜欢给窗口自定义命名，那么需要关闭窗口的自动命名
