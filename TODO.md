@@ -5,7 +5,7 @@
 - [x] vim fzf
 - [x] visual move
 - [x] NERDTree ignore .git etc
-- NERDTree width change quickly
+- [x] NERDTree width change quickly
 - mouse double click select && copy && color
 - vim terminal bug fix
 - Makefile Study
