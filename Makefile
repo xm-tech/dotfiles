@@ -11,6 +11,7 @@ sync:
 	[ -f ~/.tigrc  ] || ln -s $(PWD)/tigrc ~/.tigrc
 	[ -f ~/.git-prompt.sh  ] || ln -s $(PWD)/git-prompt.sh ~/.git-prompt.sh
 	[ -f ~/.gitconfig  ] || ln -s $(PWD)/gitconfig ~/.gitconfig
+	[ -f /usr/local/etc/profile.d/z.sh ] || ( mkdir -p /usr/local/etc/profile.d/ && ln -s $(PWD)/z.sh /usr/local/etc/profile.d/z.sh )
 
 	# don't show last login message
 	touch ~/.hushlogin
@@ -25,5 +26,6 @@ clean:
 	rm -f ~/.git-prompt.sh
 	rm -f ~/.gitconfig
 	rm -f ~/.agignore
+	[ -f /usr/local/etc/profile.d/z.sh ] && rm -f /usr/local/etc/profile.d/z.sh
 
 .PHONY: all clean sync build run kill
