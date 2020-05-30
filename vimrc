@@ -109,8 +109,6 @@ let g:molokai_original = 1
 let g:rehash256 = 1
 colorscheme molokai
 
-" make opacity
-" exe 'hi Normal guibg=NONE ctermbg=NONE'
 
 augroup filetypedetect
   command! -nargs=* -complete=help Help vertical belowright help <args>
@@ -194,6 +192,8 @@ function! StatusLineLeftInfo()
  return filename
 endfunction
 
+" make opacity
+" exe 'hi Normal guibg=NONE ctermbg=NONE'
 exe 'hi! myInfoColor ctermbg=240 ctermfg=252'
 
 " start building our statusline
