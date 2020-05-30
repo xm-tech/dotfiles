@@ -98,7 +98,9 @@ colors:
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
     text:   '0xf1c1c1'
-    cursor: '0xff2600'
+    # cursor: '0xff2600'
+    # cursor: '0xffffff'
+    cursor: '0xd8dee9'
 
   # Normal colors
   normal:

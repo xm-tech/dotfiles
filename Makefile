@@ -1,6 +1,9 @@
 all: sync
 
 sync:
+	mkdir -p ~/.config/alacritty
+
+	[ -f ~/.config/alacritty/alacritty.yml  ] || ln -s $(PWD)/alacritty.yml ~/.config/alacritty/alacritty.yml
 	[ -f ~/.vimrc  ] || ln -s $(PWD)/vimrc ~/.vimrc
 	[ -f ~/.bashrc  ] || ln -s $(PWD)/bashrc ~/.bashrc
 	# [ -f ~/.zshrc  ] || ln -s $(PWD)/zshrc ~/.zshrc
@@ -14,6 +17,7 @@ sync:
 
 clean:
 	rm -f ~/.vimrc 
+	rm -f ~/.config/alacritty/alacritty.yml
 	rm -f ~/.bashrc
 	# rm -f ~/.zshrc
 	rm -f ~/.tmux.conf
