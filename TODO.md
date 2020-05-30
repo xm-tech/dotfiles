@@ -6,6 +6,7 @@
 - [x] visual move
 - [x] NERDTree ignore .git etc
 - [x] NERDTree width change quickly
+- [x] replace iterm2 with alacritty
 - mouse double click select && copy && color
 - vim terminal bug fix
 - Makefile Study
