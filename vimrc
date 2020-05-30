@@ -109,6 +109,9 @@ let g:molokai_original = 1
 let g:rehash256 = 1
 colorscheme molokai
 
+" make opacity
+" exe 'hi Normal guibg=NONE ctermbg=NONE'
+
 augroup filetypedetect
   command! -nargs=* -complete=help Help vertical belowright help <args>
   autocmd FileType help wincmd L
