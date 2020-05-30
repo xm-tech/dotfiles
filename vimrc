@@ -230,6 +230,7 @@ let mapleader = ","
 " Some useful quickfix shortcuts for quickfix
 map <C-n> :cn<CR>
 map <C-m> :cp<CR>
+map <C-p> :cp<CR>
 nnoremap <leader>a :cclose<CR>
 
 " put quickfix window always to the bottom
@@ -267,7 +268,7 @@ endfunction
 nnoremap <silent> gb :<C-u>call <SID>echoBinary()<CR>
 
 " Source the current Vim file
-nnoremap <leader>pr :Runtime<CR>
+" nnoremap <leader>pr :Runtime<CR>
 
 " Close all but the current one
 nnoremap <leader>o :only<CR>
@@ -526,12 +527,12 @@ endif
 
 
 " search 
-nmap <C-p> :FzfHistory<cr>
-imap <C-p> <esc>:<C-u>FzfHistory<cr>
+" nmap <C-p> :FzfHistory<cr>
+" imap <C-p> <esc>:<C-u>FzfHistory<cr>
 
 " search across files in the current directory
-nmap <C-b> :FzfFiles<cr>
-imap <C-b> <esc>:<C-u>FzfFiles<cr>
+" nmap <C-b> :FzfFiles<cr>
+" imap <C-b> <esc>:<C-u>FzfFiles<cr>
 
 let g:rg_command = '
   \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
