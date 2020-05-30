@@ -4,8 +4,8 @@
 - [x] vim ag
 - [x] vim fzf
 - [x] visual move
-- tag op
-- mouse double click select && copy && color
-- Makefile Study
+- [x] NERDTree ignore .git etc
 - NERDTree width change quickly
-- NERDTree ignore .git etc
+- mouse double click select && copy && color
+- vim terminal bug fix
+- Makefile Study
