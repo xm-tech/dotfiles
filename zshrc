@@ -24,7 +24,6 @@ alias gl='git log --all --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Cr
 alias glp='gl -p'
 alias gp='git push'
 alias gpl='git pull'
-alias gplf='cd /Users/maxiongmiao/yalla/projects/FiberHall'
 alias gr='git remote'
 alias grv='git remote -vv'
 alias gs='git status -sb'
