@@ -13,7 +13,7 @@ On a new machine
 
 ```
 # install all brew dependencies
-brew bundle
+brew bundle(optional)
 
 # copy dotfiles to the appropriate places
 make
