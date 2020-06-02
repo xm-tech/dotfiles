@@ -65,7 +65,7 @@ function kubedel(){
     kubectl delete pods $pod_name
 }
 
-function p16{
+function p16(){
     x=$1
     printf %x $x
 }
