@@ -65,6 +65,11 @@ function kubedel(){
     kubectl delete pods $pod_name
 }
 
+function p16{
+    x=$1
+    printf %x $x
+}
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /usr/local/etc/profile.d/z.sh ] && . /usr/local/etc/profile.d/z.sh
 
