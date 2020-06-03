@@ -28,6 +28,7 @@ brew "pyenv-virtualenv"
 brew "python@3.8"
 brew "ranger"
 brew "reattach-to-user-namespace"
+brew "redis", restart_service: true
 brew "ruby"
 brew "shellcheck"
 brew "telnet"
