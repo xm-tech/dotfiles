@@ -8,6 +8,10 @@
 - [x] NERDTree width change quickly
 - [x] replace iterm2 with alacritty
 - [x] Makefile editor
+- vim [[[**]]] 展示乱码问题修正
+- conf vim key: ctrl + a  to select all the page text
 - mouse double click select && copy && color
 - vim terminal bug fix
 - Makefile Study
+- resolve the key conflict of `,b` in the go file
+- resolve the key conflict of `ctrl b` between tmux and other places
