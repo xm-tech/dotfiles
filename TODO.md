@@ -8,6 +8,7 @@
 - [x] NERDTree width change quickly
 - [x] replace iterm2 with alacritty
 - [x] Makefile editor
+- zshrc function tab == 4
 - vim [[[**]]] 展示乱码问题修正
 - conf vim key: ctrl + a  to select all the page text
 - mouse double click select && copy && color

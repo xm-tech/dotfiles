@@ -46,12 +46,21 @@ alias duh='du -sh -h * .[^.]* 2> /dev/null | sort -h'
 # functions
 # ==================
 function kubelog(){
-    pid=$1
-    line=$2
-    kubectl logs $pid --tail $line  -f
+	if [ $# -ge 3 ]; then
+		# $1:namespace, $2:podname, $3:linenum
+		kubectl logs -n $1 $2 --tail $3 -f
+		return
+	fi
+	## $1:podname, $2:linenum
+	kubectl logs $1 --tail $2 -f
 }
 
 function kubeps(){
+    if [ $# -gt 0 ]; then
+	# $1: namespace
+    	kubectl get pods -n $1
+	return
+    fi
     kubectl get pods
 }
 
