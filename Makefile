@@ -25,7 +25,6 @@ clean:
 	rm -f ~/.tigrc
 	rm -f ~/.git-prompt.sh
 	rm -f ~/.gitconfig
-	rm -f ~/.agignore
 	[ -f /usr/local/etc/profile.d/z.sh ] && rm -f /usr/local/etc/profile.d/z.sh
 
 .PHONY: all clean sync build run kill
