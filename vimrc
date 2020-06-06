@@ -133,6 +133,7 @@ augroup filetypedetect
   autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2
   autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
   autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
+  autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 augroup END
 
 "=====================================================
