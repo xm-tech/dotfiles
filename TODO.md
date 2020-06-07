@@ -8,11 +8,20 @@
 - [x] NERDTree width change quickly
 - [x] replace iterm2 with alacritty
 - [x] Makefile editor
+- [x] tmux copy/paste workflow
+  - vim
+	- select(mouse|keyboard visual select)
+	- y(yank)
+	- paste
+	  - insert mode: `ctrl v`
+	  - visual mode: `p`
+  - zsh
+	- select(mouse)
+	- paste(ctrl v | pbpaste)
+- conf vim key: ctrl + a  to select all the page text
 - tmux env optimzie
 - zshrc function tab == 4
-- vim [[[**]]] 展示乱码问题修正
-- conf vim key: ctrl + a  to select all the page text
-- mouse double click select && copy && color
+- tmux vim [[[**]]] 展示乱码问题修正
 - vim terminal bug fix
 - Makefile Study
 - resolve the key conflict of `,b` in the go file

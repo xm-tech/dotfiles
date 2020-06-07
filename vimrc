@@ -295,6 +295,8 @@ map <silent><C-t>j :resize +5<CR>
 
 " Print full path
 map <C-f> :echo expand("%:p")<cr>
+" Select all
+map <C-a> ggVG$
 
 " Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
