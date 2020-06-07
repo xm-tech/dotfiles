@@ -20,9 +20,9 @@
 	- paste(ctrl v | pbpaste)
 - [x] conf vim key: ctrl + a  to select all the page text
 - [x] tmux env optimzie
-- zshrc function tab == 4
-- vim terminal bug fix, something like `[[[**]]]`
-- Makefile Study
-- resolve the key conflict of `,b` in the go file
 - [x] resolve the key conflict of `ctrl b` between tmux and other places
   - use `ctrl s` instead
+- vim terminal bug fix, something like `[[[**]]]`
+- resolve the key conflict of `,b` in the go file
+- Makefile Study
+- zshrc function tab == 4
