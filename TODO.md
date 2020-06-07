@@ -18,11 +18,11 @@
   - zsh
 	- select(mouse)
 	- paste(ctrl v | pbpaste)
-- conf vim key: ctrl + a  to select all the page text
-- tmux env optimzie
+- [x] conf vim key: ctrl + a  to select all the page text
+- [x] tmux env optimzie
 - zshrc function tab == 4
-- tmux vim [[[**]]] 展示乱码问题修正
-- vim terminal bug fix
+- vim terminal bug fix, something like `[[[**]]]`
 - Makefile Study
 - resolve the key conflict of `,b` in the go file
-- resolve the key conflict of `ctrl b` between tmux and other places
+- [x] resolve the key conflict of `ctrl b` between tmux and other places
+  - use `ctrl s` instead
