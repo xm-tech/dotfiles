@@ -36,8 +36,8 @@ set -g default-terminal "screen-256color"
 
 # Split horiziontal and vertical splits, instead of % and "
 # Also open them in the same directory
-bind-key v split-window -h -c '#{pane_current_path}'
-bind-key s split-window -v -c '#{pane_current_path}'
+# bind-key v split-window -h -c '#{pane_current_path}'
+# bind-key s split-window -v -c '#{pane_current_path}'
 
 # Pressing Ctrl+Shift+Left (will move the current window to the left. Similarly
 # right. No need to use the modifier (C-b).
