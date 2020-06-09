@@ -22,7 +22,7 @@
 - [x] tmux env optimzie
 - [x] resolve the key conflict of `ctrl b` between tmux and other places
   - use `ctrl s` instead
-- [x] vim terminal bug fix, something like `[[[**]]]`
+- vim bug fix, something like `[[[**]]]`
   - we can just fix this by mouse select
 - resolve the key conflict of `,b` in the go file
 - Makefile Study
