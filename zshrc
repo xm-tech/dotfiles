@@ -65,11 +65,19 @@ function kubeps(){
 }
 
 function kubelogin(){
+    if [ $# -gt 1 ]; then
+	kubectl exec -n $1 -it $2 /bin/bash
+	return
+    fi
     pod_name=$1
     kubectl exec -it $pod_name /bin/bash
 }
 
 function kubedel(){
+    if [ $# -gt 1 ]; then
+	    kubectl delete pods -n $1 $2
+	    return
+    fi
     pod_name=$1
     kubectl delete pods $pod_name
 }
