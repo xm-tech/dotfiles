@@ -87,6 +87,12 @@ function p16(){
     printf %x $x
 }
 
+## 推送新配置到远端
+function gps(){
+    branch_name=$1
+    git push --set-upstream origin $branch_name
+}
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /usr/local/etc/profile.d/z.sh ] && . /usr/local/etc/profile.d/z.sh
 
