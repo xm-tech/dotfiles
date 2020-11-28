@@ -428,6 +428,11 @@ vmap gx <Plug>(openbrowser-smart-search)
 vnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gb :Gblame<CR>
 
+" Fugitive Conflict Resolution
+nnoremap <leader>gd :Gvdiffsplit!<CR>
+nnoremap gdh :diffget //2<CR>
+nnoremap gdl :diffget //3<CR>
+
 " ==================== vim-go ====================
 let g:go_fmt_fail_silently = 1
 let g:go_fmt_command = "goimports"
