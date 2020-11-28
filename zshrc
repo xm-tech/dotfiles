@@ -58,10 +58,10 @@ function kubelog(){
 function kubeps(){
     if [ $# -gt 0 ]; then
 	# $1: namespace
-    	kubectl get pods -n $1
+    	kubectl get pods -n $1 # -o wide
 	return
     fi
-    kubectl get pods
+    kubectl get pods # -o wide
 }
 
 function kubelogin(){
@@ -92,6 +92,11 @@ function gps(){
     branch_name=$1
     git push --set-upstream origin $branch_name
 }
+
+## use vimdiff as default merge tool
+git config --global merge.tool vimdiff
+git config --global mergetool.prompt false
+git config --global merge.conflictstyle diff3
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /usr/local/etc/profile.d/z.sh ] && . /usr/local/etc/profile.d/z.sh

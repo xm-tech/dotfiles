@@ -7,3 +7,8 @@
 	autocrlf = input
 [http]
 	postBuffer = 524288000
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = false
