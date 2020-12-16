@@ -76,11 +76,11 @@ function kubelogin(){
 
 function kubedel(){
     if [ $# -gt 1 ]; then
-	    kubectl delete pods -n $1 $2
+	    kubectl delete pods -n $1 $2 &
 	    return
     fi
     pod_name=$1
-    kubectl delete pods $pod_name
+    kubectl delete pods $pod_name &
 }
 
 function p16(){
