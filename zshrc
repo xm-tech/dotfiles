@@ -94,6 +94,11 @@ function gps(){
     git push --set-upstream origin $branch_name
 }
 
+## hub
+function fork(){
+    hub fork --remote-name origin
+}
+
 ## use vimdiff as default merge tool
 git config --global merge.tool vimdiff
 git config --global mergetool.prompt false
