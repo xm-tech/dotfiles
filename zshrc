@@ -100,6 +100,11 @@ function gt(){
     git tag -a ${tag} -m ${comment} && git push origin ${tag}
 }
 
+function gts(){
+    tag = $1
+    git show ${tag}
+}
+
 ## hub
 function fork(){
     hub fork --remote-name origin
