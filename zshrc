@@ -94,6 +94,12 @@ function gps(){
     git push --set-upstream origin $branch_name
 }
 
+function gt(){
+    tag=$1
+    comment=$2
+    git tag -a ${tag} -m ${comment} && git push origin ${tag}
+}
+
 ## hub
 function fork(){
     hub fork --remote-name origin
