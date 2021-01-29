@@ -109,7 +109,7 @@ function gts(){
 function grevert(){
     commitid=$1
     git reset --hard ${commitid}
-    git push -f
+    # git push -f
 }
 
 ## hub
