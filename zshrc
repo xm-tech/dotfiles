@@ -105,6 +105,13 @@ function gts(){
     git show ${tag}
 }
 
+## revert git version to the special commit which would lost all commit after the ojbect commit
+function grevert(){
+    commitid=$1
+    git reset --hard ${commitid}
+    git push -f
+}
+
 ## hub
 function fork(){
     hub fork --remote-name origin
