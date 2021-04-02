@@ -117,6 +117,16 @@ function fork(){
     hub fork --remote-name origin
 }
 
+## k8s: proxy of kubectl get svc
+function kubesvc(){
+    if [ $# -gt 0  ]; then
+	kubectl get svc -n $1
+   	return
+    fi
+    # else
+    kubectl get svc
+}
+
 ## use vimdiff as default merge tool
 git config --global merge.tool vimdiff
 git config --global mergetool.prompt false
