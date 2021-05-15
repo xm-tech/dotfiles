@@ -493,7 +493,8 @@ augroup go
   autocmd!
 
   autocmd FileType go nmap <silent> <Leader>v <Plug>(go-def-vertical)
-  autocmd FileType go nmap <silent> <Leader>s <Plug>(go-def-split)
+  " conflict with buffer key, so remove it
+  " autocmd FileType go nmap <silent> <Leader>ss <Plug>(go-def-split)
   autocmd FileType go nmap <silent> <Leader>d <Plug>(go-def-tab)
 
   autocmd FileType go nmap <silent> <Leader>x <Plug>(go-doc-vertical)
@@ -501,11 +502,11 @@ augroup go
   autocmd FileType go nmap <silent> <Leader>i <Plug>(go-info)
   autocmd FileType go nmap <silent> <Leader>l <Plug>(go-metalinter)
 
-  " conflict with buffer key
+  " conflict with buffer key, so rmeove it
   " autocmd FileType go nmap <silent> <leader>b :<C-u>call <SID>build_go_files()<CR>
   autocmd FileType go nmap <silent> <leader>t  <Plug>(go-test)
   autocmd FileType go nmap <silent> <leader>r  <Plug>(go-run)
-  " conflict with buffer key
+  " conflict with buffer key, so remove it
   " autocmd FileType go nmap <silent> <leader>e  <Plug>(go-install)
 
   autocmd FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
@@ -528,7 +529,7 @@ set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
 let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
 nnoremap <silent> <leader>e :FZF -m<CR>
 nnoremap <silent> <leader>b :FzfBuffers<CR>
-" work as 'ctrl shif f' in sublime
+" work as 'ctrl shif f' in sublime, conflict with vim-go->def view , so change to ss
 nnoremap <silent> <leader>s :FzfAg<CR>
 
 " ==================== The Silver Searcher ====================
