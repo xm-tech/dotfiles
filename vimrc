@@ -501,10 +501,12 @@ augroup go
   autocmd FileType go nmap <silent> <Leader>i <Plug>(go-info)
   autocmd FileType go nmap <silent> <Leader>l <Plug>(go-metalinter)
 
-  autocmd FileType go nmap <silent> <leader>b :<C-u>call <SID>build_go_files()<CR>
+  " conflict with buffer key
+  " autocmd FileType go nmap <silent> <leader>b :<C-u>call <SID>build_go_files()<CR>
   autocmd FileType go nmap <silent> <leader>t  <Plug>(go-test)
   autocmd FileType go nmap <silent> <leader>r  <Plug>(go-run)
-  autocmd FileType go nmap <silent> <leader>e  <Plug>(go-install)
+  " conflict with buffer key
+  " autocmd FileType go nmap <silent> <leader>e  <Plug>(go-install)
 
   autocmd FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
 
