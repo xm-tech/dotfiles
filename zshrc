@@ -83,6 +83,15 @@ function kubedel(){
     kubectl delete pods $pod_name &
 }
 
+function kuberemove(){
+    if [ $# -gt 1 ]; then
+	    kubectl scale --replicas=0 deploy $1 -n $2
+	    return
+    fi
+    pod_name=$1
+    kubectl scale --replicas=0 deploy $pod_name
+}
+
 function p16(){
     x=$1
     printf %x $x
