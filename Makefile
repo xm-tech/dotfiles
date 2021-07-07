@@ -11,6 +11,8 @@ sync:
 	[ -f ~/.tigrc  ] || ln -s $(PWD)/tigrc ~/.tigrc
 	[ -f ~/.git-prompt.sh  ] || ln -s $(PWD)/git-prompt.sh ~/.git-prompt.sh
 	[ -f ~/.gitconfig  ] || ln -s $(PWD)/gitconfig ~/.gitconfig
+	[ -f ~/.gitconfig-yalla  ] || ln -s $(PWD)/gitconfig-yalla ~/.gitconfig-yalla
+	[ -f ~/.gitconfig-xm-tech  ] || ln -s $(PWD)/gitconfig-xm-tech ~/.gitconfig-xm-tech
 	[ -f /usr/local/etc/profile.d/z.sh ] || ( mkdir -p /usr/local/etc/profile.d/ && ln -s $(PWD)/z.sh /usr/local/etc/profile.d/z.sh )
 
 	# don't show last login message
