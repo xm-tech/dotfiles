@@ -3,8 +3,8 @@
 ; [user]
 	; name = xm-tech
 	; email = maxm09@163.com
-[includeIf "gitdir:/Users/maxiongmiao/yalla/projects/"]
-	path = ~/.gitconfig-yalla
+[includeIf "gitdir:/Users/maxiongmiao/work/projects/"]
+	path = ~/.gitconfig-work
 [includeIf "gitdir:/Users/maxiongmiao/go/src/github.com/xm-tech/"]
 	path = ~/.gitconfig-xm-tech
 [core]
