@@ -34,6 +34,9 @@ Plug 'tpope/vim-scriptease'
 Plug 'tyru/open-browser.vim'
 Plug 'epmatsw/ag.vim'
 
+" Use release branch (Recommend)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 call plug#end()
 
 "=====================================================
@@ -414,6 +417,11 @@ nnoremap <leader>ui :<C-u>call <SID>create_go_doc_comment()<CR>
 
 
 "===================== PLUGINS ======================
+"
+" ==================== coc.nvim =====================
+let g:coc_global_extensions = [
+      \ 'coc-json',
+      \ 'coc-vimlsp']
 
 
 " ==================== open-browser ====================
