@@ -116,13 +116,13 @@ colorscheme molokai
 augroup filetypedetect
   command! -nargs=* -complete=help Help vertical belowright help <args>
   autocmd FileType help wincmd L
-  
+
   autocmd BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
   autocmd BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
   autocmd BufNewFile,BufRead *.hcl setf conf
 
   autocmd BufRead,BufNewFile *.gotmpl set filetype=gotexttmpl
-  
+
   autocmd BufNewFile,BufRead *.ino setlocal noet ts=4 sw=4 sts=4
   autocmd BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
   autocmd BufNewFile,BufRead *.md setlocal noet ts=4 sw=4
@@ -131,7 +131,7 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead *.hcl setlocal expandtab shiftwidth=2 tabstop=2
   autocmd BufNewFile,BufRead *.sh setlocal expandtab shiftwidth=2 tabstop=2
   autocmd BufNewFile,BufRead *.proto setlocal expandtab shiftwidth=2 tabstop=2
-  
+
   autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
   autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2
   autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
@@ -188,12 +188,12 @@ function! StatusLinePercent()
 endfunction
 
 function! StatusLineLeftInfo()
- let branch = fugitive#head()
- let filename = '' != expand('%:t') ? expand('%:t') : '[No Name]'
- if branch !=# ''
-   return printf("%s | %s", branch, filename)
- endif
- return filename
+  let branch = fugitive#head()
+  let filename = '' != expand('%:t') ? expand('%:t') : '[No Name]'
+  if branch !=# ''
+    return printf("%s | %s", branch, filename)
+  endif
+  return filename
 endfunction
 
 " make opacity
@@ -242,9 +242,9 @@ nnoremap <leader>a :cclose<CR>
 
 " put quickfix window always to the bottom
 augroup quickfix
-    autocmd!
-    autocmd FileType qf wincmd J
-    autocmd FileType qf setlocal wrap
+  autocmd!
+  autocmd FileType qf wincmd J
+  autocmd FileType qf setlocal wrap
 augroup END
 
 " Enter automatically into the files directory
@@ -323,7 +323,7 @@ if has('terminal')
   tnoremap <C-j> <C-w>j
   tnoremap <C-k> <C-w>k
   tnoremap <C-l> <C-w>l
- 
+
   " Open terminal in vertical, horizontal and new tab
   nnoremap <leader>tv :vsplit<cr>:term ++curwin<CR>
   nnoremap <leader>ts :split<cr>:term ++curwin<CR>
@@ -421,8 +421,18 @@ nnoremap <leader>ui :<C-u>call <SID>create_go_doc_comment()<CR>
 " ==================== coc.nvim =====================
 let g:coc_global_extensions = [
       \ 'coc-json',
-      \ 'coc-vimlsp']
-
+      \ 'coc-vimlsp',
+      \ 'coc-cmake',
+      \ 'coc-python',
+      \ 'coc-sh',
+      \ 'coc-go']
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  " inoremap <silent><expr> <c-@> coc#refresh()
+  inoremap <silent> <c-@> <c-r>=coc#refresh()<cr>
+endif
 
 " ==================== open-browser ====================
 
@@ -447,7 +457,7 @@ let g:go_fmt_command = "goimports"
 let g:go_debug_windows = {
       \ 'vars':  'leftabove 35vnew',
       \ 'stack': 'botright 10new',
-\ }
+      \ }
 
 let g:go_test_prepend_name = 1
 let g:go_list_type = "quickfix"
@@ -557,16 +567,16 @@ endif
 " imap <C-b> <esc>:<C-u>FzfFiles<cr>
 
 let g:rg_command = '
-  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
-  \ -g "!{.git,node_modules,vendor}/*" '
+      \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+      \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+      \ -g "!{.git,node_modules,vendor}/*" '
 
 command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+      \ call fzf#vim#grep(
+      \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+      \   <bang>0 ? fzf#vim#with_preview('up:60%')
+      \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+      \   <bang>0)
 
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
@@ -690,3 +700,38 @@ nmap <Leader>gc <Plug>(grammarous-close-info-window)
 nmap <Leader>gf <Plug>(grammarous-fixit)
 
 " vim: sw=2 sw=2 et
+
+
+"
+" fun! Redraw()
+"   let l = winline()
+"   let cmd = l * 2 <= winheight(0) + 1 ? l <= (&so + 1) ? 'zb' : 'zt' : 'zz'
+"   return cmd
+" endf
+
+" nnoremap <expr><c-l> Redraw()
+
+
+" ==================== some test cases ============================
+
+" fun! EchoHello()
+" 	echo printf("%08b", 'hello')
+" endf
+
+" inoremap <expr><c-^> EchoHello()
+
+fun! Exec(cmd)
+  exe a:cmd
+  return ''
+endf
+
+" Insert模式下的<c-r> 键，本来是用于输入某个寄存器的内容，而= 寄存器又是一个比较特殊的存在，它不像其他寄存器，在输入完寄存器名之后，直接返回寄存器的值，而是等待用户输入某个表达式，eval这个表达式并返回值。
+" move forward a word in insert mode while <c-f> was pressed
+inoremap <silent><c-f> <c-r>=Exec('norm! e')<cr>
+" move backward a word in insert mode while <c-b> was pressed
+inoremap <silent><c-b> <c-r>=Exec('norm! b')<cr>
+inoremap <silent><c-l> <c-r>=Exec('norm! l')<cr>
+" inoremap <silent><c-h> <c-r>=Exec('norm! h')<cr>
+inoremap <silent><c-k> <c-r>=Exec('norm! k')<cr>
+inoremap <silent><c-j> <c-r>=Exec('norm! j')<cr>
+
