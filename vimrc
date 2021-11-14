@@ -732,6 +732,8 @@ inoremap <silent><c-f> <c-r>=Exec('norm! e')<cr>
 inoremap <silent><c-b> <c-r>=Exec('norm! b')<cr>
 inoremap <silent><c-l> <c-r>=Exec('norm! l')<cr>
 " inoremap <silent><c-h> <c-r>=Exec('norm! h')<cr>
-inoremap <silent><c-k> <c-r>=Exec('norm! k')<cr>
-inoremap <silent><c-j> <c-r>=Exec('norm! j')<cr>
+" inoremap <silent><c-k> <c-r>=Exec('norm! k')<cr>
+" inoremap <silent><c-j> <c-r>=Exec('norm! j')<cr>
 
+" Press ` to change case instead of ~
+map ` ~
