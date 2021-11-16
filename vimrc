@@ -737,3 +737,13 @@ inoremap <silent><c-l> <c-r>=Exec('norm! l')<cr>
 
 " Press ` to change case instead of ~
 map ` ~
+
+" Use ? to show documentation in preview window
+nnoremap ? :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+	if (index(['vim','help'], &filetype) >= 0)
+		execute 'h '.expand('<cword>')
+	else
+		call CocAction('doHover')
+	endif
+endfunction
