@@ -425,7 +425,8 @@ let g:coc_global_extensions = [
       \ 'coc-cmake',
       \ 'coc-python',
       \ 'coc-sh',
-      \ 'coc-go']
+      \ 'coc-go',
+      \ 'coc-markdownlint']
       " \ 'coc-translator']
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -759,3 +760,6 @@ function! s:show_documentation()
 		call CocAction('doHover')
 	endif
 endfunction
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
