@@ -427,7 +427,6 @@ let g:coc_global_extensions = [
       \ 'coc-sh',
       \ 'coc-go',
       \ 'coc-markdownlint']
-      " \ 'coc-translator']
 " Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
@@ -690,17 +689,6 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"  
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>" 
 
-
-" ==================== coc-translator ====================
-" popup
-" nmap tt <Plug>(coc-translator-p)
-" vmap tt <Plug>(coc-translator-pv)
-" " echo
-" nmap fy <Plug>(coc-translator-e)
-" vmap fy <Plug>(coc-translator-ev)
-" " replace
-" nmap <Leader>r <Plug>(coc-translator-r)
-" vmap <Leader>r <Plug>(coc-translator-rv)
 
 " ==================== Various other plugin settings ====================
 nmap  -  <Plug>(choosewin)
