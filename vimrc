@@ -760,6 +760,3 @@ function! s:show_documentation()
 		call CocAction('doHover')
 	endif
 endfunction
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
