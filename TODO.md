@@ -10,8 +10,8 @@
 - [x] Makefile editor
 - [x] tmux copy/paste workflow
   - vim
-	- select(mouse|keyboard visual select)
-	- y(yank)
+    - select(mouse|keyboard visual select)
+    - y(yank)
 	- paste
 	  - insert mode: `ctrl v`
 	  - visual mode: `p`
