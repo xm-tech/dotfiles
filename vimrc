@@ -33,6 +33,13 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-scriptease'
 Plug 'tyru/open-browser.vim'
 Plug 'epmatsw/ag.vim'
+Plug 'vim-scripts/indentpython.vim'
+
+" Error checking
+Plug 'w0rp/ale'
+
+" Markdown
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync()}, 'for' :['markdown', 'vim-plug'] }
 
 " Use release branch (Recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -690,6 +697,13 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>" 
 
 
+
+" ==================== ale ====================
+let b:ale_linters = [] "['pylint']
+" let b:ale_fixers = ['autopep8', 'yapf']
+let g:ale_python_pylint_options = "--extension-pkg-whitelist=pygame"
+
+
 " ==================== Various other plugin settings ====================
 nmap  -  <Plug>(choosewin)
 
@@ -747,4 +761,19 @@ function! s:show_documentation()
 	else
 		call CocAction('doHover')
 	endif
+endfunction
+
+nnoremap fy :call <SID>show_translation()<CR>
+function! s:show_translation()
+  let fyRet = system('fanyi '.expand('<cword>'))
+  let winid = popup_create(fyRet, {
+	\ 'minwidth': 80,
+	\ 'maxwidth': 80,
+	\ 'minheight': 20,
+	\ 'maxheight': 20,
+	\ 'border':[],
+	\ 'close':'click',
+	\ 'resize':1,
+	\ })
+  let bufnr = winbufnr(winid)
 endfunction
