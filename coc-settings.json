@@ -1,0 +1,17 @@
+{
+  "coc.preferences.extensionUpdateCheck": "daily",
+  "suggest.noselect": true,
+  "suggest.enablePreselect": false,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "json",
+    "python",
+    "py"
+  ],
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "yapf",
+  "snippets.ultisnips.directories": [
+    "UltiSnips",
+    $HOME/.config/vim/snippets/ultisnips/
+  ]
+}

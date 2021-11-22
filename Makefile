@@ -14,6 +14,7 @@ sync:
 	[ -f ~/.gitconfig-work  ] || ln -s $(PWD)/gitconfig-work ~/.gitconfig-work
 	[ -f ~/.gitconfig-xm-tech  ] || ln -s $(PWD)/gitconfig-xm-tech ~/.gitconfig-xm-tech
 	[ -f /usr/local/etc/profile.d/z.sh ] || ( mkdir -p /usr/local/etc/profile.d/ && ln -s $(PWD)/z.sh /usr/local/etc/profile.d/z.sh )
+	mkdir -p ~/.vim/plugin && \cp -rf $(PWD)/plugin/* ~/.vim/plugin/
 
 	# don't show last login message
 	touch ~/.hushlogin

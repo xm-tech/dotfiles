@@ -766,14 +766,29 @@ endfunction
 nnoremap fy :call <SID>show_translation()<CR>
 function! s:show_translation()
   let fyRet = system('fanyi '.expand('<cword>'))
-  let winid = popup_create(fyRet, {
-	\ 'minwidth': 80,
-	\ 'maxwidth': 80,
-	\ 'minheight': 20,
-	\ 'maxheight': 20,
-	\ 'border':[],
-	\ 'close':'click',
-	\ 'resize':1,
+  call popup_notification(fyRet, {
+	\ 'minwidth': 40,
+  	\ 'maxwidth': 40,
+  	\ 'minheight': 20,
+  	\ 'maxheight': 20,
+  	\ 'time': 5000,
+  	\ 'border': [],
+  	\ 'close': 'click',
 	\ })
-  let bufnr = winbufnr(winid)
+
+  " call popup_create(fyRet, {
+  " 	\ 'line': 1,
+	" \ 'minwidth': 80,
+	" \ 'maxwidth': 80,
+	" \ 'minheight': 20,
+	" \ 'maxheight': 20,
+  " 	\ 'time': 5000,
+  " 	\ 'tabpage': -1,
+  " 	\ 'zindex': 300,
+  " 	\ 'drag': 1,
+	" \ 'border':[],
+	" \ 'close':'click',
+	" \ 'resize':1,
+  " 	\ 'padding':[0,1,0,1],
+	" \ })
 endfunction
