@@ -703,6 +703,32 @@ let b:ale_linters = [] "['pylint']
 " let b:ale_fixers = ['autopep8', 'yapf']
 let g:ale_python_pylint_options = "--extension-pkg-whitelist=pygame"
 
+" =================== markdown-preview ======================
+let g:mkdp_auto_start = 0
+let g:mkdp_auto_close = 1
+let g:mkdp_refresh_slow = 0
+let g:mkdp_command_for_global = 0
+let g:mkdp_open_to_the_world = 0
+let g:mkdp_open_ip = ''
+" let g:mkdp_browser = 'chrome'
+let g:mkdp_echo_preview_url = 0
+let g:mkdp_browserfunc = ''
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1
+    \ }
+let g:mkdp_markdown_css = ''
+let g:mkdp_highlight_css = ''
+let g:mkdp_port = ''
+let g:mkdp_page_title = '「${name}」'
+
+map <Leader>m :MarkdownPreview<CR>
+
 
 " ==================== Various other plugin settings ====================
 nmap  -  <Plug>(choosewin)
@@ -713,27 +739,6 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 nmap <Leader>gi <Plug>(grammarous-open-info-window)
 nmap <Leader>gc <Plug>(grammarous-close-info-window)
 nmap <Leader>gf <Plug>(grammarous-fixit)
-
-" vim: sw=2 sw=2 et
-
-
-"
-" fun! Redraw()
-"   let l = winline()
-"   let cmd = l * 2 <= winheight(0) + 1 ? l <= (&so + 1) ? 'zb' : 'zt' : 'zz'
-"   return cmd
-" endf
-
-" nnoremap <expr><c-l> Redraw()
-
-
-" ==================== some test cases ============================
-
-" fun! EchoHello()
-" 	echo printf("%08b", 'hello')
-" endf
-
-" inoremap <expr><c-^> EchoHello()
 
 fun! Exec(cmd)
   exe a:cmd
@@ -761,34 +766,4 @@ function! s:show_documentation()
 	else
 		call CocAction('doHover')
 	endif
-endfunction
-
-nnoremap fy :call <SID>show_translation()<CR>
-function! s:show_translation()
-  let fyRet = system('fanyi '.expand('<cword>'))
-  call popup_notification(fyRet, {
-	\ 'minwidth': 40,
-  	\ 'maxwidth': 40,
-  	\ 'minheight': 20,
-  	\ 'maxheight': 20,
-  	\ 'time': 5000,
-  	\ 'border': [],
-  	\ 'close': 'click',
-	\ })
-
-  " call popup_create(fyRet, {
-  " 	\ 'line': 1,
-	" \ 'minwidth': 80,
-	" \ 'maxwidth': 80,
-	" \ 'minheight': 20,
-	" \ 'maxheight': 20,
-  " 	\ 'time': 5000,
-  " 	\ 'tabpage': -1,
-  " 	\ 'zindex': 300,
-  " 	\ 'drag': 1,
-	" \ 'border':[],
-	" \ 'close':'click',
-	" \ 'resize':1,
-  " 	\ 'padding':[0,1,0,1],
-	" \ })
 endfunction
