@@ -136,6 +136,11 @@ function kubesvc(){
     kubectl get svc
 }
 
+## 统计 git 代码贡献
+function gcs(){
+	git log | ag Author | awk '{a[$2]+=1}END{for (name in a) {print name, a[name]}}' | sort -nr -k 2
+}
+
 ## use vimdiff as default merge tool
 git config --global merge.tool vimdiff
 git config --global mergetool.prompt false
