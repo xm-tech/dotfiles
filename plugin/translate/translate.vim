@@ -17,12 +17,12 @@ nnoremap fy :call <SID>show_translation()<CR>
 function! s:show_translation()
   let fyRet = system('fanyi '.expand('<cword>'))
   call popup_notification(fyRet, {
-	\ 'minwidth': 40,
+	  \ 'minwidth': 40,
   	\ 'maxwidth': 40,
   	\ 'minheight': 20,
   	\ 'maxheight': 20,
   	\ 'time': 5000,
   	\ 'border': [],
   	\ 'close': 'click',
-	\ })
+	  \ })
 endfunction
