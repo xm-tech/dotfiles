@@ -12,12 +12,12 @@
   - vim
     - select(mouse|keyboard visual select)
     - y(yank)
-	- paste
-	  - insert mode: `ctrl v`
-	  - visual mode: `p`
+  - paste
+    - insert mode: `ctrl v`
+    - visual mode: `p`
   - zsh
-	- select(mouse)
-	- paste(ctrl v | pbpaste)
+  - select(mouse)
+  - paste(ctrl v | pbpaste)
 - [x] conf vim key: ctrl + a  to select all the page text
 - [x] tmux env optimzie
 - [x] resolve the key conflict of `ctrl b` between tmux and other places

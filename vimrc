@@ -131,8 +131,8 @@ augroup filetypedetect
   autocmd BufRead,BufNewFile *.gotmpl set filetype=gotexttmpl
 
   autocmd BufNewFile,BufRead *.ino setlocal noet ts=4 sw=4 sts=4
-  autocmd BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
-  autocmd BufNewFile,BufRead *.md setlocal noet ts=4 sw=4
+  autocmd BufNewFile,BufRead *.txt setlocal noet ts=2 sw=2
+  autocmd BufNewFile,BufRead *.md setlocal noet ts=2 sw=2
   autocmd BufNewFile,BufRead *.html setlocal noet ts=4 sw=4
   autocmd BufNewFile,BufRead *.vim setlocal expandtab shiftwidth=2 tabstop=2
   autocmd BufNewFile,BufRead *.hcl setlocal expandtab shiftwidth=2 tabstop=2
