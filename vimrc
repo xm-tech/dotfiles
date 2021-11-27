@@ -93,6 +93,7 @@ set conceallevel=2           " Concealed text is completely hidden
 set shortmess+=c   " Shut off completion messages
 set belloff+=ctrlg " If Vim beeps during completion
 
+set scrolloff=5
 set lazyredraw
 
 "http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
@@ -102,6 +103,11 @@ set clipboard^=unnamedplus
 " increase max memory to show syntax highlighting for large files 
 set maxmempattern=20000
 
+" define the cusor style
+let &t_SI.="\e[5 q" "SI = INSERT mode
+let &t_SR.="\e[4 q" "SR = REPLACE mode
+let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
+
 " ~/.viminfo needs to be writable and readable. Set oldfiles to 1000 last
 " recently opened files, :FzfHistory uses it
 set viminfo='1000
@@ -110,6 +116,7 @@ if has('persistent_undo')
   set undofile
   set undodir=~/.cache/vim
 endif
+
 
 " color
 syntax enable
@@ -132,7 +139,7 @@ augroup filetypedetect
 
   autocmd BufNewFile,BufRead *.ino setlocal noet ts=4 sw=4 sts=4
   autocmd BufNewFile,BufRead *.txt setlocal noet ts=2 sw=2
-  autocmd BufNewFile,BufRead *.md setlocal noet ts=2 sw=2
+  autocmd BufNewFile,BufRead *.md setlocal expandtab ts=2 sw=2
   autocmd BufNewFile,BufRead *.html setlocal noet ts=4 sw=4
   autocmd BufNewFile,BufRead *.vim setlocal expandtab shiftwidth=2 tabstop=2
   autocmd BufNewFile,BufRead *.hcl setlocal expandtab shiftwidth=2 tabstop=2
@@ -710,7 +717,7 @@ let g:mkdp_refresh_slow = 0
 let g:mkdp_command_for_global = 0
 let g:mkdp_open_to_the_world = 0
 let g:mkdp_open_ip = ''
-" let g:mkdp_browser = 'chrome'
+let g:mkdp_browser = 'chrome'
 let g:mkdp_echo_preview_url = 0
 let g:mkdp_browserfunc = ''
 let g:mkdp_preview_options = {
