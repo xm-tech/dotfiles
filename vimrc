@@ -247,6 +247,7 @@ set statusline+=\ %*
 " With a map leader it's possible to do extra key combinations
 " i.e: <leader>w saves the current file
 let mapleader = ","
+map ; :
 
 " Some useful quickfix shortcuts for quickfix
 map <C-n> :cn<CR>
@@ -323,6 +324,9 @@ vmap > >gv
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
+" press <leader> twice to jump to the next '<++>' and edit it
+map <leader><leader> <Esc>/<++><CR>:nohlsearch<CR>cf>
+
 
 " Terminal settings
 if has('terminal')
@@ -352,17 +356,11 @@ if has('terminal')
   " autocmd WinEnter * if &buftype == 'terminal' | call feedkeys("i") | endif
 endif
 
-" Visual linewise up and down by default (and use gj gk to go quicker)
-" noremap <Up> gk
-" noremap <Down> gj
-" noremap j gj
-" noremap k gk
-
 " Exit on j
 imap jj <Esc>
 
 " Source (reload configuration)
-nnoremap <F5> :source ~/.vimrc<CR>
+" nnoremap <F5> :!sh ./install.sh && source ~/.vimrc<CR>
 
 nnoremap <F6> :setlocal spell! spell?<CR>
 " Search mappings: These will make it so that going to the next one in a
