@@ -152,3 +152,5 @@ git config --global merge.conflictstyle diff3
 # brew install jump
 eval "$(jump shell)"
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+eval "$(hub alias -s)"
