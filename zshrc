@@ -141,6 +141,11 @@ function gcs(){
 	git log | ag Author | awk '{a[$2]+=1}END{for (name in a) {print name, a[name]}}' | sort -nr -k 2
 }
 
+## cht.sh
+function cht() {
+	/bin/sh ~/cht.sh "$@"
+}
+
 ## use vimdiff as default merge tool
 git config --global merge.tool vimdiff
 git config --global mergetool.prompt false
