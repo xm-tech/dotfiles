@@ -83,7 +83,7 @@ function kubedel(){
     kubectl delete pods $pod_name &
 }
 
-function kuberemove(){
+function kubestop(){
     if [ $# -gt 1 ]; then
 	    kubectl scale --replicas=0 deploy $1 -n $2
 	    return
