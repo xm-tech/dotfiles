@@ -93,8 +93,7 @@ function kubestop(){
 }
 
 function p16(){
-    x=$1
-    printf %x $x
+    print $(printf %x $1 | sed 's/%//g')
 }
 
 ## 推送新配置到远端
@@ -146,6 +145,10 @@ function cht() {
 	/bin/sh ~/cht.sh "$@"
 }
 
+function now(){
+	date +%s
+}
+
 ## use vimdiff as default merge tool
 git config --global merge.tool vimdiff
 git config --global mergetool.prompt false
@@ -157,5 +160,8 @@ git config --global merge.conflictstyle diff3
 # brew install jump
 eval "$(jump shell)"
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+export PATH="/usr/local/opt/go@1.16/bin:$PATH"
+
 
 eval "$(hub alias -s)"
