@@ -149,6 +149,16 @@ function now(){
 	date +%s
 }
 
+## convert unixtime into datetimestr
+function u2t(){
+	time_util u2t $1
+}
+
+## convert datetimestr into unixtime
+function t2u(){
+	time_util t2u $1
+}
+
 ## use vimdiff as default merge tool
 git config --global merge.tool vimdiff
 git config --global mergetool.prompt false
