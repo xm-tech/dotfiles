@@ -26,7 +26,7 @@ On a new machine
 brew bundle(optional)
 
 # copy dotfiles to the appropriate places
-make
+sh install.sh
 ```
 
 ## Introduction
