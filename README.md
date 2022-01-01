@@ -1,9 +1,16 @@
 # My personal dotfiles
 
 ## overview
+
 ![overview](img/overview.png "overview")
 
-## install & usage
+## Install & Usage
+
+Precondition
+
+```
+better on mac os, otherwise u have to install external softwares & plugins manually
+```
 
 On the old machine(optional)
 
@@ -20,4 +27,16 @@ brew bundle(optional)
 
 # copy dotfiles to the appropriate places
 make
+```
+
+## Introduction
+
+```txt
+# TODO
+```
+
+## Documentation
+
+```txt
+# TODO
 ```
