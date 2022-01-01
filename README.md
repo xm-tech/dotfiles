@@ -9,7 +9,7 @@
 Precondition
 
 ```
-better on mac os, or else install external softwares & plugins manually
+better on mac os, or else install the external softwares & plugins manually
 ```
 
 On the old machine(optional)
