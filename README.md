@@ -1,6 +1,6 @@
 # My personal dotfiles
 
-## overview
+## Overview
 
 ![overview](img/overview.png "overview")
 
