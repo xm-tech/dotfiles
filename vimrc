@@ -147,7 +147,9 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead *.proto setlocal expandtab shiftwidth=2 tabstop=2
 
   autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
-  autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2
+  " autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2
+
+  autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
   autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
   autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
@@ -438,6 +440,8 @@ let g:coc_global_extensions = [
       \ 'coc-python',
       \ 'coc-sh',
       \ 'coc-go',
+      \ 'coc-lua',
+      \ 'coc-tsserver',
       \ 'coc-markdownlint']
 " Use <c-space> to trigger completion.
 if has('nvim')
