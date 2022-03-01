@@ -159,6 +159,11 @@ function t2u(){
 	time_util t2u $1
 }
 
+function zk(){
+	addr=$1
+	zkCli -server $addr
+}
+
 ## use vimdiff as default merge tool
 git config --global merge.tool vimdiff
 git config --global mergetool.prompt false
