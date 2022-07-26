@@ -178,5 +178,8 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 
 export PATH="/usr/local/opt/go@1.16/bin:$PATH"
 
+export GO111MODULE=on
+export GOPROXY=https://goproxy.cn
+
 
 eval "$(hub alias -s)"

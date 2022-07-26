@@ -438,11 +438,14 @@ let g:coc_global_extensions = [
       \ 'coc-vimlsp',
       \ 'coc-cmake',
       \ 'coc-python',
+      \ 'coc-pyright',
       \ 'coc-sh',
       \ 'coc-go',
       \ 'coc-lua',
+      \ 'coc-jedi',
       \ 'coc-tsserver',
-      \ 'coc-markdownlint']
+      \ 'coc-markdownlint',
+      \ 'coc-sql']
 " Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
