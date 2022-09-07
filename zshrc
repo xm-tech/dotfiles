@@ -176,10 +176,19 @@ git config --global merge.conflictstyle diff3
 eval "$(jump shell)"
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
-export PATH="/usr/local/opt/go@1.16/bin:$PATH"
+# export PATH="/usr/local/Cellar/go/1.18.4/bin:$PATH"
+export PATH="/usr/local/opt/go@1.18/bin:$PATH"
 
 export GO111MODULE=on
 export GOPROXY=https://goproxy.cn
 
+# export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+# export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+# export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
+# export PATH="/usr/local/sbin:$PATH"
+
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
+export PATH="$PATH:$(go env GOPATH)/bin"
+export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 
 eval "$(hub alias -s)"

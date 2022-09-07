@@ -204,12 +204,13 @@ function! StatusLinePercent()
 endfunction
 
 function! StatusLineLeftInfo()
-  let branch = fugitive#head()
-  let filename = '' != expand('%:t') ? expand('%:t') : '[No Name]'
-  if branch !=# ''
-    return printf("%s | %s", branch, filename)
-  endif
-  return filename
+"  let branch = fugitive#head()
+"  let filename = '' != expand('%:t') ? expand('%:t') : '[No Name]'
+"  if branch !=# ''
+"    return printf("%s | %s", branch, filename)
+"  endif
+"  return filename
+   return ''
 endfunction
 
 " make opacity
@@ -445,7 +446,8 @@ let g:coc_global_extensions = [
       \ 'coc-jedi',
       \ 'coc-tsserver',
       \ 'coc-markdownlint',
-      \ 'coc-sql']
+      \ 'coc-sql',
+      \ 'coc-clangd']
 " Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
