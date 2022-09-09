@@ -447,7 +447,8 @@ let g:coc_global_extensions = [
       \ 'coc-tsserver',
       \ 'coc-markdownlint',
       \ 'coc-sql',
-      \ 'coc-clangd']
+      \ 'coc-clangd',
+      \ 'coc-rust-analyzer']
 " Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()

@@ -3,3 +3,4 @@
 
 # brew install jump
 eval "$(jump shell)"
+. "$HOME/.cargo/env"
