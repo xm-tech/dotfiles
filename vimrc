@@ -610,7 +610,9 @@ let g:delimitMate_smart_quotes = 1
 let g:delimitMate_expand_inside_quotes = 0    
 let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'   
 
-imap <expr> <CR> pumvisible() ? "\<c-y>" : "<Plug>delimitMateCR"
+" imap <expr> <CR> pumvisible() ? "\<c-y>" : "<Plug>delimitMateCR"
+" imap <expr> <CR> pumvisible() ? "\<c-y>" : "\<CR>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-y>"
 
 " ==================== NerdTree ====================
 " For toggling
