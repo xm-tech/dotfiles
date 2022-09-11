@@ -164,6 +164,14 @@ function zk(){
 	zkCli -server $addr
 }
 
+function mtr(){
+	cd /usr/local/Cellar/mtr/0.95/sbin && sudo ./mtr $1
+}
+
+function ip(){
+	sh /Users/maxiongmiao/shell/shell-demo/ip.sh
+}
+
 ## use vimdiff as default merge tool
 git config --global merge.tool vimdiff
 git config --global mergetool.prompt false
@@ -190,5 +198,6 @@ export GOPROXY=https://goproxy.cn
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 export PATH="$PATH:$(go env GOPATH)/bin"
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
+export PATH="/usr/local/sbin:$PATH"
 
 eval "$(hub alias -s)"
