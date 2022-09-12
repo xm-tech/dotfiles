@@ -5,8 +5,8 @@
 	; email = xm.tech@vip.163.com
 [includeIf "gitdir:/Users/maxiongmiao/work/projects/"]
 	path = ~/.gitconfig-work
-[includeIf "gitdir:/Users/maxiongmiao/go/src/github.com/xm-tech/;/Users/maxiongmiao/c"]
-	path = ~/.gitconfig-xm-tech
+;[includeIf "gitdir:/Users/maxiongmiao/go/src/github.com/xm-tech/"]
+	;path = ~/.gitconfig-xm-tech
 [core]
 	autocrlf = input
 [http]
@@ -18,4 +18,5 @@
 	prompt = false
 [user]
 	name = xm-tech
-	email = xm-tech@vip.163.com
+	; email = xm-tech@vip.163.com
+	email = maxm09@163.com

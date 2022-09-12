@@ -172,6 +172,11 @@ function ip(){
 	sh /Users/maxiongmiao/shell/shell-demo/ip.sh
 }
 
+## the mobile hdd
+function hd(){
+	cd '/Volumes/My Passport'
+}
+
 ## use vimdiff as default merge tool
 git config --global merge.tool vimdiff
 git config --global mergetool.prompt false
