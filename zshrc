@@ -177,6 +177,10 @@ function hd(){
 	cd '/Volumes/My Passport'
 }
 
+function fix_gh_history() {
+	sh ~/fix_gh_contribution.sh
+}
+
 ## use vimdiff as default merge tool
 git config --global merge.tool vimdiff
 git config --global mergetool.prompt false

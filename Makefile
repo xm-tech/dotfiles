@@ -16,6 +16,7 @@ sync:
 	[ -f /usr/local/etc/profile.d/z.sh ] || ( mkdir -p /usr/local/etc/profile.d/ && ln -s $(PWD)/z.sh /usr/local/etc/profile.d/z.sh )
 	mkdir -p ~/.vim/plugin && \cp -rf $(PWD)/plugin/* ~/.vim/plugin/
 	[ -f ~/cht.sh ] || ln -s $(PWD)/cht.sh ~/cht.sh
+	[ -f ~/fix_gh_contribution.sh ] || ln -s $(PWD)/fix_gh_contribution.sh ~/fix_gh_contribution.sh
 
 	# don't show last login message
 	touch ~/.hushlogin
@@ -30,5 +31,6 @@ clean:
 	rm -f ~/.git-prompt.sh
 	rm -f ~/.gitconfig
 	[ -f /usr/local/etc/profile.d/z.sh ] && rm -f /usr/local/etc/profile.d/z.sh
+	rm -f ~/fix_gh_contribution.sh
 
 .PHONY: all clean sync build run kill
