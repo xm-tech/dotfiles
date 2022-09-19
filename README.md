@@ -28,15 +28,3 @@ brew bundle(optional)
 # copy dotfiles to the appropriate places
 sh install.sh
 ```
-
-## Introduction
-
-```txt
-# TODO
-```
-
-## Documentation
-
-```txt
-# TODO
-```
