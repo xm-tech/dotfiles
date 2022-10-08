@@ -6,6 +6,7 @@
 	;path = ~/.gitconfig-xm-tech
 [core]
 	autocrlf = input
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [http]
 	postBuffer = 524288000
 [merge]
@@ -17,3 +18,18 @@
 	name = xm-tech
 	; email = xm-tech@vip.163.com
 	email = maxm09@163.com
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	func = 146 bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
