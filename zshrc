@@ -199,6 +199,7 @@ export PATH="/usr/local/opt/go@1.18/bin:$PATH"
 export GO111MODULE=on
 export GOPROXY=https://goproxy.cn
 # export GOPROXY=https://goproxy.io
+# set this env when your private module cannot be import
 # export GOPRIVATE=github.com/xm-tech/go-demo
 
 # export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
