@@ -34,6 +34,7 @@ Plug 'tpope/vim-scriptease'
 Plug 'tyru/open-browser.vim'
 Plug 'epmatsw/ag.vim'
 Plug 'vim-scripts/indentpython.vim'
+Plug 'vim-scripts/indentpython.vim'
 
 " Error checking
 Plug 'w0rp/ale'
@@ -43,6 +44,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync()}, 'fo
 
 " Use release branch (Recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'wincent/terminus'
 
 call plug#end()
 
