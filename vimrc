@@ -45,7 +45,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync()}, 'fo
 " Use release branch (Recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'wincent/terminus'
 
 call plug#end()
 
