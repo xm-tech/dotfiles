@@ -333,6 +333,9 @@ vnoremap K :m '<-2<CR>gv=gv
 " press <leader> twice to jump to the next '<++>' and edit it
 map <leader><leader> <Esc>/<++><CR>:nohlsearch<CR>cf>
 
+" macro
+nmap m q
+
 
 " Terminal settings
 if has('terminal')
