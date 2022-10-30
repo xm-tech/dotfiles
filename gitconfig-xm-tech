@@ -1,3 +1,8 @@
 [user]
 	name = xm-tech
 	email = maxm09@163.com
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = false
