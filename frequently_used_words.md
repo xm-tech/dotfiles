@@ -9,3 +9,5 @@
 | from scratch | 从头开始，白手起家 |
 | premier | 首要的 |
 | alternative | 替代的，备选的 |
+| struggle | 奋斗， 竞争|
+| stuff | 东西，物品，特质 |

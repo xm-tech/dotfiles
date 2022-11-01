@@ -8,7 +8,7 @@
 
 Precondition
 
-```
+```txt
 better on mac os, or else install the external softwares & plugins manually
 ```
 
