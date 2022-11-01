@@ -32,6 +32,7 @@ clean:
 	rm -f ~/.git-prompt.sh
 	rm -f ~/.gitconfig
 	rm -f /usr/local/etc/profile.d/z.sh
+	rm -f ~/cht.sh
 	rm -f ~/fix_gh_contribution.sh
 
 .PHONY: all clean sync build run kill
