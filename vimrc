@@ -747,7 +747,8 @@ let g:mkdp_preview_options = {
     \ 'sequence_diagrams': {},
     \ 'flowchart_diagrams': {},
     \ 'content_editable': v:false,
-    \ 'disable_filename': 0
+    \ 'disable_filename': 0,
+    \ 'toc': 0
     \ }
 let g:mkdp_markdown_css = ''
 let g:mkdp_highlight_css = ''
