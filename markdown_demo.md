@@ -1,6 +1,6 @@
 # vim markdown demo
 
-flow test
+flowchart:
 
 ``` flowchart
 st=>start: Start|past:>http://www.google.com[blank]
@@ -20,18 +20,7 @@ c2(yes)->io->e
 c2(no)->op2->e
 ```
 
-mermaid
-
-```mermaid
-graph LR
-A[方形] -->B(圆角)
-    B --> C{条件a}
-    C -->|a=1| D[结果1]
-    C -->|a=2| E[结果2]
-    F[横向流程图]
-```
-
-dot
+dot:
 
 ``` dot
 digraph G {
@@ -61,9 +50,10 @@ digraph G {
   start [shape=Mdiamond];
   end [shape=Msquare];
 }
+
 ```
 
-chart
+chart:
 
 ``` chart
 {
@@ -96,4 +86,45 @@ chart
   },
   "options": {}
 }
+
 ```
+
+Toc:
+
+${toc}
+[[toc]]
+[toc]
+[[_toc_]]
+
+image:
+
+![image](https://user-images.githubusercontent.com/5492542/47603494-28e90000-da1f-11e8-9079-30646e551e7a.gif =400x200)
+
+uml:
+
+@startuml
+Bob -> Alice : hello
+@enduml
+
+mermaid:
+
+``` mermaid
+gantt
+    dateFormat DD-MM-YYY
+    axisFormat %m/%y
+
+    title Example
+    section example section
+    activity :active, 01-02-2019, 03-08-2019
+```
+
+```mermaid
+graph LR
+A[方形] -->B(圆角)
+    B --> C{条件a}
+    C -->|a=1| D[结果1]
+    C -->|a=2| E[结果2]
+    F[横向流程图]
+```
+
+
