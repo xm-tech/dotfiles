@@ -1,20 +1,20 @@
 all: sync
 
 sync:
+	mkdir -p ~/.tmux
+	mkdir -p ~/.vim/plugin && \cp -rf $(PWD)/plugin/* ~/.vim/plugin/
 	mkdir -p ~/.config/alacritty
 
 	[ -f ~/.config/alacritty/alacritty.yml  ] || ln -s $(PWD)/alacritty.yml ~/.config/alacritty/alacritty.yml
+	[ -f ~/color.yml ] || ln -s $(PWD)/color.yml ~/.config/alacritty/color.yml
 	[ -f ~/.vimrc  ] || ln -s $(PWD)/vimrc ~/.vimrc
 	[ -f ~/.bashrc  ] || ln -s $(PWD)/bashrc ~/.bashrc
 	[ -f ~/.zshrc  ] || ln -s $(PWD)/zshrc ~/.zshrc
 	[ -f ~/.tmux.conf  ] || ln -s $(PWD)/tmuxconf ~/.tmux.conf
 	[ -f ~/.tigrc  ] || ln -s $(PWD)/tigrc ~/.tigrc
-	# [ -f ~/.gitconfig  ] || ln -s $(PWD)/gitconfig ~/.gitconfig
-	# [ -f ~/.gitconfig-work  ] || ln -s $(PWD)/gitconfig-work ~/.gitconfig-work
 	[ -f ~/.gitconfig  ] || ln -s $(PWD)/gitconfig-xm-tech ~/.gitconfig
 	[ -d ./z ] || git submodule add git@github.com:xm-tech/z.git
 	[ -f /usr/local/etc/profile.d/z.sh ] || ( mkdir -p /usr/local/etc/profile.d/ && ln -s $(PWD)/z/z.sh /usr/local/etc/profile.d/z.sh )
-	mkdir -p ~/.vim/plugin && \cp -rf $(PWD)/plugin/* ~/.vim/plugin/
 	[ -f ~/cht.sh ] || ln -s $(PWD)/cht.sh ~/cht.sh
 	[ -f ~/fix_gh_contribution.sh ] || ln -s $(PWD)/fix_gh_contribution.sh ~/fix_gh_contribution.sh
 
@@ -24,6 +24,7 @@ sync:
 clean:
 	rm -f ~/.vimrc 
 	rm -f ~/.config/alacritty/alacritty.yml
+	rm -f ~/.config/alacritty/color.yml
 	rm -f ~/.bashrc
 	rm -f ~/.zshrc
 	rm -f ~/.tmux.conf

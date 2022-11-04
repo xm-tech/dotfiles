@@ -1,4 +1,6 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator
+import:
+  - "~/.config/alacritty/color.yml"
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -29,6 +31,12 @@ window:
 
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: false
+
+  dynamic_title: true
+
+  # Background opacity
+  opacity: 1.0
+
 
   # Window decorations
   # Setting this to false will result in window without borders and title bar.
@@ -64,7 +72,7 @@ font:
     style: Regular Italic
 
   # Point size of the font
-  size: 12.0
+  size: 14.0
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
@@ -79,61 +87,70 @@ font:
     x: 0
     y: 0
 
-  # OS X only: use thin stroke font rendering. Thin strokes are suitable
-  # for retina displays, but for non-retina you probably want this set to
-  # false.
-  use_thin_strokes: true
-
 debug:
   # Should display the render timer
   render_timer: false
 
-# Colors (Tomorrow Night Bright)
-colors:
-  # Default colors
-  primary:
-    background: '0x191919'
-    foreground: '0xeaeaea'
+# schemes:
+#   gruvbox_light: &light
+#     # Default colors
+#     primary:
+#       background: '0xf9f5d7' # hard contrast
+#       # background: '0xfbf1c7' # normal
+#       # soft contrast: background = '0xf2e5bc'
+#       foreground: '0x3c3836'
+  
+#     # Normal colors
+#     normal:
+#       black:   '0xfbf1c7'
+#       red:     '0xcc241d'
+#       green:   '0x98971a'
+#       yellow:  '0xd79921'
+#       blue:    '0x458588'
+#       magenta: '0xb16286'
+#       cyan:    '0x689d6a'
+#       white:   '0x7c6f64'
+  
+#     # Bright colors
+#     bright:
+#       black:   '0x928374'
+#       red:     '0x9d0006'
+#       green:   '0x79740e'
+#       yellow:  '0xb57614'
+#       blue:    '0x076678'
+#       magenta: '0x8f3f71'
+#       cyan:    '0x427b58'
+#       white:   '0x3c3836'
+#   gruvbox_dark: &dark
+#     # Default colors
+#     primary:
+#       background: '0x1d2021' # hard contrast
+#       # background: '0x282828' # normal contrast
+#       foreground: '0xebdbb2'
 
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text:   '0xf1c1c1'
-    # cursor: '0xff2600'
-    # cursor: '0xffffff'
-    cursor: '0xd8dee9'
+#     # Normal colors
+#     normal:
+#       black:   '0x282828'
+#       red:     '0xcc241d'
+#       green:   '0x98971a'
+#       yellow:  '0xd79921'
+#       blue:    '0x458588'
+#       magenta: '0xb16286'
+#       cyan:    '0x689d6a'
+#       white:   '0xa89984'
 
-  # Normal colors
-  normal:
-    black:   '0x000000'
-    red:     '0xd54e53'
-    green:   '0xb9ca4a'
-    yellow:  '0xe6c547'
-    blue:    '0x7aa6da'
-    magenta: '0xc397d8'
-    cyan:    '0x70c0ba'
-    white:   '0xffffff'
+#     # Bright colors
+#     bright:
+#       black:   '0x928374'
+#       red:     '0xfb4934'
+#       green:   '0xb8bb26'
+#       yellow:  '0xfabd2f'
+#       blue:    '0x83a598'
+#       magenta: '0xd3869b'
+#       cyan:    '0x8ec07c'
+#       white:   '0xebdbb2'
 
-  # Bright colors
-  bright:
-    black:   '0x666666'
-    red:     '0xff3334'
-    green:   '0x9ec400'
-    yellow:  '0xe7c547'
-    blue:    '0x7aa6da'
-    magenta: '0xb77ee0'
-    cyan:    '0x54ced6'
-    white:   '0xffffff'
-
-  # Dim colors (Optional)
-  dim:
-    black:   '0x333333'
-    red:     '0xf2777a'
-    green:   '0x99cc99'
-    yellow:  '0xffcc66'
-    blue:    '0x6699cc'
-    magenta: '0xcc99cc'
-    cyan:    '0x66cccc'
-    white:   '0xdddddd'
+# colors: *dark
 
 
 # Visual Bell
@@ -158,12 +175,9 @@ colors:
 #
 # To completely disable the visual bell, set its duration to 0.
 #
-visual_bell:
+bell:
   animation: EaseOutExpo
   duration: 0
-
-# Background opacity
-background_opacity: 0.90
 
 # Mouse bindings
 #
@@ -195,18 +209,19 @@ mouse:
   # If this is `true`, the cursor is temporarily hidden when typing.
   hide_when_typing: true
 
-  url:
-    # URL launcher
-    #
-    # This program is executed when clicking on a text which is recognized as a URL.
-    # The URL is always added to the command as the last parameter.
-    launcher: open
-
-    # URL modifiers
-    #
-    # These are the modifiers that need to be held down for opening URLs when clicking
-    # on them. The available modifiers are documented in the key binding section.
-    #modifiers: Control|Shift
+hints:
+  enabled:
+   - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
+             [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+     hyperlinks: true
+     command: xdg-open
+     post_processing: true
+     mouse:
+       enabled: true
+       mods: None
+     binding:
+       key: U
+       mods: Control|Shift
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>"
@@ -215,8 +230,6 @@ selection:
   # the selection clipboard. Otherwise, it will only be copied to the selection
   # clipboard.
   save_to_clipboard: true
-
-dynamic_title: true
 
 cursor:
   # Cursor style
@@ -236,11 +249,19 @@ live_config_reload: true
 # You can set shell.program to the path of your favorite shell, e.g. /bin/zsh.
 # Entries in shell.args are passed unmodified as arguments to the shell.
 #
+# shell:
+#   program: /usr/local/bin/fish
+#   args:
+#     - --login
+#
 shell:
-  # program: /usr/local/bin/zsh
-  program: /bin/zsh
+  program: /usr/local/bin/tmux
   args:
-    - --login
+    - new-session
+    - -A
+    - -D
+    - -s
+    - main
 
 
 # Key bindings
