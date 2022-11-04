@@ -9,7 +9,6 @@ sync:
 	[ -f ~/.zshrc  ] || ln -s $(PWD)/zshrc ~/.zshrc
 	[ -f ~/.tmux.conf  ] || ln -s $(PWD)/tmuxconf ~/.tmux.conf
 	[ -f ~/.tigrc  ] || ln -s $(PWD)/tigrc ~/.tigrc
-	[ -f ~/.git-prompt.sh  ] || ln -s $(PWD)/git-prompt.sh ~/.git-prompt.sh
 	# [ -f ~/.gitconfig  ] || ln -s $(PWD)/gitconfig ~/.gitconfig
 	# [ -f ~/.gitconfig-work  ] || ln -s $(PWD)/gitconfig-work ~/.gitconfig-work
 	[ -f ~/.gitconfig  ] || ln -s $(PWD)/gitconfig-xm-tech ~/.gitconfig
@@ -29,7 +28,6 @@ clean:
 	rm -f ~/.zshrc
 	rm -f ~/.tmux.conf
 	rm -f ~/.tigrc
-	rm -f ~/.git-prompt.sh
 	rm -f ~/.gitconfig
 	rm -f /usr/local/etc/profile.d/z.sh
 	rm -f ~/cht.sh
