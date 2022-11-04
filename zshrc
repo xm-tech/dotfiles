@@ -214,4 +214,4 @@ export PATH="/usr/local/sbin:$PATH"
 
 eval "$(hub alias -s)"
 autoload -U compinit; compinit
-/usr/local/bin/git-tip
+# /usr/local/bin/git-tip
