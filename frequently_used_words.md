@@ -13,4 +13,10 @@
 | stuff | 东西，物品，特质 |
 | add-on | 扩展，附加组件，补充|
 | seamless| 无缝的，无漏洞的 |
-| collaborative| 合作的，协作的 |
+| collaborative | 合作的，协作的 |
+| reliable | 可靠的，可信的 |
+| distributed |  分布式的 |
+| critical |  关键的 |
+| lightweight |  轻量级的 |
+| fuzzy |  模糊的 |
+| alternative |  可选择的，二者责一的，或者，可替代的 |
