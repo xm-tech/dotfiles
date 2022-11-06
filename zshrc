@@ -187,7 +187,8 @@ git config --global mergetool.prompt false
 git config --global merge.conflictstyle diff3
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f /usr/local/etc/profile.d/z.sh ] && . /usr/local/etc/profile.d/z.sh
+[ -f /usr/local/etc/profile.d/z.sh ] && source /usr/local/etc/profile.d/z.sh
+[ -f /usr/local/etc/profile.d/fzf-git.sh ] && source /usr/local/etc/profile.d/fzf-git.sh
 
 # brew install jump
 eval "$(jump shell)"
