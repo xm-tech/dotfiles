@@ -20,3 +20,4 @@
 | lightweight |  轻量级的 |
 | fuzzy |  模糊的 |
 | alternative |  可选择的，二者责一的，或者，可替代的 |
+| wildcards |  通配符 |
