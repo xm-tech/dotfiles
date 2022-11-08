@@ -6,7 +6,7 @@ sync:
 	mkdir -p ~/.config/alacritty
 
 	[ -f ~/.config/alacritty/alacritty.yml  ] || ln -s $(PWD)/alacritty.yml ~/.config/alacritty/alacritty.yml
-	[ -f ~/color.yml ] || ln -s $(PWD)/color.yml ~/.config/alacritty/color.yml
+	[ -f ~/.config/alacritty/color.yml ] || ln -s $(PWD)/color.yml ~/.config/alacritty/color.yml
 	[ -f ~/.vimrc  ] || ln -s $(PWD)/vimrc ~/.vimrc
 	[ -f ~/.bashrc  ] || ln -s $(PWD)/bashrc ~/.bashrc
 	[ -f ~/.zshrc  ] || ln -s $(PWD)/zshrc ~/.zshrc
@@ -37,4 +37,4 @@ clean:
 	rm -f ~/cht.sh
 	rm -f ~/fix_gh_contribution.sh
 
-.PHONY: all clean sync build run kill
+.PHONY: all clean sync
