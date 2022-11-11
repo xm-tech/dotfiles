@@ -23,3 +23,5 @@
 | wildcards |  通配符 |
 | embrace |  拥抱，欣然接受 |
 | passion |  激情 |
+| pending |  待定的，待处理的；即将发生的，迫近的 |
+| linear |  线性的；一次性的；连贯的|
