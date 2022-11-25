@@ -27,3 +27,4 @@
 | linear |  线性的；一次性的；连贯的|
 | fake |  伪造的，假的 |
 | inspired | 受启发的 |
+| propagate | 传播, 繁殖 |
