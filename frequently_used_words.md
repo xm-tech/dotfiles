@@ -28,3 +28,4 @@
 | fake |  伪造的，假的 |
 | inspired | 受启发的 |
 | propagate | 传播, 繁殖 |
+| suspend | 暂停， 挂起 |
