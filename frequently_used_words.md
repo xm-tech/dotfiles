@@ -29,3 +29,6 @@
 | inspired | 受启发的 |
 | propagate | 传播, 繁殖 |
 | suspend | 暂停， 挂起 |
+| nevertheless  | 然而 |
+| mold  | 模具，风格 |
+| emulate  | 仿真，模仿，模拟|
