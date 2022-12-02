@@ -33,3 +33,4 @@
 | mold  | 模具，风格 |
 | emulate  | 仿真，模仿，模拟|
 | deposite  | 存款，放置 |
+| simulation  | 模拟，仿真，伪装，假装 |
