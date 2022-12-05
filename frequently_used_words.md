@@ -35,3 +35,4 @@
 | deposite  | 存款，放置 |
 | simulation  | 模拟，仿真，伪装，假装 |
 | violates  | 违反，违规，侵犯 |
+| colon  | 分号，结肠 |
