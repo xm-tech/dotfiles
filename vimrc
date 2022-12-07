@@ -22,7 +22,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'roxma/vim-tmux-clipboard'
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
 Plug 't9md/vim-choosewin'
 Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -50,6 +50,10 @@ Plug 'skywind3000/gutentags_plus'
 Plug 'skywind3000/vim-preview'
 
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+
+" directory viewer
+Plug 'justinmk/vim-dirvish'
 
 call plug#end()
 
@@ -316,10 +320,15 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Better split window resize
-map <silent><C-t>- :vertical resize -5<CR> 
-map <silent><C-t>+ :vertical resize +5<CR> 
-map <silent><C-t>k :resize -5<CR> 
-map <silent><C-t>j :resize +5<CR> 
+map <silent><C-t>l :vertical resize +5<CR> 
+map <silent><C-t>h :vertical resize -5<CR> 
+map <silent><C-t>k :resize +5<CR> 
+map <silent><C-t>j :resize -5<CR> 
+map <silent><C-t>L :vertical resize +15<CR> 
+map <silent><C-t>H :vertical resize -15<CR> 
+map <silent><C-t>K :resize +15<CR> 
+map <silent><C-t>J :resize -15<CR> 
+
 
 " Print full path
 map <s-f> :echo expand("%:p")<cr>
@@ -573,16 +582,16 @@ augroup END
 
 
 " ==================== FZF ====================
-let g:fzf_command_prefix = 'Fzf'
-let g:fzf_layout = { 'down': '~20%' }
+" let g:fzf_command_prefix = 'Fzf'
+" let g:fzf_layout = { 'down': '~20%' }
 
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
-nnoremap <silent> <leader>e :FZF -m<CR>
-nnoremap <silent> <leader>b :FzfBuffers<CR>
-" work as 'ctrl shif f' in sublime, conflict with vim-go->def view , so change to ss
-nnoremap <silent> <leader>s :FzfAg<CR>
+" set wildmode=list:longest,list:full
+" set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+" let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+" nnoremap <silent> <leader>e :FZF -m<CR>
+" nnoremap <silent> <leader>b :FzfBuffers<CR>
+" " work as 'ctrl shif f' in sublime, conflict with vim-go->def view , so change to ss
+" nnoremap <silent> <leader>s :FzfAg<CR>
 
 " ==================== The Silver Searcher ====================
 " ag.vim
@@ -627,18 +636,18 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-y>"
 
 " ==================== NerdTree ====================
 " For toggling
-noremap <Leader>n :NERDTreeToggle<cr>
-noremap <Leader>f :NERDTreeFind<cr>
+" noremap <Leader>n :NERDTreeToggle<cr>
+" noremap <Leader>f :NERDTreeFind<cr>
 
-let NERDTreeShowHidden=1
-let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$','__pycache__', '\.git$', '\.DS_Store']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-" let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-" let g:NERDTreeWinSize = 50
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+" let NERDTreeShowHidden=1
+" let g:NERDTreeChDirMode=2
+" let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$','__pycache__', '\.git$', '\.DS_Store']
+" let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+" " let g:NERDTreeShowBookmarks=1
+" let g:nerdtree_tabs_focus_on_files=1
+" let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+" " let g:NERDTreeWinSize = 50
+" set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
 " ==================== ag ====================
 let g:ackprg = 'ag --vimgrep --smart-case'                                                   
@@ -765,7 +774,7 @@ map <Leader>m :MarkdownPreview<CR>
 
 
 " ==================== Various other plugin settings ====================
-nmap  -  <Plug>(choosewin)
+" nmap  -  <Plug>(choosewin)
 
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
