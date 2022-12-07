@@ -23,6 +23,12 @@ sync:
 	# don't show last login message
 	touch ~/.hushlogin
 
+bundle_dump:
+	brew bundle dump --force
+
+bundle_install:
+	brew bundle 
+
 clean:
 	rm -f ~/.vimrc 
 	rm -f ~/.config/alacritty/alacritty.yml
