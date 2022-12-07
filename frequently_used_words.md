@@ -36,3 +36,4 @@
 | simulation  | 模拟，仿真，伪装，假装 |
 | violates  | 违反，违规，侵犯 |
 | colon  | 分号，结肠 |
+| trivial | 容易解决的，琐碎的，平凡的 |
