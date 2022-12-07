@@ -37,3 +37,5 @@
 | violates  | 违反，违规，侵犯 |
 | colon  | 分号，结肠 |
 | trivial | 容易解决的，琐碎的，平凡的 |
+| figure | 数字，人物，图形，轮廓，画像 |
+| illustrate | 说明，演示，图解说明 |
