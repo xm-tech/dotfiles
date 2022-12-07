@@ -1,10 +1,13 @@
-# My personal dotfiles
+My personal dotfiles
+====================
 
-## Overview
+Overview
+--------
 
 ![overview](img/overview.png "overview")
 
-## Install & Usage
+Install & Usage
+---------------
 
 Precondition
 
@@ -14,16 +17,17 @@ better on mac os, or else install the external softwares & plugins manually
 
 On the old machine(optional)
 
+Generate Brewfile
+
 ```shell
-# generate Brewfile
-brew bundle dump --force
+make bundle_dump
 ```
 
 On a new machine
 
 ```shell
-# install all brew dependencies
-brew bundle(optional)
+# install all brew dependencies (optional)
+make bundle_install
 
 # copy dotfiles to the appropriate places
 sh install.sh
