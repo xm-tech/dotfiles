@@ -50,7 +50,6 @@ Plug 'skywind3000/gutentags_plus'
 Plug 'skywind3000/vim-preview'
 
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
-Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 " directory viewer
 Plug 'justinmk/vim-dirvish'
