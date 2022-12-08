@@ -1,6 +1,6 @@
-all: sync
+all: install
 
-sync:
+install:
 	mkdir -p ~/.tmux
 	mkdir -p ~/.vim/plugin && \cp -rf $(PWD)/plugin/* ~/.vim/plugin/
 	mkdir -p ~/.config/alacritty
@@ -13,6 +13,8 @@ sync:
 	[ -f ~/.tmux.conf  ] || ln -s $(PWD)/tmuxconf ~/.tmux.conf
 	[ -f ~/.tigrc  ] || ln -s $(PWD)/tigrc ~/.tigrc
 	[ -f ~/.gitconfig  ] || ln -s $(PWD)/gitconfig-xm-tech ~/.gitconfig
+	[ -f ~/.aliases.zsh  ] || ln -s $(PWD)/aliases.zsh ~/.aliases.zsh
+	[ -f ~/.funcs.zsh  ] || ln -s $(PWD)/funcs.zsh ~/.funcs.zsh
 	# [ -d ./z ] || git submodule add git@github.com:xm-tech/z.git
 	# [ -f /usr/local/etc/profile.d/z.sh ] || ( mkdir -p /usr/local/etc/profile.d/ && ln -s $(PWD)/z/z.sh /usr/local/etc/profile.d/z.sh )
 	# [ -d ./z.lua ] || git submodule add git@github.com:xm-tech/z.lua.git
@@ -47,4 +49,4 @@ clean:
 	rm -f ~/cht.sh
 	rm -f ~/fix_gh_contribution.sh
 
-.PHONY: all clean sync
+.PHONY: all clean install

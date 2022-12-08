@@ -30,5 +30,5 @@ On a new machine
 make bundle_install
 
 # copy dotfiles to the appropriate places
-sh install.sh
+make install
 ```

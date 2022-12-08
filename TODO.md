@@ -1,6 +1,7 @@
 TODOLIST
 ========
 
+- [] zsh plugin manager
 - [] vimrc tidy, to be moduleized
 - vim-go depends on fzf
 
