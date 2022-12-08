@@ -150,3 +150,12 @@ function fsize() {
 		du $arg .[^.]* ./*;
 	fi;
 }
+
+# `o` with no args opens the current directory, otherwise opens the given 
+function o() {
+	if [ $# -eq 0 ]; then
+		open .
+	else
+		open "$@"
+	fi
+}
