@@ -13,10 +13,12 @@ sync:
 	[ -f ~/.tmux.conf  ] || ln -s $(PWD)/tmuxconf ~/.tmux.conf
 	[ -f ~/.tigrc  ] || ln -s $(PWD)/tigrc ~/.tigrc
 	[ -f ~/.gitconfig  ] || ln -s $(PWD)/gitconfig-xm-tech ~/.gitconfig
-	[ -d ./z ] || git submodule add git@github.com:xm-tech/z.git
+	# [ -d ./z ] || git submodule add git@github.com:xm-tech/z.git
 	# [ -f /usr/local/etc/profile.d/z.sh ] || ( mkdir -p /usr/local/etc/profile.d/ && ln -s $(PWD)/z/z.sh /usr/local/etc/profile.d/z.sh )
+	# [ -d ./z.lua ] || git submodule add git@github.com:xm-tech/z.lua.git
+	git submodule update --init --recursive
 	[ -f /usr/local/etc/profile.d/z.lua ] || ( mkdir -p /usr/local/etc/profile.d/ && ln -s $(PWD)/z.lua/z.lua /usr/local/etc/profile.d/z.lua )
-	[ -d ./fzf-git.sh ] || git submodule add  git@github.com:xm-tech/fzf-git.sh.git
+	# [ -d ./fzf-git.sh ] || git submodule add  git@github.com:xm-tech/fzf-git.sh.git
 	[ -f /usr/local/etc/profile.d/fzf-git.sh ] || ( mkdir -p /usr/local/etc/profile.d/ && ln -s $(PWD)/fzf-git.sh/fzf-git.sh /usr/local/etc/profile.d/fzf-git.sh )
 	[ -f ~/cht.sh ] || ln -s $(PWD)/cht.sh ~/cht.sh
 	[ -f ~/fix_gh_contribution.sh ] || ln -s $(PWD)/fix_gh_contribution.sh ~/fix_gh_contribution.sh
