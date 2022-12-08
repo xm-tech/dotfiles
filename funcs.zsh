@@ -132,3 +132,8 @@ function fix_gh_history() {
 	sh ~/.fix_gh_contribution.sh
 }
 
+# Create a new directory
+function md() {
+	mkdir -p "$@"
+}
+
