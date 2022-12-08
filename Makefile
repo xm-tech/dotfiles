@@ -14,7 +14,8 @@ sync:
 	[ -f ~/.tigrc  ] || ln -s $(PWD)/tigrc ~/.tigrc
 	[ -f ~/.gitconfig  ] || ln -s $(PWD)/gitconfig-xm-tech ~/.gitconfig
 	[ -d ./z ] || git submodule add git@github.com:xm-tech/z.git
-	[ -f /usr/local/etc/profile.d/z.sh ] || ( mkdir -p /usr/local/etc/profile.d/ && ln -s $(PWD)/z/z.sh /usr/local/etc/profile.d/z.sh )
+	# [ -f /usr/local/etc/profile.d/z.sh ] || ( mkdir -p /usr/local/etc/profile.d/ && ln -s $(PWD)/z/z.sh /usr/local/etc/profile.d/z.sh )
+	[ -f /usr/local/etc/profile.d/z.lua ] || ( mkdir -p /usr/local/etc/profile.d/ && ln -s $(PWD)/z.lua/z.lua /usr/local/etc/profile.d/z.lua )
 	[ -d ./fzf-git.sh ] || git submodule add  git@github.com:xm-tech/fzf-git.sh.git
 	[ -f /usr/local/etc/profile.d/fzf-git.sh ] || ( mkdir -p /usr/local/etc/profile.d/ && ln -s $(PWD)/fzf-git.sh/fzf-git.sh /usr/local/etc/profile.d/fzf-git.sh )
 	[ -f ~/cht.sh ] || ln -s $(PWD)/cht.sh ~/cht.sh
@@ -38,7 +39,8 @@ clean:
 	rm -f ~/.tmux.conf
 	rm -f ~/.tigrc
 	rm -f ~/.gitconfig
-	rm -f /usr/local/etc/profile.d/z.sh
+	# rm -f /usr/local/etc/profile.d/z.sh
+	rm -f /usr/local/etc/profile.d/z.lua
 	rm -f /usr/local/etc/profile.d/fzf-git.sh
 	rm -f ~/cht.sh
 	rm -f ~/fix_gh_contribution.sh

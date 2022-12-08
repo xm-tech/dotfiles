@@ -187,8 +187,10 @@ git config --global mergetool.prompt false
 git config --global merge.conflictstyle diff3
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f /usr/local/etc/profile.d/z.sh ] && source /usr/local/etc/profile.d/z.sh
+# [ -f /usr/local/etc/profile.d/z.sh ] && source /usr/local/etc/profile.d/z.sh
 [ -f /usr/local/etc/profile.d/fzf-git.sh ] && source /usr/local/etc/profile.d/fzf-git.sh
+
+[ -f /usr/local/etc/profile.d/z.lua ] && eval "$(lua /usr/local/etc/profile.d/z.lua  --init zsh once enhanced)"
 
 # brew install jump
 eval "$(jump shell)"
