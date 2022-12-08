@@ -100,10 +100,6 @@ function cht() {
 	/bin/sh ~/cht.sh "$@"
 }
 
-function now(){
-	date +%s
-}
-
 ## convert unixtime into datetimestr
 function u2t(){
 	time_util u2t $1

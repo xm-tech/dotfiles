@@ -1,8 +1,11 @@
 # ==================
 # 	alias
 # ==================
-alias ..='cd ..'
-alias -='cd -'
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias ~="cd ~"
+alias -- -="cd -"
 alias g=git
 alias ga='git add'
 alias gb='git branch'
@@ -39,4 +42,5 @@ alias which-command=whence
 alias cdr='cd $(git rev-parse --show-toplevel)'
 # show
 alias duh='du -sh -h * .[^.]* 2> /dev/null | sort -h'
-
+alias week='date +%v'
+alias unixtime='date +%s'

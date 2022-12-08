@@ -15,6 +15,8 @@ install:
 	[ -f ~/.gitconfig  ] || ln -s $(PWD)/gitconfig-xm-tech ~/.gitconfig
 	[ -f ~/.aliases.zsh  ] || ln -s $(PWD)/aliases.zsh ~/.aliases.zsh
 	[ -f ~/.funcs.zsh  ] || ln -s $(PWD)/funcs.zsh ~/.funcs.zsh
+	[ -f ~/.zplug.zsh  ] || ln -s $(PWD)/zplug.zsh ~/.zplug.zsh
+	[ -f ~/.git.zsh  ] || ln -s $(PWD)/git.zsh ~/.git.zsh
 	# [ -d ./z ] || git submodule add git@github.com:xm-tech/z.git
 	# [ -f /usr/local/etc/profile.d/z.sh ] || ( mkdir -p /usr/local/etc/profile.d/ && ln -s $(PWD)/z/z.sh /usr/local/etc/profile.d/z.sh )
 	# [ -d ./z.lua ] || git submodule add git@github.com:xm-tech/z.lua.git
