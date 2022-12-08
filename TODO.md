@@ -1,3 +1,8 @@
+TODOLIST
+========
+
+- [] vimrc tidy, to be moduleized
+
 - [x] fzf buffers
 - [x] fzf with ag , just like ctrl shif f in sublime
 - [x] vim split ShortCut
@@ -24,6 +29,6 @@
   - use `ctrl s` instead
 - vim bug fix, something like `[[[**]]]`
   - we can just fix this by mouse select
-- resolve the key conflict of `,b` in the go file
-- Makefile Study
-- zshrc function tab == 4
+- [x] resolve the key conflict of `,b` in the go file
+- [x] Makefile Study
+- [x] zshrc function tab == 4
