@@ -20,7 +20,7 @@ On the old machine(optional)
 Generate Brewfile
 
 ```shell
-make bundle_dump
+make bundle
 ```
 
 On a new machine

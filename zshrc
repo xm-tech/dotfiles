@@ -20,4 +20,5 @@ export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 export PATH="/usr/local/sbin:$PATH"
 
 eval "$(hub alias -s)"
+# git autocomplete supplied by zsh
 autoload -U compinit; compinit

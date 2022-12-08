@@ -30,7 +30,7 @@ install:
 bundle_dump:
 	brew bundle dump --force
 
-bundle_install:
+bundle:
 	brew bundle 
 
 clean:
