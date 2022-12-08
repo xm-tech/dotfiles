@@ -51,7 +51,7 @@ source $ZPLUG_HOME/init.zsh
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 # zplug "zsh-users/zsh-completions"
 # zplug "zsh-users/zsh-history-substring-search"
-# zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-autosuggestions"
 # zplug "zdharma/fast-syntax-highlighting"
 # zplug "zpm-zsh/ls"
 # zplug "plugins/docker", from:oh-my-zsh
