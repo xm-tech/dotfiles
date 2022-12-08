@@ -585,7 +585,6 @@ augroup END
 " let g:fzf_layout = { 'down': '~20%' }
 
 " set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
 " let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
 " nnoremap <silent> <leader>e :FZF -m<CR>
 " nnoremap <silent> <leader>b :FzfBuffers<CR>
@@ -648,7 +647,6 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-y>"
 " " let g:NERDTreeWinSize = 50
 "
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
 " ==================== ag ====================
 " let g:ackprg = 'ag --vimgrep --smart-case'                                                   
