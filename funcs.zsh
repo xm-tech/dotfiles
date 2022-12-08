@@ -97,7 +97,7 @@ function gcs(){
 
 ## cht.sh
 function cht() {
-	/bin/sh ~/cht.sh "$@"
+	/bin/sh ~/.cht.sh "$@"
 }
 
 ## convert unixtime into datetimestr
@@ -129,6 +129,6 @@ function hd(){
 }
 
 function fix_gh_history() {
-	sh ~/fix_gh_contribution.sh
+	sh ~/.fix_gh_contribution.sh
 }
 
