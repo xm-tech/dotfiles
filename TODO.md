@@ -2,6 +2,7 @@ TODOLIST
 ========
 
 - [] vimrc tidy, to be moduleized
+- vim-go depends on fzf
 
 - [x] fzf buffers
 - [x] fzf with ag , just like ctrl shif f in sublime
