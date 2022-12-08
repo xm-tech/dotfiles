@@ -9,7 +9,6 @@
 [ -f ~/.cht.sh ] && chmod +x ~/.cht.sh
 [ -f ~/.z.lua ] && eval "$(lua ~/.z.lua  --init zsh once enhanced)"
 
-eval "$(jump shell)"
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
 export GO111MODULE=on
