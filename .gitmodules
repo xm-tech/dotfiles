@@ -6,4 +6,4 @@
 	url = git@github.com:junegunn/fzf-git.sh.git
 [submodule "z.lua"]
 	path = z.lua
-	url = git@github.com:skywind3000/z.lua.git
+	url = git@github.com:xm-tech/z.lua.git
