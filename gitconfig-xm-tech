@@ -9,4 +9,4 @@
 [alias]
 	di = icdiff
 [icdiff]
-	options = --line-numbers
+	options = --highlight --line-numbers
