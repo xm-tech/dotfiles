@@ -8,3 +8,5 @@
 	prompt = false
 [alias]
 	di = icdiff
+[icdiff]
+	options = --highlight --line-numbers
