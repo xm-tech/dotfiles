@@ -13,7 +13,8 @@ install:
 	[ -f ~/.gitconfig ] || ln -s $(PWD)/gitconfig-xm-tech ~/.gitconfig
 	[ -f ~/.aliases.zsh ] || ln -s $(PWD)/aliases.zsh ~/.aliases.zsh
 	[ -f ~/.funcs.zsh ] || ln -s $(PWD)/funcs.zsh ~/.funcs.zsh
-	[ -f ~/.zplug.zsh ] || ln -s $(PWD)/zplug.zsh ~/.zplug.zsh
+	[ -f ~/.antigen.zsh ] || ln -s $(PWD)/antigen.zsh ~/.antigen.zsh
+	[ -f ~/.antigen-load.zsh ] || ln -s $(PWD)/antigen-load.zsh ~/.antigen-load.zsh
 	[ -f ~/.git.zsh ] || ln -s $(PWD)/git.zsh ~/.git.zsh
 	[ -f ~/.fzf-git.sh ] || ln -s $(PWD)/fzf-git.sh/fzf-git.sh ~/.fzf-git.sh
 	[ -f ~/.z.lua ] || ln -s $(PWD)/z.lua/z.lua ~/.z.lua
@@ -42,7 +43,8 @@ clean:
 	rm -f ~/.gitconfig
 	rm -f ~/.aliases.zsh
 	rm -f ~/.funcs.zsh
-	rm -f ~/.zplug.zsh
+	rm -f ~/.antigen.zsh
+	rm -f ~/.antigen-load.zsh
 	rm -f ~/.git.zsh
 	rm -f ~/.fzf-git.sh
 	rm -f ~/.z.lua

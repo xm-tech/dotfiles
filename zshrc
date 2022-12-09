@@ -2,7 +2,8 @@
 [ -r ~/.zsh_private ] && source ~/.zsh_private
 [ -r ~/.aliases.zsh ] && source ~/.aliases.zsh
 [ -r ~/.funcs.zsh ] && source ~/.funcs.zsh
-[ -r ~/.zplug.zsh ] && source ~/.zplug.zsh
+# [ -r ~/.zplug.zsh ] && source ~/.zplug.zsh
+[ -r ~/.antigen.zsh ] && source ~/.antigen.zsh
 [ -r ~/.git.zsh ] && source ~/.git.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.fzf-git.sh ] && source ~/.fzf-git.sh
@@ -18,6 +19,9 @@ export PATH="/usr/local/opt/openjdk/bin:$PATH"
 export PATH="$PATH:$(go env GOPATH)/bin"
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 export PATH="/usr/local/sbin:$PATH"
+
+# init antigen data
+[ -f ~/.antigen-load.zsh ] && [ -f ~/.antigen.zsh ] && source ~/.antigen-load.zsh 
 
 eval "$(hub alias -s)"
 # git autocomplete supplied by zsh
