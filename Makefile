@@ -35,8 +35,6 @@ bundle:
 
 clean:
 	rm -f ~/.vimrc 
-	rm -f ~/.config/alacritty/alacritty.yml
-	rm -f ~/.config/alacritty/color.yml
 	rm -f ~/.bashrc
 	rm -f ~/.zshrc
 	rm -f ~/.tmux.conf
@@ -49,7 +47,8 @@ clean:
 	rm -f ~/.fzf-git.sh
 	rm -f ~/.z.lua
 	rm -f ~/.cht.sh
-	rm -f ~/fix_gh_contribution.sh
 	rm -f ~/.fix_gh_contribution.sh
+	rm -f ~/.config/alacritty/alacritty.yml
+	rm -f ~/.config/alacritty/color.yml
 
 .PHONY: all clean install
