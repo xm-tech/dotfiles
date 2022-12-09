@@ -6,3 +6,5 @@
 	conflictstyle = diff3
 [mergetool]
 	prompt = false
+[alias]
+	di = icdiff
