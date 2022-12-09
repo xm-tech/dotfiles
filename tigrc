@@ -11,6 +11,8 @@ set show-changes = no
 # Optionally, use the old and faster but less acurate graph renderer
 set main-view-commit-title-graph = v1
 
+# set vertical-split = yes
+
 bind generic r refresh
 bind status d !@?rm -rf %(file) # delete untracked files
 
@@ -25,3 +27,6 @@ bind generic J next
 bind generic K previous
 bind generic G move-last-line
 bind status A !?git commit --amend
+
+bind main d !git di %(commit)^!
+bind diff d !git di %(commit)^!
