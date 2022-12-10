@@ -159,3 +159,7 @@ function o() {
 		open "$@"
 	fi
 }
+
+function refresh_dns() {
+	sudo killall -HUP mDNSResponder
+}
