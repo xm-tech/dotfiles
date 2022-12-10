@@ -39,3 +39,4 @@
 | trivial | 容易解决的，琐碎的，平凡的 |
 | figure | 数字，人物，图形，轮廓，画像 |
 | illustrate | 说明，演示，图解说明 |
+| substitution | 替换,代替; (数)置换 |
