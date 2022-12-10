@@ -42,3 +42,4 @@
 | substitution | 替换,代替; (数)置换 |
 | capitals | 大写字母 |
 | compilation | 编译，汇编 |
+| reserved | 保留的 |
