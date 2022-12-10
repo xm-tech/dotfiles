@@ -160,6 +160,6 @@ function o() {
 	fi
 }
 
-function refresh_dns() {
+function flushdns() {
 	sudo killall -HUP mDNSResponder
 }
