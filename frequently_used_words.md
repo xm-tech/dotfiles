@@ -40,3 +40,5 @@
 | figure | 数字，人物，图形，轮廓，画像 |
 | illustrate | 说明，演示，图解说明 |
 | substitution | 替换,代替; (数)置换 |
+| capitals | 大写字母 |
+| compilation | 编译，汇编 |
