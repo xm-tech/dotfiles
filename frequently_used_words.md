@@ -43,3 +43,4 @@
 | capitals | 大写字母 |
 | compilation | 编译，汇编 |
 | reserved | 保留的 |
+| subscript | 下标，脚注 |
