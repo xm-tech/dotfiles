@@ -8,7 +8,6 @@
 [ -f ~/.fzf-git.sh ] && source ~/.fzf-git.sh
 [ -f ~/.cht.sh ] && chmod +x ~/.cht.sh
 [ -f ~/.z.lua ] && eval "$(lua ~/.z.lua  --init zsh once enhanced)"
-
 # use antigen to manage the zsh plugins
 [ -f ~/.antigen-load.zsh ] && [ -f ~/.antigen.zsh ] && source ~/.antigen-load.zsh 
 
