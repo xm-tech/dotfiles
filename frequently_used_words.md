@@ -44,3 +44,6 @@
 | compilation | 编译，汇编 |
 | reserved | 保留的 |
 | subscript | 下标，脚注 |
+| emit | 发出，发射，发表，颁布，产生 |
+| implicit | 隐式的，隐含的，含蓄的 |
+| explicit | 明确的，清楚的，显式的，明晰的 |
