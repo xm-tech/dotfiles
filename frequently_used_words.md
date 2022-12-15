@@ -48,3 +48,4 @@
 | implicit | 隐式的，隐含的，含蓄的 |
 | explicit | 明确的，清楚的，显式的，明晰的 |
 | intuitive | 直观的 |
+| synopsis | 概要，摘要, 梗概 |
