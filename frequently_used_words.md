@@ -49,3 +49,4 @@
 | explicit | 明确的，清楚的，显式的，明晰的 |
 | intuitive | 直观的 |
 | synopsis | 概要，摘要, 梗概 |
+| featured | 有特色的，精选，推荐 |
