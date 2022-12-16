@@ -50,3 +50,4 @@
 | intuitive | 直观的 |
 | synopsis | 概要，摘要, 梗概 |
 | featured | 有特色的，精选，推荐 |
+| enforced | 强迫的，强制的 |
