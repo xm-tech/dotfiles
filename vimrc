@@ -53,6 +53,7 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 " directory viewer
 Plug 'justinmk/vim-dirvish'
+Plug 'rhysd/vim-clang-format'
 
 call plug#end()
 
@@ -163,6 +164,8 @@ augroup filetypedetect
   autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
   autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
   autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+
+  " autocmd FileType c,cpp,*.h setlocal tabstop=4 shiftwidth=4 equalprg=clang-format 
 augroup END
 
 "=====================================================
