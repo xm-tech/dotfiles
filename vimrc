@@ -53,6 +53,7 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 " directory viewer
 Plug 'justinmk/vim-dirvish'
+
 Plug 'rhysd/vim-clang-format'
 
 call plug#end()
