@@ -53,3 +53,4 @@
 | enforced | 强迫的，强制的 |
 | elasped | 消逝，过去; 过去的，经过的 |
 | built-in | 内置的 |
+| redundant | 冗余的，多余的 |
