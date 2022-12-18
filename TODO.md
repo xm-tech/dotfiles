@@ -1,36 +1,6 @@
 TODOLIST
 ========
 
-- [] zsh plugin manager
-- [] vimrc tidy, to be moduleized
-- vim-go depends on fzf
+Make vimrc modulized
 
-- [x] fzf buffers
-- [x] fzf with ag , just like ctrl shif f in sublime
-- [x] vim split ShortCut
-- [x] vim ag
-- [x] vim fzf
-- [x] visual move
-- [x] NERDTree ignore .git etc
-- [x] NERDTree width change quickly
-- [x] replace iterm2 with alacritty
-- [x] Makefile editor
-- [x] tmux copy/paste workflow
-  - vim
-    - select(mouse|keyboard visual select)
-    - y(yank)
-  - paste
-    - insert mode: `ctrl v`
-    - visual mode: `p`
-  - zsh
-  - select(mouse)
-  - paste(ctrl v | pbpaste)
-- [x] conf vim key: ctrl + a  to select all the page text
-- [x] tmux env optimzie
-- [x] resolve the key conflict of `ctrl b` between tmux and other places
-  - use `ctrl s` instead
-- vim bug fix, something like `[[[**]]]`
-  - we can just fix this by mouse select
-- [x] resolve the key conflict of `,b` in the go file
-- [x] Makefile Study
-- [x] zshrc function tab == 4
+Fix plugin loading order

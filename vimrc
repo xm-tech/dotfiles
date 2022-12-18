@@ -1,3 +1,9 @@
+" 防止重复加载
+if get(s:, 'loaded', 0) != 0
+	finish	
+endif
+let s:loaded = 1
+
 " I use the same vimrc for both nvim and vim
 call plug#begin('~/.vim/plugged')
 
