@@ -23,7 +23,7 @@ Plug 'mileszs/ack.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'roxma/vim-tmux-clipboard'
 " Plug 'scrooloose/nerdtree'
-Plug 't9md/vim-choosewin'
+" Plug 't9md/vim-choosewin'
 Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tpope/vim-commentary'

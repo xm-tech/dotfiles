@@ -1,3 +1,10 @@
+" 避免插件多次加载
+if exists('g:translate_youdao_loaded')
+	echomsg "translate already loaded!"
+	finish	
+endif
+let g:translate_youdao_loaded = 1
+
 function! TranslateByYoudao() abort
   " expand("cword") : 扩展通配符, cword 表示当前光标下的单词
   let text = expand("<cword>")
