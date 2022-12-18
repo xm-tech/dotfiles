@@ -56,6 +56,8 @@ Plug 'justinmk/vim-dirvish'
 
 Plug 'rhysd/vim-clang-format'
 
+Plug 'skywind3000/vim-cppman'
+
 call plug#end()
 
 "=====================================================
@@ -263,7 +265,11 @@ set statusline+=\ %*
 " This comes first, because we have mappings that depend on leader
 " With a map leader it's possible to do extra key combinations
 " i.e: <leader>w saves the current file
-let mapleader = ","
+
+nnoremap <space> <Nop>
+let mapleader = " "
+
+" let mapleader = ","
 map ; :
 
 " Some useful quickfix shortcuts for quickfix
