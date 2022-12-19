@@ -1,8 +1,11 @@
 " 防止重复加载
-if get(s:, 'loaded', 0) != 0
-	finish	
-endif
-let s:loaded = 1
+" if get(s:, 'loaded', 0) != 0
+" 	finish	
+" endif
+" let s:loaded = 1
+
+
+" source ~/vim/vim-init/init.vim
 
 call plug#begin('~/.vim/plugged')
 
@@ -272,7 +275,7 @@ set statusline+=\ %*
 " i.e: <leader>w saves the current file
 
 nnoremap <space> <Nop>
-let mapleader = " "
+" let mapleader = " "
 
 " let mapleader = ","
 map ; :
@@ -344,7 +347,7 @@ map <silent><C-t>K :resize +15<CR>
 map <silent><C-t>J :resize -15<CR> 
 
 
-" Print full path
+" Print full path, %-current file name, :p-expand to fullpath
 map <s-f> :echo expand("%:p")<cr>
 " Select all
 map <C-a> ggVG$
@@ -361,7 +364,7 @@ vnoremap K :m '<-2<CR>gv=gv
 map <leader><leader> <Esc>/<++><CR>:nohlsearch<CR>cf>
 
 " macro
-nmap m q
+" nmap m q
 
 
 " Terminal settings
