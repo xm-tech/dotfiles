@@ -57,3 +57,4 @@
 | concatenated | 连接在一起的 |
 | legacy | 遗产，遗赠，遗留问题 |
 | evaluation | 评价，评估 |
+| asterisk | 星号, 注上星号 |
