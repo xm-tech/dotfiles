@@ -1,6 +1,6 @@
 " 防止重复加载
 " if get(s:, 'loaded', 0) != 0
-" 	finish	
+" 	finish
 " endif
 " let s:loaded = 1
 
