@@ -60,3 +60,4 @@
 | asterisk | 星号, 注上星号 |
 | prematruely | 过早地，提前地, 贸然 |
 | sophisiticated | 老练的，熟练的，精密的，在行的，精致的 |
+| facility | 设备,设施 |
