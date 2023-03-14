@@ -25,8 +25,8 @@ Plug 'fatih/vim-hclfmt'
 Plug 'fatih/vim-nginx' , {'for' : 'nginx'}
 Plug 'godlygeek/tabular'
 Plug 'hashivim/vim-hashicorp-tools'
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-" Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'roxma/vim-tmux-clipboard'
