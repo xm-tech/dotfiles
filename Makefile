@@ -23,6 +23,7 @@ install:
 	[[ -f ~/.fix_gh_contribution.sh ]] || ln -s $(PWD)/fix_gh_contribution.sh ~/.fix_gh_contribution.sh
 	[[ -f ~/.config/alacritty/alacritty.yml ]] || ln -s $(PWD)/alacritty.yml ~/.config/alacritty/alacritty.yml
 	[[ -f ~/.config/alacritty/color.yml ]] || ln -s $(PWD)/color.yml ~/.config/alacritty/color.yml
+	[[ -f ~/.clang-format ]] || ln -s $(PWD)/clang-format ~/.clang-format
 
 	git submodule update --init --recursive
 
@@ -54,5 +55,6 @@ clean:
 	rm -f ~/.fix_gh_contribution.sh
 	rm -f ~/.config/alacritty/alacritty.yml
 	rm -f ~/.config/alacritty/color.yml
+	rm -f ~/.clang-format
 
 .PHONY: all clean install
