@@ -169,12 +169,17 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead *.proto setlocal expandtab shiftwidth=2 tabstop=2
 
   autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
+  " autocmd FileType c setlocal expandtab tabstop=4 shiftwidth=4
   " autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2
 
   autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
   autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
   autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+
+
+  autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+  autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 
   " autocmd FileType c,cpp,*.h setlocal tabstop=4 shiftwidth=4 equalprg=clang-format 
 augroup END
