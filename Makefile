@@ -25,6 +25,13 @@ install:
 	[[ -f ~/.config/alacritty/color.yml ]] || ln -s $(PWD)/color.yml ~/.config/alacritty/color.yml
 	# [[ -f ~/.clang-format ]] || ln -s $(PWD)/clang-format ~/.clang-format
 
+	# fix the lua.h can not found bug when editting a c source file
+	ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/luaconf.h /usr/local/include/luaconf.h
+	ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lauxlib.h /usr/local/include/lauxlib.h
+	ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lua.hpp /usr/local/include/lua.hpp
+	ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lualib.h /usr/local/include/lualib.h
+	ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lua.h /usr/local/include/lua.h
+
 	git submodule update --init --recursive
 
 	# don't show last login message
@@ -55,6 +62,11 @@ clean:
 	rm -f ~/.fix_gh_contribution.sh
 	rm -f ~/.config/alacritty/alacritty.yml
 	rm -f ~/.config/alacritty/color.yml
+	rm -f /usr/local/include/luaconf.h
+	rm -f /usr/local/include/lauxlib.h
+	rm -f /usr/local/include/lua.hpp
+	rm -f /usr/local/include/lualib.h
+	rm -f /usr/local/include/lua.h
 	# rm -f ~/.clang-format
 
-.PHONY: all clean install
+.PHONY: all clean install bundle bundle_dump
