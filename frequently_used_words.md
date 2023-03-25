@@ -61,3 +61,8 @@
 | prematruely | 过早地，提前地, 贸然 |
 | sophisiticated | 老练的，熟练的，精密的，在行的，精致的 |
 | facility | 设备,设施 |
+| beep | 哔哔响 |
+| additionally | 另外，此外 |
+| below | 下方的, 比如屏幕某行以下的行 |
+| under | 下面的, 表示压在下面的,比如光标所在的字母 |
+| notation | 记号，标记法 |
