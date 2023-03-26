@@ -5,13 +5,44 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "json",
     "python",
-    "py"
+    "py",
+    "lua"
   ],
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
   "python.formatting.provider": "yapf",
-  "snippets.ultisnips.directories": [
-    "UltiSnips",
-    $HOME/.config/vim/snippets/ultisnips/
-  ]
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": [
+        "go.mod",
+        ".git/"
+      ],
+      "filetypes": [
+        "go"
+      ]
+    },
+    "ccls": {
+      "command": "ccls",
+      "filetypes": [
+        "c",
+        "cpp",
+        "cuda",
+        "objc",
+        "objcpp"
+      ],
+      "rootPatterns": [
+        ".ccls-root",
+        "compile_commands.json"
+      ],
+      "initializationOptions": {
+        "cache": {
+          "directory": "~/.ccls-cache"
+        },
+        "client": {
+          "snippetSupport": true
+        }
+      }
+    }
+  }
 }

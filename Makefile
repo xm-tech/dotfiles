@@ -20,6 +20,7 @@ install:
 	[[ -f ~/.p10k.zsh ]] || ln -s $(PWD)/p10k.zsh ~/.p10k.zsh
 	[[ -f ~/.z.lua ]] || ln -s $(PWD)/z.lua/z.lua ~/.z.lua
 	[[ -f ~/.cht.sh ]] || ln -s $(PWD)/cht.sh ~/.cht.sh
+	[[ -f ~/.ccls_load.sh ]] || ln -s $(PWD)/ccls_load.sh ~/.ccls_load.sh
 	[[ -f ~/.fix_gh_contribution.sh ]] || ln -s $(PWD)/fix_gh_contribution.sh ~/.fix_gh_contribution.sh
 	[[ -f ~/.config/alacritty/alacritty.yml ]] || ln -s $(PWD)/alacritty.yml ~/.config/alacritty/alacritty.yml
 	[[ -f ~/.config/alacritty/color.yml ]] || ln -s $(PWD)/color.yml ~/.config/alacritty/color.yml
@@ -32,6 +33,9 @@ install:
 	ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lualib.h /usr/local/include/lualib.h
 	ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lua.h /usr/local/include/lua.h
 
+
+	# \cp -f coc-settings.json ~/.vim/coc-settings.json
+
 	git submodule update --init --recursive
 
 	# don't show last login message
@@ -42,6 +46,9 @@ bundle_dump:
 
 bundle:
 	brew bundle 
+
+coc_settings_up:
+	\cp -f coc-settings.json ~/.vim/coc-settings.json
 
 clean:
 	rm -f ~/.vimrc 
@@ -59,6 +66,7 @@ clean:
 	rm -f ~/.p10k.zsh
 	rm -f ~/.z.lua
 	rm -f ~/.cht.sh
+	rm -f ~/.ccls_load.sh
 	rm -f ~/.fix_gh_contribution.sh
 	rm -f ~/.config/alacritty/alacritty.yml
 	rm -f ~/.config/alacritty/color.yml
