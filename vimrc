@@ -490,6 +490,8 @@ let g:coc_global_extensions = [
       \ 'coc-sql',
       \ 'coc-clangd',
       \ 'coc-rust-analyzer',
+      \ 'coc-snippets',
+      \ 'coc-java',
       \ 'coc-docker']
 " Use <c-space> to trigger completion.
 if has('nvim')

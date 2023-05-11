@@ -27,10 +27,20 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 export GO111MODULE=on
 export GOPROXY=https://goproxy.cn
 
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
+# export PATH="/usr/local/opt/openjdk/bin:$PATH"
+
+# export JAVA_HOME=/usr/local/jdk-20.jdk/Contents/Home
+export JAVA_HOME=/usr/local/jdk-19.0.2.jdk/Contents/Home
+export JAVA_HOME_20=$JAVA_HOME
+export PATH="$JAVA_HOME/bin:$PATH"
 export PATH="$PATH:$(go env GOPATH)/bin"
-export CPPFLAGS="-I/usr/local/opt/openjdk/include"
+# export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 export PATH="/usr/local/sbin:$PATH"
+export COMSPEC=xxxxx
+export MVN_CWD=./mvnw
+
+
+export CLASS_PATH=".:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar"
 
 # git autocomplete supplied by zsh
 autoload -U compinit; compinit
