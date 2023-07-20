@@ -31,6 +31,7 @@ export GOPROXY=https://goproxy.cn
 
 # export JAVA_HOME=/usr/local/jdk-20.jdk/Contents/Home
 export JAVA_HOME=/usr/local/jdk-19.0.2.jdk/Contents/Home
+export JAVA_HOME=/Users/maxiongmiao/Library/Java/JavaVirtualMachines/corretto-1.8.0_372/Contents/Home
 export JAVA_HOME_20=$JAVA_HOME
 export PATH="$JAVA_HOME/bin:$PATH"
 export PATH="$PATH:$(go env GOPATH)/bin"
