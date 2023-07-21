@@ -27,11 +27,11 @@ install:
 	# [[ -f ~/.clang-format ]] || ln -s $(PWD)/clang-format ~/.clang-format
 
 	# fix the lua.h can not found bug when editting a c source file
-	ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/luaconf.h /usr/local/include/luaconf.h
-	ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lauxlib.h /usr/local/include/lauxlib.h
-	ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lua.hpp /usr/local/include/lua.hpp
-	ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lualib.h /usr/local/include/lualib.h
-	ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lua.h /usr/local/include/lua.h
+	#ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/luaconf.h /usr/local/include/luaconf.h
+	#ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lauxlib.h /usr/local/include/lauxlib.h
+	#ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lua.hpp /usr/local/include/lua.hpp
+	#ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lualib.h /usr/local/include/lualib.h
+	#ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lua.h /usr/local/include/lua.h
 
 
 	# \cp -f coc-settings.json ~/.vim/coc-settings.json
