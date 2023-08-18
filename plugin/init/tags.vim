@@ -50,4 +50,7 @@ let g:gutentags_trace = 0
 
 " 告诉 gtags 默认 C/C++/Java 等六种原生支持的代码直接使用 gtags 本地分析器，而其他语言使用 pygments 模块
 let $GTAGSLABEL = 'native-pygments'
-let $GTAGSCONF = '/usr/local/etc/gtags.conf'
+" let $GTAGSCONF = '/usr/local/etc/gtags.conf'
+" let $GTAGSCONF = '/opt/homebrew/etc/gtags.conf'
+" GTAGS_CONF_PATH should be defined in .zsh_private
+let $GTAGSCONF = $GTAGS_CONF_PATH
