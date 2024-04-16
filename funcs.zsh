@@ -163,3 +163,7 @@ function o() {
 function flushdns() {
 	sudo killall -HUP mDNSResponder
 }
+
+function pi() {
+	ssh maxm@192.168.199.117
+}
