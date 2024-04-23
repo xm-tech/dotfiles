@@ -164,6 +164,10 @@ function flushdns() {
 	sudo killall -HUP mDNSResponder
 }
 
-function pi() {
+function pi-u32() {
 	ssh maxm@192.168.199.117
+}
+
+funciton pi-u64() {
+	ssh maxm@192.168.199.119
 }
