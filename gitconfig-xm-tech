@@ -10,3 +10,11 @@
 	di = icdiff
 [icdiff]
 	options = --highlight --line-numbers
+; [url "http://qwy.com:10888/server/egine.git"]
+	; insteadOf = http://qwy.com/server/egine
+; [url "git@qwy.com:"]
+	; insteadOf = https://qwy.com/
+[url "http://qwy.com:10888/"]
+	insteadOf = http://qwy.com/
+[safe]
+	directory = /opt/homebrew/Library/Taps/homebrew/homebrew-services

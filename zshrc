@@ -5,6 +5,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+export HOMEBREW_INSTALL_FROM_API=1
+
 # begin
 [[ -r ~/.zsh_private ]] && source ~/.zsh_private
 [[ -r ~/.aliases.zsh ]] && source ~/.aliases.zsh
@@ -25,7 +30,11 @@ fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
 export GO111MODULE=on
-export GOPROXY=https://goproxy.cn
+export GOPROXY=https://goproxy.cn,direct
+export GOPRIVATE=qwy.com
+export GOINSECURE=qwy.com
+export GONOSUMDB=qwy.com
+export GONOPROXY=qwy.com
 
 # git autocomplete supplied by zsh
 autoload -U compinit; compinit
