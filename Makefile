@@ -1,45 +1,49 @@
+# Define common variables
+DOTFILES := $(PWD)
+HOME_DIR := $(HOME)
+CONFIG_DIR := $(HOME_DIR)/.config
+ALACRITTY_DIR := $(CONFIG_DIR)/alacritty
+
+# List of files to symlink in home directory
+DOT_FILES := vimrc bashrc zshrc tmux.conf tigrc gitconfig aliases.zsh funcs.zsh \
+             antigen.zsh antigen-load.zsh git.zsh fzf-git.sh p10k.zsh z.lua \
+             cht.sh ccls_load.sh fix_gh_contribution.sh
+
+# Alacritty config files
+ALACRITTY_FILES := alacritty.yml color.yml
+
 all: install
 
-install:
-	mkdir -p ~/.tmux
-	mkdir -p ~/.vim/plugin && \cp -rf $(PWD)/plugin/* ~/.vim/plugin/
-	mkdir -p ~/.config/alacritty
+install: create_dirs create_symlinks git_setup create_hushlogin
 
-	[[ -f ~/.vimrc ]] || ln -s $(PWD)/vimrc ~/.vimrc
-	[[ -f ~/.bashrc ]] || ln -s $(PWD)/bashrc ~/.bashrc
-	[[ -f ~/.zshrc ]] || ln -s $(PWD)/zshrc ~/.zshrc
-	[[ -f ~/.tmux.conf ]] || ln -s $(PWD)/tmuxconf ~/.tmux.conf
-	[[ -f ~/.tigrc ]] || ln -s $(PWD)/tigrc ~/.tigrc
-	[[ -f ~/.gitconfig ]] || ln -s $(PWD)/gitconfig-xm-tech ~/.gitconfig
-	[[ -f ~/.aliases.zsh ]] || ln -s $(PWD)/aliases.zsh ~/.aliases.zsh
-	[[ -f ~/.funcs.zsh ]] || ln -s $(PWD)/funcs.zsh ~/.funcs.zsh
-	[[ -f ~/.antigen.zsh ]] || ln -s $(PWD)/antigen.zsh ~/.antigen.zsh
-	[[ -f ~/.antigen-load.zsh ]] || ln -s $(PWD)/antigen-load.zsh ~/.antigen-load.zsh
-	[[ -f ~/.git.zsh ]] || ln -s $(PWD)/git.zsh ~/.git.zsh
-	[[ -f ~/.fzf-git.sh ]] || ln -s $(PWD)/fzf-git.sh/fzf-git.sh ~/.fzf-git.sh
-	[[ -f ~/.p10k.zsh ]] || ln -s $(PWD)/p10k.zsh ~/.p10k.zsh
-	[[ -f ~/.z.lua ]] || ln -s $(PWD)/z.lua/z.lua ~/.z.lua
-	[[ -f ~/.cht.sh ]] || ln -s $(PWD)/cht.sh ~/.cht.sh
-	[[ -f ~/.ccls_load.sh ]] || ln -s $(PWD)/ccls_load.sh ~/.ccls_load.sh
-	[[ -f ~/.fix_gh_contribution.sh ]] || ln -s $(PWD)/fix_gh_contribution.sh ~/.fix_gh_contribution.sh
-	[[ -f ~/.config/alacritty/alacritty.yml ]] || ln -s $(PWD)/alacritty.yml ~/.config/alacritty/alacritty.yml
-	[[ -f ~/.config/alacritty/color.yml ]] || ln -s $(PWD)/color.yml ~/.config/alacritty/color.yml
-	# [[ -f ~/.clang-format ]] || ln -s $(PWD)/clang-format ~/.clang-format
+create_dirs:
+	mkdir -p $(HOME_DIR)/.tmux
+	mkdir -p $(HOME_DIR)/.vim/plugin
+	mkdir -p $(ALACRITTY_DIR)
+	\cp -rf $(DOTFILES)/plugin/* $(HOME_DIR)/.vim/plugin/
 
-	# fix the lua.h can not found bug when editting a c source file
-	#ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/luaconf.h /usr/local/include/luaconf.h
-	#ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lauxlib.h /usr/local/include/lauxlib.h
-	#ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lua.hpp /usr/local/include/lua.hpp
-	#ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lualib.h /usr/local/include/lualib.h
-	#ln -s /usr/local/Cellar/lua/5.4.4_1/include/lua/lua.h /usr/local/include/lua.h
+create_symlinks: $(DOT_FILES:%=$(HOME_DIR)/.%) $(ALACRITTY_FILES:%=$(ALACRITTY_DIR)/%)
 
+$(HOME_DIR)/.%: $(DOTFILES)/%
+	[[ -f $@ ]] || ln -s $< $@
 
-	# \cp -f coc-settings.json ~/.vim/coc-settings.json
+$(HOME_DIR)/.gitconfig: $(DOTFILES)/gitconfig-xm-tech
+	[[ -f $@ ]] || ln -s $< $@
 
+$(HOME_DIR)/.fzf-git.sh: $(DOTFILES)/fzf-git.sh/fzf-git.sh
+	[[ -f $@ ]] || ln -s $< $@
+
+$(HOME_DIR)/.z.lua: $(DOTFILES)/z.lua/z.lua
+	[[ -f $@ ]] || ln -s $< $@
+
+$(ALACRITTY_DIR)/%: $(DOTFILES)/%
+	[[ -f $@ ]] || ln -s $< $@
+
+git_setup:
 	git submodule update --init --recursive
 
-	# don't show last login message
-	touch ~/.hushlogin
+create_hushlogin:
+	touch $(HOME_DIR)/.hushlogin
 
 bundle_dump:
 	brew bundle dump --force
@@ -48,33 +52,11 @@ bundle:
 	brew bundle 
 
 coc_settings_up:
-	\cp -f coc-settings.json ~/.vim/coc-settings.json
+	\cp -f coc-settings.json $(HOME_DIR)/.vim/coc-settings.json
 
 clean:
-	rm -f ~/.vimrc 
-	rm -f ~/.bashrc
-	rm -f ~/.zshrc
-	rm -f ~/.tmux.conf
-	rm -f ~/.tigrc
-	rm -f ~/.gitconfig
-	rm -f ~/.aliases.zsh
-	rm -f ~/.funcs.zsh
-	rm -f ~/.antigen.zsh
-	rm -f ~/.antigen-load.zsh
-	rm -f ~/.git.zsh
-	rm -f ~/.fzf-git.sh
-	rm -f ~/.p10k.zsh
-	rm -f ~/.z.lua
-	rm -f ~/.cht.sh
-	rm -f ~/.ccls_load.sh
-	rm -f ~/.fix_gh_contribution.sh
-	rm -f ~/.config/alacritty/alacritty.yml
-	rm -f ~/.config/alacritty/color.yml
-	rm -f /usr/local/include/luaconf.h
-	rm -f /usr/local/include/lauxlib.h
-	rm -f /usr/local/include/lua.hpp
-	rm -f /usr/local/include/lualib.h
-	rm -f /usr/local/include/lua.h
-	# rm -f ~/.clang-format
+	rm -f $(DOT_FILES:%=$(HOME_DIR)/.%)
+	rm -f $(ALACRITTY_FILES:%=$(ALACRITTY_DIR)/%)
+	rm -f /usr/local/include/{luaconf.h,lauxlib.h,lua.hpp,lualib.h,lua.h}
 
-.PHONY: all clean install bundle bundle_dump
+.PHONY: all clean install bundle bundle_dump create_dirs create_symlinks git_setup create_hushlogin
