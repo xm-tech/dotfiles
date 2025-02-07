@@ -37,6 +37,6 @@ export GONOSUMDB=qwy.com
 export GONOPROXY=qwy.com
 
 # git autocomplete supplied by zsh
-autoload -U compinit; compinit
+autoload -U compinit; compinit -u
 
 eval "$(hub alias -s)"
