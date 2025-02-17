@@ -66,6 +66,10 @@ Plug 'rhysd/vim-clang-format'
 
 Plug 'skywind3000/vim-cppman'
 
+" Plug 'github/copilot'
+
+" Plug 'gergap/vim-ollama'
+
 call plug#end()
 
 "=====================================================

@@ -36,6 +36,9 @@ export GOINSECURE=qwy.com
 export GONOSUMDB=qwy.com
 export GONOPROXY=qwy.com
 
+# deepseek
+export DEEPSEEK_API_KEY="sk-8106de4b845646d5aafb10ff3a1da961"
+
 # git autocomplete supplied by zsh
 autoload -U compinit; compinit -u
 
