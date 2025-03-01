@@ -1,0 +1,8 @@
+title: a state transfrom diagram
+
+client->gate: http, req hall addr
+gate->client: http, return hall addr
+client-->hall: wss
+hall-->>client: wss
+client-->>gameserver: wss
+gameserver-->>client: wss

@@ -1,194 +1,300 @@
-" ~/.vim/plugin/deepseek.vim
+vim9script
 
-" ========================
-" 配置项（用户可自定义）
-" ========================
-if !exists('g:deepseek_api_endpoint')
-  let g:deepseek_api_endpoint = 'https://api.deepseek.com/v1/chat/completions'
-endif
+### [SOLID Principle Implementation] #######################################
 
-if !exists('g:deepseek_api_key')
-  " 优先从环境变量读取，避免明文存储密钥
-  let g:deepseek_api_key = $DEEPSEEK_API_KEY
-endif
+### [Configuration Module] ################################################
+const DEFAULT_CONFIG = {
+    model: "deepseek-r1",
+    max_tokens: 2048,
+    temperature: 0.7,
+    base_url: "https://api.deepseek.com/v1",
+    max_retries: 3,
+    log_level: 2,
+    log_file: expand('~/.vim/deepseek.log'),
+    shortcuts: {
+        inline_complete: '<Leader>dsl',
+        generate_block: '<Leader>dsg',
+        explain_code:   '<Leader>dse',
+        refactor_code:  '<Leader>dsr',
+        chat_window:    '<Leader>dsc'
+    }
+}
 
-" 结果窗口高度（默认占屏40%）
-if !exists('g:deepseek_result_window_height')
-  let g:deepseek_result_window_height = float2nr(&lines * 0.4)
-endif
+### [API客户端类修复] #####################################################
+class DeepseekClient
+    var _config: dict<any>
+    var _retries: dict<number> = {}
+    var _requests: dict<dict<any>> = {}
 
-" 超时时间（秒）
-if !exists('g:deepseek_timeout')
-  let g:deepseek_timeout = 30
-endif
+    def new(config: dict<any>)
+        if type(config) != type({})
+            throw "配置参数必须为字典类型"
+        endif
+        
+        if empty(config.api_key)
+            throw "必须设置 DEEPSEEK_API_KEY 环境变量"
+        endif
 
-" ========================
-" 核心功能
-" ========================
-function! s:ValidateConfig() abort
-  if empty(g:deepseek_api_key)
-    echohl ErrorMsg
-    echo "DeepSeek 错误: 未配置 API 密钥！请设置 g:deepseek_api_key 或环境变量 DEEPSEEK_API_KEY"
-    echohl None
-    return v:false
-  endif
+        this._config = deepcopy(config)
+        this._retries = {}
+        this._requests = {}
 
-  if !executable('curl')
-    echohl ErrorMsg
-    echo "DeepSeek 错误: 需要 curl 支持，请先安装 curl"
-    echohl None
-    return v:false
-  endif
+        Log(4, "构造函数完成", typename(this), this._config.model)
+    enddef
 
-  return v:true
-endfunction
+    def Request(endpoint: string, prompt: string, Callback: func): void
+        const req_id = sha256(prompt)[:8]
+        this._retries[req_id] = 0
+        this._requests[req_id] = {
+            endpoint: endpoint,
+            prompt: prompt,
+            Callback: Callback
+        }
+        this.DoRequest(req_id)
+    enddef
 
-function! deepseek#Ask(prompt, ...) abort
-  if !s:ValidateConfig() | return | endif
+    def DoRequest(req_id: string)
+        this._retries[req_id] += 1
+        final req_info = this._requests[req_id]
+        Log(4, "发送请求", req_info.endpoint, this._retries[req_id])
+        
+        try
+            final headers = [
+                'Authorization: Bearer ' .. this._config.api_key,
+                'Content-Type: application/json'
+            ]
+            
+            final data = json_encode({
+                model: this._config.model,
+                messages: [{role: 'user', content: req_info.prompt}],
+                temperature: this._config.temperature,
+                max_tokens: this._config.max_tokens
+            })
 
-  " 可选上下文参数（如选中的代码）
-  let l:context = get(a:, 1, '')
+            job_start(['curl', '-sS', this._config.base_url .. '/' .. req_info.endpoint] +
+                      mapnew(headers, (_, v) => '-H ' .. v) +
+                      ['-d', data],
+                      {
+                          'out_cb': (_, msg) => this.HandleResponse(req_id, msg),
+                          'err_cb': (_, msg) => this.HandleError(req_id, msg),
+                          'exit_cb': (_, code) => this.HandleExit(req_id, code)
+                      })
+        catch
+            Log(1, "请求初始化失败", v:exception)
+        endtry
+    enddef
 
-  " 构建完整提问内容
-  let l:full_prompt = a:prompt
-  if !empty(l:context)
-    let l:full_prompt .= "\n\n上下文：\n" . l:context
-  endif
+    def HandleResponse(req_id: string, msg: string): void
+        try
+            final res = json_decode(msg)
+            if !has_key(res, 'choices')
+                throw printf("无效响应格式: %s", string(res))
+            endif
+            this._requests[req_id].Callback(res.choices[0].message.content)
+            Log(3, "请求成功", req_id)
+        catch
+            Log(1, "响应解析失败", v:exception, "原始内容: " .. msg)
+        finally
+            remove(this._retries, req_id)
+            remove(this._requests, req_id)
+        endtry
+    enddef
 
-  " 创建唯一请求ID（用于处理并行请求）
-  let l:request_id = substitute(reltimestr(reltime()), '\.', '', 'g')
+    def HandleError(req_id: string, msg: string): void
+        if this._retries[req_id] < this._config.max_retries
+            Log(2, "重试请求", req_id, this._retries[req_id] + 1)
+            this.DoRequest(req_id)
+        else
+            Log(1, "请求最终失败", req_id, msg)
+            this._requests[req_id].Callback('')
+            remove(this._retries, req_id)
+            remove(this._requests, req_id)
+        endif
+    enddef
 
-  " 准备请求数据
-  let l:request_data = {
-    \ 'model': 'deepseek-r1',
-    \ 'messages': [{'role': 'user', 'content': l:full_prompt}],
-    \ 'temperature': 0.7
-  \ }
+    def HandleExit(req_id: string, code: number): void
+        if code != 0
+            Log(2, "请求异常退出", req_id, code)
+        endif
+    enddef
+endclass
 
-  " 启动异步任务
-  let l:curl_cmd = [
-    \ 'curl', '-sS', '-X', 'POST',
-    \ '-H', 'Content-Type: application/json',
-    \ '-H', 'Authorization: Bearer ' . g:deepseek_api_key,
-    \ '--max-time', g:deepseek_timeout,
-    \ g:deepseek_api_endpoint,
-    \ '-d', json_encode(l:request_data)
-  \ ]
 
-  let l:job = job_start(l:curl_cmd, {
-    \ 'out_cb': function('s:ResponseHandler', [l:request_id]),
-    \ 'err_cb': function('s:ErrorHandler', [l:request_id]),
-    \ 'exit_cb': function('s:Cleanup', [l:request_id]),
-    \ 'noblock': 1
-  \ })
+### [UI Component (Single Responsibility)] #################################
+class FloatingWindow
+    def Show(content: string): void
+        try
+            if has('nvim')
+                this.ShowNeovimWindow(content)
+            else
+                this.ShowVimWindow(content)
+            endif
+        catch
+            Log(1, "窗口创建失败", v:exception)
+        endtry
+    enddef
 
-  " 显示等待提示
-  call s:CreateResultBuffer(l:request_id)
-endfunction
+    def ShowNeovimWindow(content: string): void
+        final buf = nvim_create_buf(v:false, v:true)
+        final lines = split(content, "\n")
+        final opts = {
+            relative: 'cursor',
+            row: 2,
+            col: 0,
+            width: min([winwidth(0) - 4, 80]),
+            height: min([len(lines) + 2, 15]),
+            style: 'minimal',
+            border: 'single'
+        }
+        final winid = nvim_open_win(buf, v:true, opts)
+        setbufline(buf, 1, lines)
+        autocmd WinLeave <buffer> ++once nvim_win_close(winid, v:true)
+    enddef
 
-" ========================
-" 回调函数
-" ========================
-function! s:ResponseHandler(request_id, channel, msg) abort
-  if !exists('s:responses[a:request_id]')
-    let s:responses[a:request_id] = []
-  endif
-  call add(s:responses[a:request_id], a:msg)
-endfunction
+    def ShowVimWindow(content: string): void
+        pedit DeepSeek
+        wincmd P
+        setlocal buftype=nofile
+        setline(1, split(content, "\n"))
+    enddef
+endclass
 
-function! s:ErrorHandler(request_id, channel, msg) abort
-  call s:UpdateResultBuffer(a:request_id, '错误: ' . a:msg, 'error')
-endfunction
 
-function! s:Cleanup(request_id, job, status) abort
-  if exists('s:responses[a:request_id]')
-    " 解析完整响应
-    let l:response = json_decode(join(s:responses[a:request_id], ''))
+### [脚本作用域变量声明] ##################################################
+script
+var client: DeepseekClient = v:null
+endscript
 
-    if type(l:response) == v:t_dict && has_key(l:response, 'choices')
-      let l:content = l:response['choices'][0]['message']['content']
-      call s:UpdateResultBuffer(a:request_id, l:content)
-    else
-      call s:UpdateResultBuffer(a:request_id, 'API 响应格式错误', 'error')
+### [延迟初始化逻辑] #####################################################
+def InitUI()
+    if ui is v:null
+        ui = FloatingWindow.new()
     endif
+enddef
 
-    unlet s:responses[a:request_id]
-  endif
-endfunction
 
-" ========================
-" 缓冲区管理
-" ========================
-function! s:CreateResultBuffer(request_id) abort
-  " 创建临时缓冲区
-  execute 'silent! keepalt' g:deepseek_result_window_height . 'split __DeepSeek__'
-  setlocal buftype=nofile bufhidden=wipe nobuflisted
-  setlocal filetype=markdown
-  setlocal wrap
+### [Logger Module (Single Responsibility)] ###############################
+def Log(level: number, msg: string, ...extra: list<any>): void
+    final config = get(g:, 'deepseek_config', DEFAULT_CONFIG)
+    if level > config.log_level | return | endif
 
-  " 显示等待提示
-  call append(0, ['## DeepSeek 思考中...', ''])
-  nnoremap <buffer> q :bwipeout<CR>
+    const LEVELS = ['', 'ERROR', 'WARN', 'INFO', 'DEBUG']
+    final timestamp = strftime('%Y-%m-%d %H:%M:%S')
+    final logMsg = printf("[%s][%s] %s %s",
+        LEVELS[level],
+        timestamp,
+        msg,
+        string(extra)
+    )
 
-  " 记录缓冲区与请求的关联
-  let s:result_buffers[a:request_id] = bufnr('%')
-endfunction
+    try
+        if !empty(config.log_file)
+            final logDir = fnamemodify(config.log_file, ':h')
+            if !isdirectory(logDir)
+                mkdir(logDir, 'p', 0o755)
+            endif
+            writefile([logMsg], config.log_file, 'a')
+        endif
+    catch
+        echohl ErrorMsg
+        echomsg "日志写入失败: " .. v:exception
+        echohl None
+    endtry
 
-function! s:UpdateResultBuffer(request_id, content, ...) abort
-  let l:type = get(a:, 1, 'success')
-
-  if has_key(s:result_buffers, a:request_id)
-    let l:bufnr = s:result_buffers[a:request_id]
-    if bufexists(l:bufnr)
-      execute 'silent! buffer' l:bufnr
-      setlocal modifiable
-      %delete _
-
-      " 格式化输出
-      if l:type ==# 'error'
-        call append(0, ['# ❌ 请求出错', '', a:content])
-        setlocal syntax=vim
-      else
-        call append(0, split(a:content, '\n'))
-        setlocal syntax=markdown
-      endif
-
-      setlocal nomodifiable
-      execute 'normal! gg'
+    if level <= 2
+        echohl level == 1 ? 'ErrorMsg' : 'WarningMsg'
+        echomsg logMsg
+        echohl None
     endif
-    unlet s:result_buffers[a:request_id]
-  endif
-endfunction
+enddef
 
-" ========================
-" 用户命令与快捷键
-" ========================
-" 基础提问命令
-command! -nargs=+ -complete=file DSAsk call deepseek#Ask(<q-args>)
+### [Dependency Inversion: Config Loader] ##################################
+def LoadConfig(): dict<any>
+    try
+        final user_config = get(g:, 'deepseek_config', {})
+        final merged = deepcopy(DEFAULT_CONFIG)
+        extend(merged, user_config, 'force')
+        
+        # 配置验证
+        merged.api_key = trim(getenv('DEEPSEEK_API_KEY') ?? '')
+        if empty(merged.api_key)
+            throw "DEEPSEEK_API_KEY 环境变量未设置"
+        endif
+        if merged.max_retries < 0 || merged.max_retries > 5
+            throw "最大重试次数需在0-5之间"
+        endif
+        
+        return merged
+    catch
+        Log(1, "配置加载失败", v:exception)
+        throw v:exception
+    endtry
+enddef
 
-" 解释当前选中的代码
-vnoremap <silent> <leader>dse :<C-u>call deepseek#Ask("解释这段代码：", GetVisualSelection())<CR>
 
-" 优化当前选中的代码
-vnoremap <silent> <leader>dso :<C-u>call deepseek#Ask("优化这段代码：", GetVisualSelection())<CR>
+### [Business Logic (Liskov Substitution)] #################################
+def GetVisualSelection(): string
+    try
+        let [_, sline, scol, _] = getpos("'<")
+        let [_, eline, ecol, _] = getpos("'>")
+        return join(getline(sline, eline)->map((i, l) => 
+            i == 0 ? l[scol - 1 :] :
+            i == eline - sline ? l[: ecol - 1] : l), "\n")
+    catch
+        Log(2, "获取选中文本失败", v:exception)
+        return ''
+    endtry
+enddef
 
-" 获取选区内容
-function! GetVisualSelection() abort
-  let [l:lnum1, l:col1] = getpos("'<")[1:2]
-  let [l:lnum2, l:col2] = getpos("'>")[1:2]
-  let l:lines = getline(l:lnum1, l:lnum2)
-  if len(l:lines) == 0 | return '' | endif
-  let l:lines[-1] = l:lines[-1][: l:col2 - (&selection == 'inclusive' ? 1 : 2)]
-  let l:lines[0] = l:lines[0][l:col1 - 1:]
-  return join(l:lines, "\n")
-endfunction
+### [Feature Implementations] ##############################################
+export def InlineComplete(): void
+    if client is v:null
+        Log(2, "服务未就绪")
+        return
+    endif
+    client.Request('completions', getline('.'), (res) => feedkeys(res, 'ni'))
+enddef
 
-" ========================
-" 初始化
-" ========================
-let s:responses = {}
-let s:result_buffers = {}
+export def ExplainCode(): void
+    InitUI()  # 确保UI已初始化
 
-" 自动加载检查
-if exists('g:loaded_deepseek') | finish | endif
-let g:loaded_deepseek = 1
+    final code = GetVisualSelection()
+    if empty(code) | return | endif
+    
+    client.Request('chat', "解释代码:\n" .. code, (res) => {
+        ui.Show("# 代码解释\n" .. res)
+    })
+enddef
+
+### [Initialization (Dependency Injection)] ##############################
+def Initialize()
+    try
+        final config = LoadConfig()
+        client = DeepseekClient.new(config)
+        SetupKeymaps(config.shortcuts)
+        Log(3, "系统初始化完成")
+    catch
+        Log(1, "初始化失败", v:exception)
+        client = v:null
+    endtry
+enddef
+
+def SetupKeymaps(shortcuts: dict<string>): void
+    final mappings = [
+        { 'mode': 'i', 'key': shortcuts.inline_complete, 'cmd': 'InlineComplete' },
+        { 'mode': 'x', 'key': shortcuts.explain_code, 'cmd': 'ExplainCode' }
+    ]
+
+    for map in mappings
+        execute printf('%snoremap <silent> <script> %s <ScriptCmd>call %s()<CR>',
+                      map.mode, map.key, map.cmd)
+    endfor
+    Log(4, "快捷键映射完成", shortcuts)
+enddef
+
+### [Main Entry Point] ##################################################
+augroup DeepseekPlugin
+    autocmd!
+    autocmd VimEnter * Initialize()
+augroup END
+

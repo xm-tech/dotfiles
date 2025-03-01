@@ -66,9 +66,12 @@ Plug 'rhysd/vim-clang-format'
 
 Plug 'skywind3000/vim-cppman'
 
-" Plug 'github/copilot'
+" Plug 'github/copilot.vim'
 
 " Plug 'gergap/vim-ollama'
+"
+Plug 'xavierchow/vim-sequence-diagram'
+Plug 'aklt/plantuml-syntax'   " PlantUML 语法高亮
 
 call plug#end()
 
@@ -186,6 +189,12 @@ augroup filetypedetect
   autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 
   " autocmd FileType c,cpp,*.h setlocal tabstop=4 shiftwidth=4 equalprg=clang-format 
+
+  " 定义 PlantUML 文件类型
+  autocmd BufRead,BufNewFile *.puml setfiletype plantuml
+
+  " 绑定快捷键生成图片（需安装 PlantUML）
+  autocmd FileType plantuml nnoremap <leader>r :!plantuml -tsvg %<CR>
 augroup END
 
 "=====================================================
