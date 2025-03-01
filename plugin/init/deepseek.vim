@@ -288,11 +288,34 @@ enddef
 ### [Business Logic (Liskov Substitution)] #################################
 def GetVisualSelection(): string
     try
-        let [_, sline, scol, _] = getpos("'<")
-        let [_, eline, ecol, _] = getpos("'>")
-        return join(getline(sline, eline)->map((i, l) => 
-            i == 0 ? l[scol - 1 :] :
-            i == eline - sline ? l[: ecol - 1] : l), "\n")
+        # 获取可视模式选择范围
+        var start_pos = getpos("'<")
+        var end_pos = getpos("'>")
+        var sline = start_pos[1]
+        var scol = start_pos[2]
+        var eline = end_pos[1]
+        var ecol = end_pos[2]
+
+        # 处理多行文本
+        var lines = getline(sline, eline)
+        if empty(lines)
+            return ''
+        endif
+
+        # 逐行裁剪文本
+        var selected_lines = lines->mapnew((_, line, idx: number) => {
+            if idx == 0
+                # 首行从 scol 开始截取
+                return line[scol - 1 : ]
+            elseif idx == len(lines) - 1
+                # 末行截取到 ecol 前
+                return line[: ecol - (mode() ==# 'v' ? 1 : 2)]
+            else
+                return line
+            endif
+        })
+
+        return join(selected_lines, "\n")
     catch
         Log(2, "获取选中文本失败", v:exception)
         return ''
