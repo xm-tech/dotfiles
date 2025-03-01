@@ -22,15 +22,11 @@ const DEFAULT_CONFIG = {
 
 ### [API客户端类修复] #####################################################
 class DeepseekClient
-    var _config: dict<any>
-    var _retries: dict<number> = {}
-    var _requests: dict<dict<any>> = {}
+    var _config: dict<any> = {} 
+    var _retries: dict<number>
+    var _requests: dict<dict<any>>
 
     def new(config: dict<any>)
-        if type(config) != type({})
-            throw "配置参数必须为字典类型"
-        endif
-        
         if empty(config.api_key)
             throw "必须设置 DEEPSEEK_API_KEY 环境变量"
         endif
@@ -40,6 +36,7 @@ class DeepseekClient
         this._requests = {}
 
         Log(4, "构造函数完成", typename(this), this._config.model)
+        # return this
     enddef
 
     def Request(endpoint: string, prompt: string, Callback: func): void
@@ -86,7 +83,7 @@ class DeepseekClient
 
     def HandleResponse(req_id: string, msg: string): void
         try
-            final res = json_decode(msg)
+            var res = json_decode(msg)
             if !has_key(res, 'choices')
                 throw printf("无效响应格式: %s", string(res))
             endif
@@ -159,15 +156,14 @@ class FloatingWindow
     enddef
 endclass
 
+### [Script Scope Variables (严格格式)] ##################################
+var client: DeepseekClient = null_object
+var ui: FloatingWindow = null_object
 
-### [脚本作用域变量声明] ##################################################
-script
-var client: DeepseekClient = v:null
-endscript
 
 ### [延迟初始化逻辑] #####################################################
 def InitUI()
-    if ui is v:null
+    if ui is null_object
         ui = FloatingWindow.new()
     endif
 enddef
@@ -227,7 +223,8 @@ def LoadConfig(): dict<any>
         return merged
     catch
         Log(1, "配置加载失败", v:exception)
-        throw v:exception
+        return {}
+        # throw v:exception
     endtry
 enddef
 
@@ -248,7 +245,7 @@ enddef
 
 ### [Feature Implementations] ##############################################
 export def InlineComplete(): void
-    if client is v:null
+    if client is null_object
         Log(2, "服务未就绪")
         return
     endif
@@ -266,18 +263,31 @@ export def ExplainCode(): void
     })
 enddef
 
-### [Initialization (Dependency Injection)] ##############################
+
+### [初始化流程强化] #################################################
 def Initialize()
     try
+        client = null_object
+        ui = null_object
+
         final config = LoadConfig()
         client = DeepseekClient.new(config)
+        
+        # 延迟UI初始化
+        if ui is null_object
+            ui = FloatingWindow.new()
+        endif
+
         SetupKeymaps(config.shortcuts)
         Log(3, "系统初始化完成")
     catch
-        Log(1, "初始化失败", v:exception)
-        client = v:null
+        Log(1, "初始化失败: " .. v:exception)
+        # 确保失败后保持合法null类型
+        client = null_object
+        ui = null_object
     endtry
 enddef
+
 
 def SetupKeymaps(shortcuts: dict<string>): void
     final mappings = [
@@ -297,4 +307,3 @@ augroup DeepseekPlugin
     autocmd!
     autocmd VimEnter * Initialize()
 augroup END
-
