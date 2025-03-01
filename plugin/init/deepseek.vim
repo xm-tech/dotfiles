@@ -13,10 +13,10 @@ const DEFAULT_CONFIG = {
     log_file: expand('~/.vim/deepseek.log'),
     shortcuts: {
         inline_complete: '<Leader>dsl',
-        generate_block: '<Leader>dsg',
-        explain_code:   '<Leader>dse',
-        refactor_code:  '<Leader>dsr',
-        chat_window:    '<Leader>dsc'
+        generate_block: '<Leader>dg',
+        explain_code:   '<Leader>de',
+        refactor_code:  '<Leader>dr',
+        chat_window:    '<Leader>dc'
     }
 }
 
@@ -40,7 +40,7 @@ class DeepseekClient
     enddef
 
     def Request(endpoint: string, prompt: string, Callback: func): void
-        const req_id = sha256(prompt)[:8]
+        const req_id = sha256(prompt)[ :8 ]
         this._retries[req_id] = 0
         this._requests[req_id] = {
             endpoint: endpoint,
@@ -263,6 +263,41 @@ export def ExplainCode(): void
     })
 enddef
 
+### [补全功能实现] ######################################################
+export def GenerateBlock(): void
+    if client is null_object
+        Log(2, "服务未就绪")
+        return
+    endif
+    
+    final code = input("输入功能描述: ")
+    if empty(code) | return | endif
+
+    client.Request('chat', "生成代码块:\n" .. code, (res) => {
+        append('.', split(res, "\n"))
+    })
+enddef
+
+export def RefactorCode(): void
+    InitUI()
+    final code = GetVisualSelection()
+    if empty(code) | return | endif
+    
+    client.Request('chat', "重构代码:\n" .. code, (res) => {
+        ui.Show("# 重构建议\n" .. res)
+    })
+enddef
+
+export def OpenChatWindow(): void
+    InitUI()
+    final prompt = input("Chat with Deepseek: ")
+    if empty(prompt) | return | endif
+    
+    client.Request('chat', prompt, (res) => {
+        ui.Show("# Deepseek 回答\n" .. res)
+    })
+enddef
+
 
 ### [初始化流程强化] #################################################
 def Initialize()
@@ -291,13 +326,24 @@ enddef
 
 def SetupKeymaps(shortcuts: dict<string>): void
     final mappings = [
+        # 原有映射
         { 'mode': 'i', 'key': shortcuts.inline_complete, 'cmd': 'InlineComplete' },
-        { 'mode': 'x', 'key': shortcuts.explain_code, 'cmd': 'ExplainCode' }
+        { 'mode': 'x', 'key': shortcuts.explain_code,   'cmd': 'ExplainCode' },
+        
+        # 新增映射
+        { 'mode': 'n', 'key': shortcuts.generate_block, 'cmd': 'GenerateBlock' },
+        { 'mode': 'x', 'key': shortcuts.refactor_code,   'cmd': 'RefactorCode' },
+        { 'mode': 'n', 'key': shortcuts.chat_window,     'cmd': 'OpenChatWindow' }
     ]
 
     for map in mappings
-        execute printf('%snoremap <silent> <script> %s <ScriptCmd>call %s()<CR>',
-                      map.mode, map.key, map.cmd)
+        # 修复模式标识符 (i/n/x 需要转换为正确的 map 命令)
+        final map_cmd = map.mode == 'i' ? 'i' :
+                      map.mode == 'n' ? 'n' :
+                      'x'
+
+        execute printf('%snoremap <silent> <script> %s <ScriptCmd>%s()<CR>',
+                      map_cmd, map.key, map.cmd)
     endfor
     Log(4, "快捷键映射完成", shortcuts)
 enddef
