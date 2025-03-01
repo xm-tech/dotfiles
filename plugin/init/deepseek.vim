@@ -4,12 +4,12 @@ vim9script
 
 ### [Configuration Module] ################################################
 const DEFAULT_CONFIG = {
-    model: "deepseek-r1",
+    model: "deepseek-reasoner",
     max_tokens: 2048,
     temperature: 0.7,
-    base_url: "https://api.deepseek.com/v1",
+    base_url: "https://api.deepseek.com/chat/completions",
     max_retries: 3,
-    log_level: 2,
+    log_level: 4,
     log_file: expand('~/.vim/deepseek.log'),
     shortcuts: {
         inline_complete: '<Leader>dsl',
@@ -25,6 +25,7 @@ class DeepseekClient
     var _config: dict<any> = {} 
     var _retries: dict<number>
     var _requests: dict<dict<any>>
+    var _response_buf: dict<string> = {}  # 新增：响应缓冲区
 
     def new(config: dict<any>)
         if empty(config.api_key)
@@ -40,7 +41,7 @@ class DeepseekClient
     enddef
 
     def Request(endpoint: string, prompt: string, Callback: func): void
-        const req_id = sha256(prompt)[ :8 ]
+        const req_id = sha256(prompt)[ : 8]
         this._retries[req_id] = 0
         this._requests[req_id] = {
             endpoint: endpoint,
@@ -68,35 +69,90 @@ class DeepseekClient
                 max_tokens: this._config.max_tokens
             })
 
-            job_start(['curl', '-sS', this._config.base_url .. '/' .. req_info.endpoint] +
-                      mapnew(headers, (_, v) => '-H ' .. v) +
-                      ['-d', data],
-                      {
-                          'out_cb': (_, msg) => this.HandleResponse(req_id, msg),
-                          'err_cb': (_, msg) => this.HandleError(req_id, msg),
-                          'exit_cb': (_, code) => this.HandleExit(req_id, code)
-                      })
+            Log(4, "url:", this._config.base_url .. '/' .. req_info.endpoint)
+            Log(4, "data:", data)
+
+            # 使用 -o 将响应体输出到 stdout，-w 将状态码输出到 stderr
+            job_start([
+                'curl',
+                '-sS',
+                '-w', '%{http_code}',
+                '-o', '/dev/stdout',
+                '--stderr', '-',  # 将状态码输出到 stderr
+                this._config.base_url .. '/' .. req_info.endpoint
+            ] + mapnew(headers, (_, v) => '-H ' .. v) + ['-d', data],
+            {
+                'out_cb': (_, msg) => this.HandleResponse(req_id, msg),
+                'err_cb': (_, msg) => this.HandleStatusCode(req_id, msg),  # 新增状态码处理
+                'exit_cb': (_, code) => this.HandleExit(req_id, code)
+            })
+
         catch
             Log(1, "请求初始化失败", v:exception)
         endtry
     enddef
 
     def HandleResponse(req_id: string, msg: string): void
-        try
-            var res = json_decode(msg)
-            if !has_key(res, 'choices')
-                throw printf("无效响应格式: %s", string(res))
+        if !has_key(this._response_buf, req_id)
+            this._response_buf[req_id] = ''
+        endif
+        this._response_buf[req_id] ..= msg
+
+        const sep_pos = stridx(this._response_buf[req_id], '||HTTP_CODE||')
+        if sep_pos != -1
+            final response_body = strpart(this._response_buf[req_id], 0, sep_pos)
+            final http_code = str2nr(strpart(this._response_buf[req_id], sep_pos + 13))
+
+            remove(this._response_buf, req_id)
+
+            if http_code != 200
+                Log(1, "请求失败", req_id, "HTTP Code: " .. http_code)
+                this._requests[req_id].Callback('')
+                return
             endif
-            this._requests[req_id].Callback(res.choices[0].message.content)
-            Log(3, "请求成功", req_id)
-        catch
-            Log(1, "响应解析失败", v:exception, "原始内容: " .. msg)
-        finally
-            remove(this._retries, req_id)
-            remove(this._requests, req_id)
-        endtry
+
+            try
+                final res = json_decode(response_body)
+                if type(res) != type({}) || !has_key(res, 'choices')
+                    throw "无效响应格式"
+                endif
+                this._requests[req_id].Callback(res.choices[0].message.content)
+            catch
+                Log(1, "响应解析失败", v:exception, "内容: " .. response_body)
+            endtry
+        endif
+
     enddef
 
+    # 判断 JSON 是否完整
+    def IsJsonComplete(json_str: string): bool
+        var stack: list<string> = []
+        for char in split(json_str, '\zs')
+            if char == '{' || char == '['
+                stack->add(char == '{' ? '}' : ']')
+            elseif char == '}' || char == ']'
+                if stack->empty() || stack[-1] != char
+                    return v:false
+                endif
+                stack->remove(-1)  # 改用 remove(-1)
+            endif
+        endfor
+        return stack->empty()
+    enddef
+
+    def HandleStatusCode(req_id: string, msg: string): void
+        # 提取状态码（curl 的 -w 输出）
+        if msg =~ '^\d\+$'
+            final status_code = str2nr(msg)
+            if status_code != 200
+                Log(2, "HTTP 错误", req_id, status_code)
+                this.HandleError(req_id, "HTTP Status: " .. status_code)
+            endif
+        else
+            Log(2, "CURL 错误输出", req_id, msg)
+        endif
+    enddef
+   
     def HandleError(req_id: string, msg: string): void
         if this._retries[req_id] < this._config.max_retries
             Log(2, "重试请求", req_id, this._retries[req_id] + 1)
@@ -273,7 +329,7 @@ export def GenerateBlock(): void
     final code = input("输入功能描述: ")
     if empty(code) | return | endif
 
-    client.Request('chat', "生成代码块:\n" .. code, (res) => {
+    client.Request('chat', " " .. code, (res) => {
         append('.', split(res, "\n"))
     })
 enddef
