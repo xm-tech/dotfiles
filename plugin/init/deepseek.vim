@@ -42,11 +42,15 @@ class DeepseekClient
 
     def Request(endpoint: string, prompt: string, Callback: func): void
         const req_id = sha256(prompt)[ : 8]
-        this._retries[req_id] = 0
+        Log(4, "注册回调", req_id, endpoint)
         this._requests[req_id] = {
             endpoint: endpoint,
             prompt: prompt,
-            Callback: Callback
+            Callback: (res) => {
+                Log(4, "回调执行开始", req_id)
+                Callback(res)
+                Log(4, "回调执行完成", req_id)
+            }
         }
         this.DoRequest(req_id)
     enddef
@@ -66,7 +70,8 @@ class DeepseekClient
                 model: this._config.model,
                 messages: [{role: 'user', content: req_info.prompt}],
                 temperature: this._config.temperature,
-                max_tokens: this._config.max_tokens
+                max_tokens: this._config.max_tokens,
+                stream: false  # 确保非流式响应
             })
 
             Log(4, "url:", this._config.base_url .. '/' .. req_info.endpoint)
@@ -210,6 +215,43 @@ class FloatingWindow
         setlocal buftype=nofile
         setline(1, split(content, "\n"))
     enddef
+
+    def ShowLoading()
+        if has('nvim')
+            final buf = nvim_create_buf(v:false, v:true)
+            nvim_buf_set_lines(buf, 0, -1, v:true, ['加载中 ⠋'])
+            final opts = {
+                relative: 'cursor',
+                row: 1,
+                col: 0,
+                width: 10,
+                height: 1,
+                style: 'minimal'
+            }
+            self.winid = nvim_open_win(buf, v:true, opts)
+            self._loading_timer = timer_start(100, (-> UpdateLoading()), {'repeat': -1})
+        else
+            echo "处理中..."
+        endif
+    enddef
+
+    def UpdateLoading()
+        if !nvim_win_is_valid(self.winid) | return | endif
+        final frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴']
+        final idx = (reltime()[1] / 1000000) % len(frames)
+        nvim_buf_set_lines(nvim_win_get_buf(self.winid), 0, -1, v:true, ['加载中 ' .. frames[idx]])
+    enddef
+
+    def CloseLoading()
+        if self._loading_timer != -1
+            timer_stop(self._loading_timer)
+            self._loading_timer = -1
+        endif
+        if nvim_win_is_valid(self.winid)
+            nvim_win_close(self.winid, v:true)
+        endif
+    enddef
+
 endclass
 
 ### [Script Scope Variables (严格格式)] ##################################
@@ -331,31 +373,54 @@ export def InlineComplete(): void
     client.Request('completions', getline('.'), (res) => feedkeys(res, 'ni'))
 enddef
 
+
 export def ExplainCode(): void
-    InitUI()  # 确保UI已初始化
+    InitUI()
+    ui.ShowLoading()
 
     final code = GetVisualSelection()
-    if empty(code) | return | endif
+    if empty(code)
+        echohl ErrorMsg | echomsg "[Deepseek] 请先选择代码" | echohl None
+        ui.CloseLoading()
+        return
+    endif
     
     client.Request('chat', "解释代码:\n" .. code, (res) => {
-        ui.Show("# 代码解释\n" .. res)
+        ui.CloseLoading()
+        if !empty(res)
+            final formatted = "# 代码解释\n```" .. &filetype .. "\n" .. code .. "\n```\n" .. res
+            ui.Show(formatted)
+        endif
     })
 enddef
 
 ### [补全功能实现] ######################################################
 export def GenerateBlock(): void
-    if client is null_object
-        Log(2, "服务未就绪")
+    final desc = input("功能描述: ")
+    client.Request('chat', desc, (res) => HandleResult(res, "生成代码块"))
+enddef
+
+
+def HandleResult(res: string, action: string): void
+    if empty(res)
+        echohl WarningMsg | echomsg $"[Deepseek] {action} 无结果" | echohl None
         return
     endif
-    
-    final code = input("输入功能描述: ")
-    if empty(code) | return | endif
 
-    client.Request('chat', " " .. code, (res) => {
-        append('.', split(res, "\n"))
-    })
+    # 自动检测代码块
+    if res =~ '```'
+        ui.Show(res)
+        echohl MoreMsg | echomsg $"[Deepseek] {action} 完成，按 q 关闭窗口" | echohl None
+    else
+        # 直接插入到缓冲区
+        final saved_reg = @a
+        @a = res
+        execute "normal! \"ap"
+        @a = saved_reg
+        echohl MoreMsg | echomsg $"[Deepseek] {action} 已完成" | echohl None
+    endif
 enddef
+
 
 export def RefactorCode(): void
     InitUI()
@@ -388,9 +453,10 @@ def Initialize()
         client = DeepseekClient.new(config)
         
         # 延迟UI初始化
-        if ui is null_object
-            ui = FloatingWindow.new()
-        endif
+        # if ui is null_object
+        #     ui = FloatingWindow.new()
+        # endif
+        InitUI()
 
         SetupKeymaps(config.shortcuts)
         Log(3, "系统初始化完成")
