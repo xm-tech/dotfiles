@@ -54,6 +54,9 @@ bundle:
 coc_settings_up:
 	\cp -f coc-settings.json $(HOME_DIR)/.vim/coc-settings.json
 
+reload_fpath:
+	- rm -f ~/.zcompdump && compinit	
+
 clean:
 	rm -f $(DOT_FILES:%=$(HOME_DIR)/.%)
 	rm -f $(ALACRITTY_FILES:%=$(ALACRITTY_DIR)/%)
