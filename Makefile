@@ -41,6 +41,7 @@ $(ALACRITTY_DIR)/%: $(DOTFILES)/%
 
 git_setup:
 	git submodule update --init --recursive
+	echo "wait to fix"
 
 create_hushlogin:
 	touch $(HOME_DIR)/.hushlogin
@@ -57,9 +58,15 @@ coc_settings_up:
 reload_fpath:
 	- rm -f ~/.zcompdump && compinit	
 
+fix_ghusercontent:
+	- sudo sh -c 'echo "199.232.68.133 raw.githubusercontent.com" >> /etc/hosts'
+
+install_vim_plug:
+	- curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 clean:
 	rm -f $(DOT_FILES:%=$(HOME_DIR)/.%)
 	rm -f $(ALACRITTY_FILES:%=$(ALACRITTY_DIR)/%)
 	rm -f /usr/local/include/{luaconf.h,lauxlib.h,lua.hpp,lualib.h,lua.h}
 
-.PHONY: all clean install bundle bundle_dump create_dirs create_symlinks git_setup create_hushlogin
+.PHONY: all clean install bundle bundle_dump create_dirs create_symlinks git_setup create_hushlogin fix_ghusercontent install_vim_plug
