@@ -70,8 +70,8 @@ Plug 'skywind3000/vim-cppman'
 
 " Plug 'gergap/vim-ollama'
 "
-Plug 'xavierchow/vim-sequence-diagram'
-Plug 'aklt/plantuml-syntax'   " PlantUML 语法高亮
+" Plug 'xavierchow/vim-sequence-diagram'
+" Plug 'aklt/plantuml-syntax'   " PlantUML 语法高亮
 
 call plug#end()
 
