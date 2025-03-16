@@ -3,3 +3,6 @@ node_modules/
 z/
 z.lua/
 Brewfile.lock.json
+GPATH
+GRTAGS
+GTAGS
