@@ -33,20 +33,20 @@ fi
 [[ -r ~/.funcs.zsh ]] && source ~/.funcs.zsh
 [[ -r ~/.git.zsh ]] && source ~/.git.zsh
 
+# 设置 Go 环境变量（直接加载以确保立即生效）
+export GO111MODULE=on
+export GOPROXY=https://goproxy.cn,direct
+export GOPRIVATE=qwy.com
+export GOINSECURE=qwy.com
+export GONOSUMDB=qwy.com
+export GONOPROXY=qwy.com
+
 # 异步加载不影响启动速度的其他配置文件
 {
   
   # 设置可执行权限
   [[ -f ~/.cht.sh ]] && chmod +x ~/.cht.sh
   [[ -f ~/.ccls_load.sh ]] && chmod +x ~/.ccls_load.sh
-  
-  # 设置 Go 环境变量
-  export GO111MODULE=on
-  export GOPROXY=https://goproxy.cn,direct
-  export GOPRIVATE=qwy.com
-  export GOINSECURE=qwy.com
-  export GONOSUMDB=qwy.com
-  export GONOPROXY=qwy.com
   
   # 敏感信息应该放在私有文件中，这里仅作为示例
   # 建议将此行移至 ~/.zsh_private 文件
