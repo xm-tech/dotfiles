@@ -18,3 +18,7 @@
 	insteadOf = http://qwy.com/
 [safe]
 	directory = /opt/homebrew/Library/Taps/homebrew/homebrew-services
+[commit]
+	template = /Users/maxiongmiao/dotfiles/git.commit.template
+[core]
+	editor = vim

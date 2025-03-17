@@ -7,7 +7,7 @@ ALACRITTY_DIR := $(CONFIG_DIR)/alacritty
 # List of files to symlink in home directory
 # Removed gitconfig, fzf-git.sh, and z.lua as they have special handling
 DOT_FILES := vimrc bashrc zshrc tmux.conf tigrc aliases.zsh funcs.zsh \
-             git.zsh p10k.zsh zinit-load.zsh \
+             antigen.zsh antigen-load.zsh git.zsh p10k.zsh \
              cht.sh ccls_load.sh fix_gh_contribution.sh
 
 # Alacritty config files
@@ -20,7 +20,6 @@ install: create_dirs create_symlinks git_setup create_hushlogin
 create_dirs:
 	mkdir -p $(HOME_DIR)/.tmux
 	mkdir -p $(HOME_DIR)/.vim/plugin
-	mkdir -p $(HOME_DIR)/.vim/autoload
 	mkdir -p $(ALACRITTY_DIR)
 	cp -rf $(DOTFILES)/plugin/* $(HOME_DIR)/.vim/plugin/
 
@@ -74,18 +73,9 @@ install_vim_plug:
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || true
 
-install_zinit:
-	if [[ ! -f $(HOME_DIR)/.local/share/zinit/zinit.git/zinit.zsh ]]; then \
-		mkdir -p "$(HOME_DIR)/.local/share/zinit" && chmod g-rwX "$(HOME_DIR)/.local/share/zinit"; \
-		git clone https://github.com/zdharma-continuum/zinit "$(HOME_DIR)/.local/share/zinit/zinit.git"; \
-	fi
-
 install_cli_sock_proxy:
-	@echo "Adding proxy check to .zshrc"
-	@echo 'if nc -z -w 2 127.0.0.1 1087 &>/dev/null; then' >> $(HOME_DIR)/.zshrc
-	@echo '  export http_proxy=http://127.0.0.1:1087' >> $(HOME_DIR)/.zshrc
-	@echo '  export https_proxy=http://127.0.0.1:1087' >> $(HOME_DIR)/.zshrc
-	@echo 'fi' >> $(HOME_DIR)/.zshrc
+	echo 'export http_proxy=http://127.0.0.1:1087' >> $(HOME_DIR)/.zshrc
+	echo 'export https_proxy=http://127.0.0.1:1087' >> $(HOME_DIR)/.zshrc
 	@echo "Proxy settings added to .zshrc. Run 'source ~/.zshrc' to apply."
 
 clean:
@@ -96,4 +86,4 @@ clean:
 	rm -f $(ALACRITTY_FILES:%=$(ALACRITTY_DIR)/%)
 	rm -f /usr/local/include/{luaconf.h,lauxlib.h,lua.hpp,lualib.h,lua.h}
 
-.PHONY: all clean install bundle bundle_dump create_dirs create_symlinks special_symlinks git_setup create_hushlogin fix_ghusercontent install_vim_plug install_zinit install_cli_sock_proxy
+.PHONY: all clean install bundle bundle_dump create_dirs create_symlinks special_symlinks git_setup create_hushlogin fix_ghusercontent install_vim_plug install_cli_sock_proxy
