@@ -1,19 +1,60 @@
-# 加载 zinit
+# zinit 插件管理器配置文件
 
-if [[ -f ~/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-  source ~/.local/share/zinit/zinit.git/zinit.zsh
-  autoload -Uz _zinit
-  (( ${+_comps} )) && _comps[zinit]=_zinit
-  
-  # 快速加载 powerlevel10k 主题
-  zinit ice depth=1
-  zinit light romkatv/powerlevel10k
-  
-  # 延迟加载自动建议插件（按下键盘才加载）
-  zinit ice wait lucid atload'_zsh_autosuggest_start'
-  zinit light zsh-users/zsh-autosuggestions
-  
-  # 延迟加载语法高亮插件
-  zinit ice wait lucid
-  zinit light zdharma-continuum/fast-syntax-highlighting
-fi
+# 使用 Starship 提示工具
+zinit ice as"command" from"gh-r" \
+  atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+  atpull"%atclone" src"init.zsh"
+zinit light starship/starship
+
+# 使用 turbo 模式延迟加载插件，并优化自动建议插件
+zinit ice wait'2' lucid atload'_zsh_autosuggest_start'
+zinit light zsh-users/zsh-autosuggestions
+
+# 优化语法高亮插件
+zinit ice wait'2' lucid
+zinit light zdharma-continuum/fast-syntax-highlighting
+
+# 延迟加载 fzf
+[[ -f ~/.fzf.zsh ]] && {
+  zinit ice wait'3' lucid
+  zinit snippet ~/.fzf.zsh
+}
+
+# 延迟加载 fzf-git
+[[ -f ~/.fzf-git.sh ]] && {
+  zinit ice wait'3' lucid
+  zinit snippet ~/.fzf-git.sh
+}
+
+# 延迟加载常用别名和函数
+[[ -f ~/.aliases.zsh ]] && {
+  zinit ice wait'2' lucid
+  zinit snippet ~/.aliases.zsh
+}
+
+[[ -f ~/.funcs.zsh ]] && {
+  zinit ice wait'2' lucid
+  zinit snippet ~/.funcs.zsh
+}
+
+[[ -f ~/.git.zsh ]] && {
+  zinit ice wait'2' lucid
+  zinit snippet ~/.git.zsh
+}
+
+# 延迟加载私有配置
+[[ -r ~/.zsh_private ]] && {
+  zinit ice wait'2' lucid
+  zinit snippet ~/.zsh_private
+}
+
+# 延迟加载自动补全，并优化补全系统
+zinit ice wait'3' lucid atinit'
+  zstyle ":completion:*:commands" rehash 1
+  zstyle ":completion:*" accept-exact "*(N)"
+  zstyle ":completion:*" use-cache on
+  zstyle ":completion:*" cache-path "$HOME/.zcompcache"
+  zicompinit
+  zicdreplay
+'
+zinit snippet OMZP::git

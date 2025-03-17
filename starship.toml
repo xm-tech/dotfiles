@@ -1,0 +1,18 @@
+# 不显示换行符
+add_newline = false
+
+# 自定义提示符符号
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[✗](bold red)"
+
+# 自定义目录显示
+[directory]
+truncation_length = 3
+truncation_symbol = "…/"
+
+# 自定义 Git 状态显示
+[git_branch]
+symbol = "🌱 "
+truncation_length = 4
+truncation_symbol = ""

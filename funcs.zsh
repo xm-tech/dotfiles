@@ -64,7 +64,7 @@ function gt(){
 }
 
 function gts(){
-    tag = $1
+    tag=$1
     git show ${tag}
 }
 
@@ -168,6 +168,6 @@ function pi-u32() {
 	ssh maxm@192.168.199.117
 }
 
-funciton pi-u64() {
+function pi-u64() {
 	ssh maxm@192.168.0.119
 }
