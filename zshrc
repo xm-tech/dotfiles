@@ -32,6 +32,9 @@ export HOMEBREW_PIP_INDEX_URL="https://pypi.mirrors.ustc.edu.cn/simple"
 export HOMEBREW_INSTALL_FROM_API=1
 export HOMEBREW_FORCE_BREWED_CURL=1
 
+# 忽略代理设置
+export no_proxy="localhost,127.0.0.1,::1"
+
 # 加载 zinit 插件管理器
 if [[ -f ~/.local/share/zinit/zinit.git/zinit.zsh ]]; then
   source ~/.local/share/zinit/zinit.git/zinit.zsh

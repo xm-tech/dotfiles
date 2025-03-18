@@ -35,7 +35,7 @@ create_dirs:
 	mkdir -p $(HOME_DIR)/.vim/autoload# 创建vim自动加载目录
 	mkdir -p $(CONFIG_DIR)# 创建通用配置目录
 	mkdir -p $(BACKUP_DIR)# 创建备份目录
-	cp -rf $(DOTFILES)/plugin/* $(HOME_DIR)/.vim/plugin/# 复制vim插件
+	cp -rf $(DOTFILES)/plugin/* $(HOME_DIR)/.vim/plugin/ # 复制vim插件
 
 # 创建所有符号链接
 create_symlinks: dot_symlinks special_symlinks
