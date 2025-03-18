@@ -491,20 +491,14 @@ nnoremap <leader>ui :<C-u>call <SID>create_go_doc_comment()<CR>
 let g:coc_global_extensions = [
       \ 'coc-json',
       \ 'coc-vimlsp',
-      \ 'coc-cmake',
-      \ 'coc-python',
       \ 'coc-pyright',
       \ 'coc-sh',
       \ 'coc-go',
       \ 'coc-lua',
-      \ 'coc-jedi',
       \ 'coc-tsserver',
-      \ 'coc-markdownlint',
-      \ 'coc-sql',
       \ 'coc-clangd',
       \ 'coc-rust-analyzer',
-      \ 'coc-snippets',
-      \ 'coc-docker']
+      \ 'coc-snippets']
 " Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
