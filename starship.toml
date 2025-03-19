@@ -16,3 +16,44 @@ truncation_symbol = "…/"
 symbol = "🌱 "
 truncation_length = 8
 truncation_symbol = ""
+
+# 修复 via 后面的乱码问题
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "bold blue"
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[package]
+disabled = true
+
+[python]
+disabled = true
+
+[ruby]
+disabled = true
+
+[rust]
+disabled = true
+
+[java]
+disabled = true
+
+[golang]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[terraform]
+disabled = true
+
+[kubernetes]
+disabled = true
