@@ -1,8 +1,12 @@
+# =================================================================
+# ===================== DOTFILES MAKEFILE ======================
+# =================================================================
+
 # 定义通用变量
-DOTFILES := $(PWD)# 当前目录作为dotfiles目录
-HOME_DIR := $(HOME)# 用户主目录
-CONFIG_DIR := $(HOME_DIR)/.config# 配置目录
-BACKUP_DIR := $(HOME_DIR)/.dotfiles_backup/$(shell date +%Y%m%d_%H%M%S)# 备份目录
+DOTFILES := $(PWD)
+HOME_DIR := $(HOME)
+CONFIG_DIR := $(HOME_DIR)/.config
+BACKUP_DIR := $(HOME_DIR)/.dotfiles_backup/$(shell date +%Y%m%d_%H%M%S)
 
 # 需要在主目录创建符号链接的文件列表
 # 移除了gitconfig, fzf-git.sh和z.lua，因为它们有特殊处理方式
@@ -13,11 +17,34 @@ DOT_FILES := vimrc bashrc zshrc tmux.conf tigrc aliases.zsh funcs.zsh \
 # 检查必要的命令是否存在
 REQUIRED_COMMANDS := git curl vim nc
 
+# =================================================================
+# ===================== 主要目标 =================================
+# =================================================================
+
 # 默认目标：执行安装
 all: install
 
 # 安装目标：创建目录、创建符号链接、设置git、创建hushlogin文件
-install: check_deps create_dirs create_symlinks git_setup create_hushlogin
+install: check_deps create_dirs create_symlinks git_setup create_hushlogin setup_vim_modular
+
+# 清理所有创建的符号链接
+clean: clean_vim_modular
+	@echo "Cleaning up symlinks..."
+	@for file in $(DOT_FILES); do \
+		rm -f "$(HOME_DIR)/.$$file"; \
+		echo "Removed symlink: $(HOME_DIR)/.$$file"; \
+	done
+	rm -f "$(HOME_DIR)/.gitconfig"
+	rm -f "$(HOME_DIR)/.fzf-git.sh"
+	rm -f "$(HOME_DIR)/.z.lua"
+	rm -f "$(CONFIG_DIR)/starship.toml"
+	rm -f "$(HOME_DIR)/.vim/coc-settings.json"
+	# rm -f /usr/local/include/{luaconf.h,lauxlib.h,lua.hpp,lualib.h,lua.h}
+	@echo "Cleanup complete."
+
+# =================================================================
+# ===================== 基础设置 =================================
+# =================================================================
 
 # 检查依赖
 check_deps:
@@ -30,12 +57,21 @@ check_deps:
 # 创建必要的目录结构
 create_dirs:
 	@echo "Creating necessary directories..."
-	mkdir -p $(HOME_DIR)/.tmux# 创建tmux配置目录
-	mkdir -p $(HOME_DIR)/.vim/plugin# 创建vim插件目录
-	mkdir -p $(HOME_DIR)/.vim/autoload# 创建vim自动加载目录
-	mkdir -p $(CONFIG_DIR)# 创建通用配置目录
-	mkdir -p $(BACKUP_DIR)# 创建备份目录
-	cp -rf $(DOTFILES)/plugin/* $(HOME_DIR)/.vim/plugin/ # 复制vim插件
+	mkdir -p $(HOME_DIR)/.tmux
+	mkdir -p $(HOME_DIR)/.vim/plugin
+	mkdir -p $(HOME_DIR)/.vim/autoload
+	mkdir -p $(CONFIG_DIR)
+	mkdir -p $(BACKUP_DIR)
+	cp -rf $(DOTFILES)/plugin/* $(HOME_DIR)/.vim/plugin/
+
+# 创建hushlogin文件（用于禁止登录信息显示）
+create_hushlogin:
+	@echo "Creating .hushlogin file..."
+	touch "$(HOME_DIR)/.hushlogin"
+
+# =================================================================
+# ===================== 符号链接 =================================
+# =================================================================
 
 # 创建所有符号链接
 create_symlinks: dot_symlinks special_symlinks
@@ -102,45 +138,23 @@ special_symlinks:
 	ln -sf "$(DOTFILES)/coc-settings.json" "$(HOME_DIR)/.vim/coc-settings.json"
 	@echo "Created symlink: $(HOME_DIR)/.vim/coc-settings.json -> $(DOTFILES)/coc-settings.json"
 
+# =================================================================
+# ===================== Git 配置 =================================
+# =================================================================
+
 # 设置git配置
 git_setup:
 	@echo "Setting up git configuration..."
 	git submodule update --init --recursive || { echo "Error updating git submodules"; exit 1; }
-	git config --global commit.template "$(DOTFILES)/git.commit.template"# 设置提交模板
-	git config --global core.editor vim# 设置git编辑器为vim
+	git config --global --unset-all commit.template || true
+	git config --global commit.template "$(DOTFILES)/git.commit.template"
+	git config --global --unset-all core.editor || true
+	git config --global core.editor vim
 	@echo "Git configuration complete."
 
-# 创建hushlogin文件（用于禁止登录信息显示）
-create_hushlogin:
-	@echo "Creating .hushlogin file..."
-	touch "$(HOME_DIR)/.hushlogin"
-
-# 导出Homebrew包列表
-bundle_dump:
-	@echo "Dumping Homebrew packages to Brewfile..."
-	brew bundle dump --force
-
-# 安装Homebrew包
-bundle:
-	@echo "Installing packages from Brewfile..."
-	brew bundle || { echo "Error installing packages"; exit 1; }
-
-# 重新加载zsh函数路径
-reload_fpath:
-	@echo "Reloading zsh function path..."
-	rm -f ~/.zcompdump || true
-	compinit || true
-
-# 修复githubusercontent访问问题
-fix_ghusercontent:
-	@echo "Checking GitHub raw content access..."
-	if ! grep -q "raw.githubusercontent.com" /etc/hosts; then \
-		echo "Adding raw.githubusercontent.com to /etc/hosts..."; \
-		sudo sh -c 'echo "199.232.68.133 raw.githubusercontent.com" >> /etc/hosts'; \
-		echo "Added raw.githubusercontent.com to /etc/hosts."; \
-	else \
-		echo "raw.githubusercontent.com already in /etc/hosts."; \
-	fi
+# =================================================================
+# ===================== Vim 配置 =================================
+# =================================================================
 
 # 安装vim-plug插件管理器
 install_vim_plug:
@@ -153,6 +167,34 @@ install_vim_plug:
 		  { echo "Failed to install vim-plug"; exit 1; }; \
 		}
 	@echo "vim-plug installed successfully."
+
+# 设置vim模块化配置
+setup_vim_modular:
+	@echo "Setting up modular Vim configuration..."
+	@mkdir -p $(HOME_DIR)/.vim/config
+	@for file in basic.vim filetypes.vim statusline.vim mappings.vim plugins.vim; do \
+		if [ -f "$(HOME_DIR)/.vim/config/$$file" ] && [ ! -L "$(HOME_DIR)/.vim/config/$$file" ]; then \
+			echo "Backing up existing $(HOME_DIR)/.vim/config/$$file to $(BACKUP_DIR)/"; \
+			mkdir -p "$(BACKUP_DIR)/vim/config"; \
+			cp "$(HOME_DIR)/.vim/config/$$file" "$(BACKUP_DIR)/vim/config/"; \
+		fi; \
+		ln -sf "$(DOTFILES)/vim/config/$$file" "$(HOME_DIR)/.vim/config/$$file"; \
+		echo "Created symlink: $(HOME_DIR)/.vim/config/$$file -> $(DOTFILES)/vim/config/$$file"; \
+	done
+	@echo "Modular Vim configuration installed."
+
+# 清理vim模块化配置
+clean_vim_modular:
+	@echo "Cleaning up modular Vim configuration..."
+	@for file in basic.vim filetypes.vim statusline.vim mappings.vim plugins.vim; do \
+		rm -f "$(HOME_DIR)/.vim/config/$$file"; \
+		echo "Removed symlink: $(HOME_DIR)/.vim/config/$$file"; \
+	done
+	@echo "Modular Vim configuration cleanup complete."
+
+# =================================================================
+# ===================== Shell 配置 ================================
+# =================================================================
 
 # 安装zinit插件管理器
 install_zinit:
@@ -168,6 +210,27 @@ install_zinit:
 		echo "zinit already installed."; \
 	fi
 
+# 初始化starship提示符
+init_starship:
+	@echo "Initializing starship prompt..."
+	mkdir -p "$(CONFIG_DIR)"
+	ln -sf "$(DOTFILES)/starship.toml" "$(CONFIG_DIR)/starship.toml"
+	@echo "Starship prompt initialized."
+
+# 重新加载zsh配置
+reload_zsh:
+	@echo "To reload zsh configuration, please run: source ~/.zshrc"
+
+# 重新加载zsh函数路径
+reload_fpath:
+	@echo "Reloading zsh function path..."
+	rm -f ~/.zcompdump || true
+	compinit || true
+
+# =================================================================
+# ===================== 网络和工具 ================================
+# =================================================================
+
 # 安装命令行代理设置
 install_cli_sock_proxy:
 	@echo "Setting up CLI proxy..."
@@ -181,49 +244,88 @@ install_cli_sock_proxy:
 		echo "Proxy settings already exist in .zshrc."; \
 	fi
 
-# 初始化starship提示符
-init_starship:
-	@echo "Initializing starship prompt..."
-	mkdir -p "$(CONFIG_DIR)"
-	ln -sf "$(DOTFILES)/starship.toml" "$(CONFIG_DIR)/starship.toml"
-	@echo "Starship prompt initialized."
-	
-# 重新加载zsh配置
-reload_zsh:
-	@echo "To reload zsh configuration, please run: source ~/.zshrc"
+# 修复githubusercontent访问问题
+fix_ghusercontent:
+	@echo "Checking GitHub raw content access..."
+	if ! grep -q "raw.githubusercontent.com" /etc/hosts; then \
+		echo "Adding raw.githubusercontent.com to /etc/hosts..."; \
+		sudo sh -c 'echo "199.232.68.133 raw.githubusercontent.com" >> /etc/hosts'; \
+		echo "Added raw.githubusercontent.com to /etc/hosts."; \
+	else \
+		echo "raw.githubusercontent.com already in /etc/hosts."; \
+	fi
+
+# =================================================================
+# ===================== Homebrew 包管理 ===========================
+# =================================================================
+
+# 导出Homebrew包列表
+bundle_dump:
+	@echo "Dumping Homebrew packages to Brewfile..."
+	brew bundle dump --force
+
+# 安装Homebrew包
+bundle:
+	@echo "Installing packages from Brewfile..."
+	brew bundle || { echo "Error installing packages"; exit 1; }
+
+# =================================================================
+# ===================== 帮助信息 =================================
+# =================================================================
+
+# 定义颜色代码
+BOLD := \033[1m
+RESET := \033[0m
+BLUE := \033[34m
+GREEN := \033[32m
+YELLOW := \033[33m
+CYAN := \033[36m
+MAGENTA := \033[35m
+RED := \033[31m
 
 # 显示帮助信息
 help:
-	@echo "Available targets:"
-	@echo "  all               - Default target, same as 'install'"
-	@echo "  install           - Install all dotfiles and configurations"
-	@echo "  check_deps        - Check for required dependencies"
-	@echo "  create_dirs       - Create necessary directories"
-	@echo "  create_symlinks   - Create symlinks for dotfiles"
-	@echo "  git_setup         - Set up git configuration"
-	@echo "  bundle            - Install packages from Brewfile"
-	@echo "  bundle_dump       - Export Homebrew packages to Brewfile"
-	@echo "  install_vim_plug  - Install vim-plug plugin manager"
-	@echo "  install_zinit     - Install zinit plugin manager"
-	@echo "  fix_ghusercontent - Fix GitHub raw content access"
-	@echo "  init_starship     - Initialize starship prompt"
-	@echo "  reload_zsh        - Instructions to reload zsh configuration"
-	@echo "  clean             - Remove all created symlinks"
-
-# 清理所有创建的符号链接
-clean:
-	@echo "Cleaning up symlinks..."
-	@for file in $(DOT_FILES); do \
-		rm -f "$(HOME_DIR)/.$$file"; \
-		echo "Removed symlink: $(HOME_DIR)/.$$file"; \
-	done
-	rm -f "$(HOME_DIR)/.gitconfig"# 删除gitconfig符号链接
-	rm -f "$(HOME_DIR)/.fzf-git.sh"# 删除fzf-git.sh符号链接
-	rm -f "$(HOME_DIR)/.z.lua"# 删除z.lua符号链接
-	rm -f "$(CONFIG_DIR)/starship.toml"# 删除starship配置符号链接
-	rm -f "$(HOME_DIR)/.vim/coc-settings.json"# 删除coc-settings.json符号链接
-	# rm -f /usr/local/include/{luaconf.h,lauxlib.h,lua.hpp,lualib.h,lua.h}# 删除lua头文件
-	@echo "Cleanup complete."
+	@echo "$(BOLD)Available targets:$(RESET)"
+	@echo ""
+	@echo "$(BLUE)$(BOLD)主要目标:$(RESET)"
+	@echo "  $(GREEN)all$(RESET)               - Default target, same as 'install'"
+	@echo "  $(GREEN)install$(RESET)           - Install all dotfiles and configurations"
+	@echo "  $(GREEN)clean$(RESET)             - Remove all created symlinks"
+	@echo ""
+	@echo "$(BLUE)$(BOLD)基础设置:$(RESET)"
+	@echo "  $(GREEN)check_deps$(RESET)        - Check for required dependencies"
+	@echo "  $(GREEN)create_dirs$(RESET)       - Create necessary directories"
+	@echo "  $(GREEN)create_hushlogin$(RESET)  - Create .hushlogin file"
+	@echo ""
+	@echo "$(BLUE)$(BOLD)符号链接:$(RESET)"
+	@echo "  $(GREEN)create_symlinks$(RESET)   - Create symlinks for dotfiles"
+	@echo "  $(GREEN)dot_symlinks$(RESET)      - Create symlinks for regular dotfiles"
+	@echo "  $(GREEN)special_symlinks$(RESET)  - Create symlinks for special files"
+	@echo ""
+	@echo "$(BLUE)$(BOLD)Git 配置:$(RESET)"
+	@echo "  $(GREEN)git_setup$(RESET)         - Set up git configuration"
+	@echo ""
+	@echo "$(BLUE)$(BOLD)Vim 配置:$(RESET)"
+	@echo "  $(GREEN)install_vim_plug$(RESET)  - Install vim-plug plugin manager"
+	@echo "  $(GREEN)setup_vim_modular$(RESET) - Set up modular Vim configuration"
+	@echo "  $(GREEN)clean_vim_modular$(RESET) - Remove modular Vim configuration symlinks"
+	@echo ""
+	@echo "$(BLUE)$(BOLD)Shell 配置:$(RESET)"
+	@echo "  $(GREEN)install_zinit$(RESET)     - Install zinit plugin manager"
+	@echo "  $(GREEN)init_starship$(RESET)     - Initialize starship prompt"
+	@echo "  $(GREEN)reload_zsh$(RESET)        - Instructions to reload zsh configuration"
+	@echo "  $(GREEN)reload_fpath$(RESET)      - Reload zsh function path"
+	@echo ""
+	@echo "$(BLUE)$(BOLD)网络和工具:$(RESET)"
+	@echo "  $(GREEN)install_cli_sock_proxy$(RESET) - Set up CLI proxy"
+	@echo "  $(GREEN)fix_ghusercontent$(RESET) - Fix GitHub raw content access"
+	@echo ""
+	@echo "$(BLUE)$(BOLD)Homebrew 包管理:$(RESET)"
+	@echo "  $(GREEN)bundle$(RESET)            - Install packages from Brewfile"
+	@echo "  $(GREEN)bundle_dump$(RESET)       - Export Homebrew packages to Brewfile"
 
 # 声明伪目标（不创建实际文件的目标）
-.PHONY: all clean install check_deps bundle bundle_dump create_dirs create_symlinks dot_symlinks special_symlinks git_setup create_hushlogin fix_ghusercontent install_vim_plug install_zinit install_cli_sock_proxy init_starship reload_zsh help
+.PHONY: all clean install check_deps bundle bundle_dump create_dirs create_symlinks \
+        dot_symlinks special_symlinks git_setup create_hushlogin fix_ghusercontent \
+        install_vim_plug install_zinit install_cli_sock_proxy init_starship \
+        reload_zsh reload_fpath help setup_vim_modular clean_vim_modular
