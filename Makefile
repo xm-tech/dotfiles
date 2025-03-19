@@ -24,8 +24,8 @@ REQUIRED_COMMANDS := git curl vim nc
 # 默认目标：执行安装
 all: install
 
-# 安装目标：创建目录、创建符号链接、设置git、创建hushlogin文件
-install: check_deps create_dirs create_symlinks git_setup create_hushlogin setup_vim_modular
+# 安装目标：创建目录、创建符号链接、设置git、创建hushlogin文件、安装TPM
+install: check_deps create_dirs create_symlinks git_setup create_hushlogin setup_vim_modular install_tmux_plugin_manager
 
 # 清理所有创建的符号链接
 clean: clean_vim_modular
@@ -39,6 +39,8 @@ clean: clean_vim_modular
 	rm -f "$(HOME_DIR)/.z.lua"
 	rm -f "$(CONFIG_DIR)/starship.toml"
 	rm -f "$(HOME_DIR)/.vim/coc-settings.json"
+	rm -f "$(HOME_DIR)/.tmux/plugins/tpm"
+	@echo "Removed symlink: $(HOME_DIR)/.tmux/plugins/tpm"
 	# rm -f /usr/local/include/{luaconf.h,lauxlib.h,lua.hpp,lualib.h,lua.h}
 	@echo "Cleanup complete."
 
@@ -193,6 +195,32 @@ clean_vim_modular:
 	@echo "Modular Vim configuration cleanup complete."
 
 # =================================================================
+# ===================== Tmux 配置 =================================
+# =================================================================
+
+# 安装 Tmux Plugin Manager (TPM)
+install_tmux_plugin_manager:
+	@echo "Installing Tmux Plugin Manager (TPM)..."
+	@mkdir -p "$(DOTFILES)/tmux/plugins"
+	@mkdir -p "$(HOME_DIR)/.tmux/plugins"
+	@if [ ! -d "$(DOTFILES)/tmux/plugins/tpm" ]; then \
+		git clone https://github.com/tmux-plugins/tpm "$(DOTFILES)/tmux/plugins/tpm" || \
+		{ echo "Error cloning TPM. Trying alternative URL..."; \
+		  git clone https://gitee.com/mirrors/tpm.git "$(DOTFILES)/tmux/plugins/tpm" || \
+		  { echo "Failed to install TPM"; exit 1; }; \
+		}; \
+	fi
+	@if [ -d "$(HOME_DIR)/.tmux/plugins/tpm" ] && [ ! -L "$(HOME_DIR)/.tmux/plugins/tpm" ]; then \
+		echo "Backing up existing $(HOME_DIR)/.tmux/plugins/tpm to $(BACKUP_DIR)/"; \
+		mkdir -p "$(BACKUP_DIR)/tmux/plugins"; \
+		cp -r "$(HOME_DIR)/.tmux/plugins/tpm" "$(BACKUP_DIR)/tmux/plugins/"; \
+		rm -rf "$(HOME_DIR)/.tmux/plugins/tpm"; \
+	fi
+	ln -sf "$(DOTFILES)/tmux/plugins/tpm" "$(HOME_DIR)/.tmux/plugins/tpm"
+	@echo "TPM installed successfully."
+	@echo "To install tmux plugins, start tmux and press prefix + I (capital I)."
+
+# =================================================================
 # ===================== Shell 配置 ================================
 # =================================================================
 
@@ -310,6 +338,9 @@ help:
 	@echo "  $(GREEN)setup_vim_modular$(RESET) - Set up modular Vim configuration"
 	@echo "  $(GREEN)clean_vim_modular$(RESET) - Remove modular Vim configuration symlinks"
 	@echo ""
+	@echo "$(BLUE)$(BOLD)Tmux 配置:$(RESET)"
+	@echo "  $(GREEN)install_tmux_plugin_manager$(RESET) - Install Tmux Plugin Manager (TPM)"
+	@echo ""
 	@echo "$(BLUE)$(BOLD)Shell 配置:$(RESET)"
 	@echo "  $(GREEN)install_zinit$(RESET)     - Install zinit plugin manager"
 	@echo "  $(GREEN)init_starship$(RESET)     - Initialize starship prompt"
@@ -328,4 +359,5 @@ help:
 .PHONY: all clean install check_deps bundle bundle_dump create_dirs create_symlinks \
         dot_symlinks special_symlinks git_setup create_hushlogin fix_ghusercontent \
         install_vim_plug install_zinit install_cli_sock_proxy init_starship \
-        reload_zsh reload_fpath help setup_vim_modular clean_vim_modular
+        reload_zsh reload_fpath help setup_vim_modular clean_vim_modular \
+        install_tmux_plugin_manager
