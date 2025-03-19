@@ -4,67 +4,59 @@
 " endif
 " let s:loaded = 1
 
-
-" source ~/vim/vim-init/init.vim
-
 call plug#begin('~/.vim/plugged')
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'Raimondi/delimitMate'
-Plug 'SirVer/ultisnips'
-Plug 'arthurxavierx/vim-caser'
-Plug 'cespare/vim-toml'
-Plug 'corylanou/vim-present', {'for' : 'present'}
-Plug 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
-Plug 'elzr/vim-json', {'for' : 'json'}
+Plug 'SirVer/ultisnips', {'on': []}
+Plug 'arthurxavierx/vim-caser', {'on': ['Camelcase', 'Snakecase', 'Kebabcase', 'Pascalcase']}
+Plug 'cespare/vim-toml', {'for': 'toml'}
+Plug 'corylanou/vim-present', {'for': 'present'}
+Plug 'ekalinin/Dockerfile.vim', {'for': 'Dockerfile'}
+Plug 'elzr/vim-json', {'for': 'json'}
 Plug 'ervandew/supertab'
 Plug 'fatih/molokai'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'fatih/vim-hclfmt'
-Plug 'fatih/vim-nginx' , {'for' : 'nginx'}
-Plug 'godlygeek/tabular'
-Plug 'hashivim/vim-hashicorp-tools'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-Plug 'junegunn/fzf.vim'
-Plug 'mileszs/ack.vim'
-Plug 'plasticboy/vim-markdown'
+Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoUpdateBinaries'}
+Plug 'fatih/vim-hclfmt', {'for': 'hcl'}
+Plug 'fatih/vim-nginx', {'for': 'nginx'}
+Plug 'godlygeek/tabular', {'on': 'Tabularize'}
+Plug 'hashivim/vim-hashicorp-tools', {'for': ['terraform', 'hcl', 'vagrant']}
+Plug 'mileszs/ack.vim', {'on': 'Ack'}
+Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'roxma/vim-tmux-clipboard'
-" Plug 'scrooloose/nerdtree'
-" Plug 't9md/vim-choosewin'
 Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 " vim plugin for git
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive', {'on': ['Git', 'Gblame', 'Gvdiffsplit']}
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-scriptease'
-Plug 'tyru/open-browser.vim'
-" Plug 'epmatsw/ag.vim'
-Plug 'vim-scripts/indentpython.vim'
+Plug 'tpope/vim-scriptease', {'for': 'vim'}
+Plug 'tyru/open-browser.vim', {'on': '<Plug>(openbrowser-smart-search)'}
+Plug 'vim-scripts/indentpython.vim', {'for': 'python'}
 
 " Error checking
-Plug 'w0rp/ale'
+Plug 'w0rp/ale', {'for': ['go', 'python', 'c', 'cpp', 'javascript', 'typescript']}
 
 " Markdown
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync()}, 'for' :['markdown', 'vim-plug'] }
+Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install_sync()}, 'for': ['markdown', 'vim-plug']}
 
 " Use release branch (Recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
-Plug 'skywind3000/vim-preview'
+Plug 'skywind3000/vim-preview', {'on': 'PreviewTag'}
 
-Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+Plug 'Yggdroot/LeaderF', {'do': ':LeaderfInstallCExtension'}
 
 " directory viewer
 Plug 'justinmk/vim-dirvish'
 
-Plug 'rhysd/vim-clang-format'
+Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp', 'objc']}
 
-Plug 'skywind3000/vim-cppman'
+Plug 'skywind3000/vim-cppman', {'for': ['c', 'cpp']}
 
 " Plug 'github/copilot.vim'
 
@@ -74,6 +66,12 @@ Plug 'skywind3000/vim-cppman'
 " Plug 'aklt/plantuml-syntax'   " PlantUML 语法高亮
 
 call plug#end()
+
+" 延迟加载 UltiSnips
+augroup load_ultisnips
+  autocmd!
+  autocmd InsertEnter * call plug#load('ultisnips') | autocmd! load_ultisnips
+augroup END
 
 "=====================================================
 "===================== SETTINGS ======================
@@ -255,8 +253,6 @@ function! StatusLineLeftInfo()
    return ''
 endfunction
 
-" make opacity
-" exe 'hi Normal guibg=NONE ctermbg=NONE'
 exe 'hi! myInfoColor ctermbg=240 ctermfg=252'
 
 " start building our statusline
@@ -274,7 +270,7 @@ set statusline+=\ %*
 
 " go command status (requires vim-go)
 set statusline+=%#goStatuslineColor#
-set statusline+=%{go#statusline#Show()}
+set statusline+=%{&filetype=='go'?go#statusline#Show():''}
 set statusline+=%*
 
 " right section seperator
@@ -293,15 +289,11 @@ set statusline+=\ %*
 " i.e: <leader>w saves the current file
 
 nnoremap <space> <Nop>
-" let mapleader = " "
-
-" let mapleader = ","
 map ; :
 
 " Some useful quickfix shortcuts for quickfix
 map <C-n> :cn<CR>
 map <C-m> :cp<CR>
-map <C-p> :cp<CR>
 nnoremap <leader>a :cclose<CR>
 
 " put quickfix window always to the bottom
@@ -321,14 +313,12 @@ autocmd VimResized * wincmd =
 nnoremap <leader>w :w!<cr>
 nnoremap <silent> <leader>q :q!<CR>
 
-" Center the screen
-nnoremap <space> zz
-
 " Remove search highlight
-" nnoremap <leader><space> :nohlsearch<CR>
 function! s:clear_highlight()
   let @/ = ""
-  call go#guru#ClearSameIds()
+  if &filetype == 'go'
+    call go#guru#ClearSameIds()
+  endif
 endfunction
 nnoremap <silent> <leader><space> :<C-u>call <SID>clear_highlight()<CR>
 
@@ -337,9 +327,6 @@ function! s:echoBinary()
   echo printf("%08b", expand('<cword>'))
 endfunction
 nnoremap <silent> gb :<C-u>call <SID>echoBinary()<CR>
-
-" Source the current Vim file
-" nnoremap <leader>pr :Runtime<CR>
 
 " Close all but the current one
 nnoremap <leader>o :only<CR>
@@ -477,6 +464,9 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
 
 " create a go doc comment based on the word under the cursor
 function! s:create_go_doc_comment()
+  if &filetype != 'go'
+    return
+  endif
   norm "zyiw
   execute ":put! z"
   execute ":norm I// \<Esc>$"
@@ -552,14 +542,6 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 
 " ==================== Various other plugin settings ====================
-" nmap  -  <Plug>(choosewin)
-
-" Trigger a highlight in the appropriate direction when pressing these keys:
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-
-nmap <Leader>gi <Plug>(grammarous-open-info-window)
-nmap <Leader>gc <Plug>(grammarous-close-info-window)
-nmap <Leader>gf <Plug>(grammarous-fixit)
 
 fun! Exec(cmd)
   exe a:cmd
