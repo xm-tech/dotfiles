@@ -102,3 +102,7 @@ fi
 
 # 保留 zprof 以便查看优化效果
 # zprof
+
+# Conda initialization has been moved to funcs.zsh
+# Use the conda_init function when you need conda
+
