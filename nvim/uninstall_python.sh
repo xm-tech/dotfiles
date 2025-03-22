@@ -2,15 +2,6 @@
 
 echo "Removing Neovim Python support..."
 
-# Remove the virtual environment if it exists
-if [ -d ~/.neovim-venv ]; then
-  echo "Removing Neovim Python virtual environment..."
-  rm -rf ~/.neovim-venv
-  echo "Virtual environment removed."
-else
-  echo "Neovim Python virtual environment not found."
-fi
-
 # Check if there's a Neovim config file that needs to be modified
 NVIM_CONFIG_FILE="$HOME/.config/nvim/init.lua"
 if [ -f "$NVIM_CONFIG_FILE" ]; then

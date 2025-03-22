@@ -1,0 +1,100 @@
+# =================================================================
+# ===================== NEOVIM MAKEFILE ========================
+# =================================================================
+
+# 定义通用变量
+DOTFILES := $(PWD)
+HOME_DIR := $(HOME)
+CONFIG_DIR := $(HOME_DIR)/.config
+
+# =================================================================
+# ===================== 主要目标 =================================
+# =================================================================
+
+# 默认目标：安装 Neovim 配置
+all: install_nvim
+
+# 安装 Neovim 配置
+install_nvim: install_packer install_nvim_deps install_molokai
+	@echo "Installing Neovim configuration..."
+	@mkdir -p "$(HOME_DIR)/.config/nvim/lua/config"
+	@ln -sf "$(DOTFILES)/nvim/init.lua" "$(HOME_DIR)/.config/nvim/init.lua"
+	@ln -sf "$(DOTFILES)/nvim/coc-settings.json" "$(HOME_DIR)/.config/nvim/coc-settings.json"
+	@for file in $(DOTFILES)/nvim/lua/config/*.lua; do \
+		ln -sf $$file "$(HOME_DIR)/.config/nvim/lua/config/$$(basename $$file)"; \
+	done
+	@echo "Neovim configuration installed successfully."
+	@echo "Installing plugins with PackerSync..."
+	@nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' || \
+		echo "Note: Headless PackerSync may have failed. Please run 'nvim +PackerSync' manually."
+	@echo "Verifying installation..."
+	@echo "If you encounter any issues, run 'nvim +VerifyPerformance' to check settings."
+
+# 清理 Neovim 配置
+clean_nvim:
+	@echo "Cleaning up Neovim configuration..."
+	@rm -f "$(HOME_DIR)/.config/nvim/init.lua"
+	@rm -f "$(HOME_DIR)/.config/nvim/coc-settings.json"
+	@rm -rf "$(HOME_DIR)/.config/nvim/lua/config"
+	@rm -f "$(HOME_DIR)/.config/nvim/colors/molokai.vim"
+	@echo "Neovim configuration cleanup complete."
+
+# =================================================================
+# ===================== 组件安装 =================================
+# =================================================================
+
+# 安装 Packer 插件管理器
+install_packer:
+	@echo "Installing Packer.nvim plugin manager..."
+	@mkdir -p "$(HOME_DIR)/.local/share/nvim/site/pack/packer/start"
+	@if [ ! -d "$(HOME_DIR)/.local/share/nvim/site/pack/packer/start/packer.nvim" ]; then \
+		git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+			"$(HOME_DIR)/.local/share/nvim/site/pack/packer/start/packer.nvim" || \
+		{ echo "Error cloning Packer. Trying alternative URL..."; \
+		  git clone --depth 1 https://gitee.com/mirrors/packer.nvim.git \
+			"$(HOME_DIR)/.local/share/nvim/site/pack/packer/start/packer.nvim" || \
+		  { echo "Failed to install Packer.nvim"; exit 1; }; \
+		}; \
+		echo "Packer.nvim installed successfully."; \
+	else \
+		echo "Packer.nvim already installed."; \
+	fi
+
+# 安装 Neovim 依赖
+install_nvim_deps:
+	@echo "Installing Neovim dependencies..."
+	@echo "Installing Node.js support for Neovim..."
+	@which npm > /dev/null && npm install -g neovim || \
+	{ echo "Warning: npm not found. Node.js support may be limited."; }
+	@echo "Neovim dependencies installed successfully."
+
+# 安装 Molokai 配色方案
+install_molokai:
+	@echo "Installing Molokai color scheme..."
+	@mkdir -p "$(HOME_DIR)/.config/nvim/colors"
+	@curl -s -o "$(HOME_DIR)/.config/nvim/colors/molokai.vim" \
+		https://raw.githubusercontent.com/fatih/molokai/master/colors/molokai.vim || \
+	{ echo "Error downloading Molokai. Trying alternative URL..."; \
+	  curl -s -o "$(HOME_DIR)/.config/nvim/colors/molokai.vim" \
+		https://gitee.com/mirrors/molokai/raw/master/colors/molokai.vim || \
+	  { echo "Failed to install Molokai color scheme"; exit 1; }; \
+	}
+	@echo "Molokai color scheme installed successfully."
+
+# =================================================================
+# ===================== 帮助信息 =================================
+# =================================================================
+
+# 显示帮助信息
+help:
+	@echo "Available targets:"
+	@echo ""
+	@echo "  all               - Default target, same as 'install_nvim'"
+	@echo "  install_nvim      - Install Neovim configuration"
+	@echo "  clean_nvim        - Remove Neovim configuration"
+	@echo "  install_packer    - Install Packer.nvim plugin manager"
+	@echo "  install_nvim_deps - Install Node.js support for Neovim"
+	@echo "  install_molokai   - Install Molokai color scheme"
+
+# 声明伪目标（不创建实际文件的目标）
+.PHONY: all install_nvim clean_nvim install_packer install_nvim_deps install_molokai help
