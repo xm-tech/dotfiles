@@ -32,3 +32,16 @@ make bundle_install
 # copy dotfiles to the appropriate places
 make install
 ```
+
+Neovim Configuration
+-------------------
+
+This repository now includes a Neovim configuration that mirrors the Vim setup. The Neovim configuration is written in Lua and provides the same functionality as the Vim configuration.
+
+To install the Neovim configuration:
+
+```shell
+make install_nvim
+```
+
+After installation, run `nvim +PackerSync` to install all plugins.

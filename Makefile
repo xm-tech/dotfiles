@@ -25,7 +25,7 @@ REQUIRED_COMMANDS := git curl vim nc
 all: install
 
 # 安装目标：创建目录、创建符号链接、设置git、创建hushlogin文件、安装TPM
-install: check_deps create_dirs create_symlinks git_setup create_hushlogin setup_vim_modular install_tmux_plugin_manager
+install: check_deps create_dirs create_symlinks git_setup create_hushlogin setup_vim_modular install_tmux_plugin_manager install_nvim install_molokai
 
 # 清理所有创建的符号链接
 clean: clean_vim_modular
@@ -174,7 +174,7 @@ install_vim_plug:
 setup_vim_modular:
 	@echo "Setting up modular Vim configuration..."
 	@mkdir -p $(HOME_DIR)/.vim/config
-	@for file in basic.vim filetypes.vim statusline.vim mappings.vim plugins.vim; do \
+	@for file in basic.vim filetypes.vim statusline.vim mappings.vim plugins.vim performance.vim; do \
 		if [ -f "$(HOME_DIR)/.vim/config/$$file" ] && [ ! -L "$(HOME_DIR)/.vim/config/$$file" ]; then \
 			echo "Backing up existing $(HOME_DIR)/.vim/config/$$file to $(BACKUP_DIR)/"; \
 			mkdir -p "$(BACKUP_DIR)/vim/config"; \
@@ -188,7 +188,7 @@ setup_vim_modular:
 # 清理vim模块化配置
 clean_vim_modular:
 	@echo "Cleaning up modular Vim configuration..."
-	@for file in basic.vim filetypes.vim statusline.vim mappings.vim plugins.vim; do \
+	@for file in basic.vim filetypes.vim statusline.vim mappings.vim plugins.vim performance.vim; do \
 		rm -f "$(HOME_DIR)/.vim/config/$$file"; \
 		echo "Removed symlink: $(HOME_DIR)/.vim/config/$$file"; \
 	done
@@ -219,6 +219,62 @@ install_tmux_plugin_manager:
 	ln -sf "$(DOTFILES)/tmux/plugins/tpm" "$(HOME_DIR)/.tmux/plugins/tpm"
 	@echo "TPM installed successfully."
 	@echo "To install tmux plugins, start tmux and press prefix + I (capital I)."
+
+# 安装 Neovim 配置
+install_nvim: install_packer install_nvim_deps
+	@echo "Installing Neovim configuration..."
+	@mkdir -p "$(HOME_DIR)/.config/nvim/lua/config"
+	@ln -sf "$(DOTFILES)/nvim/init.lua" "$(HOME_DIR)/.config/nvim/init.lua"
+	@ln -sf "$(DOTFILES)/nvim/coc-settings.json" "$(HOME_DIR)/.config/nvim/coc-settings.json"
+	@for file in $(DOTFILES)/nvim/lua/config/*.lua; do \
+		ln -sf $$file "$(HOME_DIR)/.config/nvim/lua/config/$$(basename $$file)"; \
+	done
+	@echo "Neovim configuration installed successfully."
+	@echo "Installing plugins with PackerSync..."
+	@nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' || \
+		echo "Note: Headless PackerSync may have failed. Please run 'nvim +PackerSync' manually."
+	@echo "Verifying installation..."
+	@echo "If you encounter any issues, run 'nvim +VerifyPerformance' to check settings."
+
+# 安装 Packer 插件管理器
+install_packer:
+	@echo "Installing Packer.nvim plugin manager..."
+	@mkdir -p "$(HOME_DIR)/.local/share/nvim/site/pack/packer/start"
+	@if [ ! -d "$(HOME_DIR)/.local/share/nvim/site/pack/packer/start/packer.nvim" ]; then \
+		git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+			"$(HOME_DIR)/.local/share/nvim/site/pack/packer/start/packer.nvim" || \
+		{ echo "Error cloning Packer. Trying alternative URL..."; \
+		  git clone --depth 1 https://gitee.com/mirrors/packer.nvim.git \
+			"$(HOME_DIR)/.local/share/nvim/site/pack/packer/start/packer.nvim" || \
+		  { echo "Failed to install Packer.nvim"; exit 1; }; \
+		}; \
+		echo "Packer.nvim installed successfully."; \
+	else \
+		echo "Packer.nvim already installed."; \
+	fi
+
+
+
+# 安装 Neovim 依赖
+install_nvim_deps:
+	@echo "Installing Neovim dependencies..."
+	@echo "Installing Node.js support for Neovim..."
+	@which npm > /dev/null && npm install -g neovim || \
+	{ echo "Warning: npm not found. Node.js support may be limited."; }
+	@echo "Neovim dependencies installed successfully."
+
+# 安装 Molokai 配色方案
+install_molokai:
+	@echo "Installing Molokai color scheme..."
+	@mkdir -p "$(HOME_DIR)/.config/nvim/colors"
+	@curl -s -o "$(HOME_DIR)/.config/nvim/colors/molokai.vim" \
+		https://raw.githubusercontent.com/fatih/molokai/master/colors/molokai.vim || \
+	{ echo "Error downloading Molokai. Trying alternative URL..."; \
+	  curl -s -o "$(HOME_DIR)/.config/nvim/colors/molokai.vim" \
+		https://gitee.com/mirrors/molokai/raw/master/colors/molokai.vim || \
+	  { echo "Failed to install Molokai color scheme"; exit 1; }; \
+	}
+	@echo "Molokai color scheme installed successfully."
 
 # =================================================================
 # ===================== Shell 配置 ================================
@@ -341,6 +397,12 @@ help:
 	@echo "$(BLUE)$(BOLD)Tmux 配置:$(RESET)"
 	@echo "  $(GREEN)install_tmux_plugin_manager$(RESET) - Install Tmux Plugin Manager (TPM)"
 	@echo ""
+	@echo "$(BLUE)$(BOLD)Neovim 配置:$(RESET)"
+	@echo "  $(GREEN)install_nvim$(RESET)       - Install Neovim configuration"
+	@echo "  $(GREEN)install_packer$(RESET)     - Install Packer.nvim plugin manager"
+
+	@echo "  $(GREEN)install_nvim_deps$(RESET)  - Install Node.js support for Neovim"
+	@echo ""
 	@echo "$(BLUE)$(BOLD)Shell 配置:$(RESET)"
 	@echo "  $(GREEN)install_zinit$(RESET)     - Install zinit plugin manager"
 	@echo "  $(GREEN)init_starship$(RESET)     - Initialize starship prompt"
@@ -360,4 +422,4 @@ help:
         dot_symlinks special_symlinks git_setup create_hushlogin fix_ghusercontent \
         install_vim_plug install_zinit install_cli_sock_proxy init_starship \
         reload_zsh reload_fpath help setup_vim_modular clean_vim_modular \
-        install_tmux_plugin_manager
+        install_tmux_plugin_manager install_nvim_deps

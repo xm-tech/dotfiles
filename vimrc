@@ -68,3 +68,4 @@ source ~/.vim/config/filetypes.vim
 source ~/.vim/config/statusline.vim
 source ~/.vim/config/mappings.vim
 source ~/.vim/config/plugins.vim
+source ~/.vim/config/performance.vim

@@ -1,0 +1,48 @@
+{
+  "coc.preferences.extensionUpdateCheck": "daily",
+  "suggest.noselect": true,
+  "suggest.enablePreselect": false,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "json",
+    "python",
+    "py",
+    "lua"
+  ],
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "yapf",
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": [
+        "go.mod",
+        ".git/"
+      ],
+      "filetypes": [
+        "go"
+      ]
+    },
+    "ccls": {
+      "command": "ccls",
+      "filetypes": [
+        "c",
+        "cpp",
+        "cuda",
+        "objc",
+        "objcpp"
+      ],
+      "rootPatterns": [
+        ".ccls-root",
+        "compile_commands.json"
+      ],
+      "initializationOptions": {
+        "cache": {
+          "directory": "~/.ccls-cache"
+        },
+        "client": {
+          "snippetSupport": true
+        }
+      }
+    }
+  }
+}
