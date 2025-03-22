@@ -26,6 +26,18 @@ zinit light zdharma-continuum/fast-syntax-highlighting
   zinit snippet ~/.fzf-git.sh
 }
 
+# 延迟加载自动补全，并优化补全系统
+zinit ice wait'3' lucid atinit'
+  zstyle ":completion:*:commands" rehash 1
+  zstyle ":completion:*" accept-exact "*(N)"
+  zstyle ":completion:*" use-cache on
+  zstyle ":completion:*" cache-path "$HOME/.zcompcache"
+  zicompinit
+  zicdreplay
+'
+# 注释掉 Oh-My-Zsh 的 git 插件，暂时不加载
+# zinit snippet OMZP::git
+
 # 延迟加载常用别名和函数
 [[ -f ~/.aliases.zsh ]] && {
   zinit ice wait'2' lucid
@@ -48,13 +60,3 @@ zinit light zdharma-continuum/fast-syntax-highlighting
   zinit snippet ~/.zsh_private
 }
 
-# 延迟加载自动补全，并优化补全系统
-zinit ice wait'3' lucid atinit'
-  zstyle ":completion:*:commands" rehash 1
-  zstyle ":completion:*" accept-exact "*(N)"
-  zstyle ":completion:*" use-cache on
-  zstyle ":completion:*" cache-path "$HOME/.zcompcache"
-  zicompinit
-  zicdreplay
-'
-zinit snippet OMZP::git
