@@ -18,7 +18,7 @@ export GONOSUMDB=qwy.com
 export GONOPROXY=qwy.com
 
 # 加载代理配置（从单独的文件中加载）
-[[ -f ~/.proxy.zsh ]] && source ~/.proxy.zsh
+# [[ -f ~/.proxy.zsh ]] && source ~/.proxy.zsh
 
 # 设置 Homebrew 环境变量
 export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"

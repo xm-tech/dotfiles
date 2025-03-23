@@ -14,12 +14,6 @@ zinit light zsh-users/zsh-autosuggestions
 zinit ice wait'2' lucid
 zinit light zdharma-continuum/fast-syntax-highlighting
 
-# 延迟加载 fzf
-# [[ -f ~/.fzf.zsh ]] && {
-#   zinit ice wait'3' lucid
-#   zinit snippet ~/.fzf.zsh
-# }
-
 # 延迟加载 fzf-git
 [[ -f ~/.fzf-git.sh ]] && {
   zinit ice wait'3' lucid
