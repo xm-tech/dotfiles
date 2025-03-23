@@ -1,5 +1,5 @@
 # 启用 zprof 性能分析
-zmodload zsh/zprof
+# zmodload zsh/zprof
 
 # 优化自动建议插件的性能
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1  # 减少重新绑定的频率
@@ -95,7 +95,7 @@ fi
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
 
 # 保留 zprof 以便查看优化效果
-zprof
+# zprof
 
 # Conda initialization has been moved to funcs.zsh
 # Use the conda_init function when you need conda
