@@ -11,7 +11,7 @@ BACKUP_DIR := $(HOME_DIR)/.dotfiles_backup/$(shell date +%Y%m%d_%H%M%S)
 # 需要在主目录创建符号链接的文件列表
 # 移除了gitconfig, fzf-git.sh和z.lua，因为它们有特殊处理方式
 DOT_FILES := vimrc bashrc zshrc tmux.conf tigrc aliases.zsh funcs.zsh \
-             git.zsh p10k.zsh zinit-load.zsh \
+             git.zsh zinit-load.zsh proxy.zsh \
              cht.sh ccls_load.sh fix_gh_contribution.sh
 
 # 检查必要的命令是否存在
@@ -260,17 +260,7 @@ reload_fpath:
 # =================================================================
 
 # 安装命令行代理设置
-install_cli_sock_proxy:
-	@echo "Setting up CLI proxy..."
-	@if ! grep -q "nc -z -w 2 127.0.0.1 1087" "$(HOME_DIR)/.zshrc"; then \
-		echo 'if nc -z -w 2 127.0.0.1 1087 &>/dev/null; then' >> "$(HOME_DIR)/.zshrc"; \
-		echo '  export http_proxy=http://127.0.0.1:1087' >> "$(HOME_DIR)/.zshrc"; \
-		echo '  export https_proxy=http://127.0.0.1:1087' >> "$(HOME_DIR)/.zshrc"; \
-		echo 'fi' >> "$(HOME_DIR)/.zshrc"; \
-		echo "Proxy settings added to .zshrc."; \
-	else \
-		echo "Proxy settings already exist in .zshrc."; \
-	fi
+
 
 # 修复githubusercontent访问问题
 fix_ghusercontent:
@@ -348,7 +338,6 @@ help:
 	@echo "  $(GREEN)reload_fpath$(RESET)      - Reload zsh function path"
 	@echo ""
 	@echo "$(BLUE)$(BOLD)网络和工具:$(RESET)"
-	@echo "  $(GREEN)install_cli_sock_proxy$(RESET) - Set up CLI proxy"
 	@echo "  $(GREEN)fix_ghusercontent$(RESET) - Fix GitHub raw content access"
 	@echo ""
 	@echo "$(BLUE)$(BOLD)Homebrew 包管理:$(RESET)"
@@ -358,6 +347,6 @@ help:
 # 声明伪目标（不创建实际文件的目标）
 .PHONY: all clean install check_deps bundle bundle_dump create_dirs create_symlinks \
         dot_symlinks special_symlinks git_setup create_hushlogin fix_ghusercontent \
-        install_vim_plug install_zinit install_cli_sock_proxy init_starship \
+        install_vim_plug install_zinit init_starship \
         reload_zsh reload_fpath help setup_vim_modular clean_vim_modular \
         install_tmux_plugin_manager

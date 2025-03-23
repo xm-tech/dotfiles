@@ -1,5 +1,5 @@
 # 启用 zprof 性能分析
-# zmodload zsh/zprof
+zmodload zsh/zprof
 
 # 优化自动建议插件的性能
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1  # 减少重新绑定的频率
@@ -17,11 +17,8 @@ export GOINSECURE=qwy.com
 export GONOSUMDB=qwy.com
 export GONOPROXY=qwy.com
 
-# 检查代理是否可用
-if command -v nc &>/dev/null && (nc -z -w 1 127.0.0.1 1087) &>/dev/null; then
-  export http_proxy=http://127.0.0.1:1087
-  export https_proxy=http://127.0.0.1:1087
-fi
+# 加载代理配置（从单独的文件中加载）
+[[ -f ~/.proxy.zsh ]] && source ~/.proxy.zsh
 
 # 设置 Homebrew 环境变量
 export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
@@ -31,9 +28,6 @@ export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
 export HOMEBREW_PIP_INDEX_URL="https://pypi.mirrors.ustc.edu.cn/simple"
 export HOMEBREW_INSTALL_FROM_API=1
 export HOMEBREW_FORCE_BREWED_CURL=1
-
-# 忽略代理设置
-export no_proxy="localhost,127.0.0.1,::1"
 
 # 加载 zinit 插件管理器
 if [[ -f ~/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -101,7 +95,7 @@ fi
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
 
 # 保留 zprof 以便查看优化效果
-# zprof
+zprof
 
 # Conda initialization has been moved to funcs.zsh
 # Use the conda_init function when you need conda
