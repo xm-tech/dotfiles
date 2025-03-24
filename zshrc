@@ -1,3 +1,8 @@
+# 设置 FUNCNEST 以避免嵌套函数调用过深的问题
+FUNCNEST=500
+
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 # 启用 zprof 性能分析
 # zmodload zsh/zprof
 
@@ -7,8 +12,6 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20  # 限制处理的缓冲区大小
 export ZSH_AUTOSUGGEST_USE_ASYNC=1  # 确保使用异步模式
 
 # Amazon Q 预加载块
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
-
 # 设置关键环境变量
 export GO111MODULE=on
 export GOPROXY=https://goproxy.cn,direct
@@ -29,10 +32,10 @@ export HOMEBREW_PIP_INDEX_URL="https://pypi.mirrors.ustc.edu.cn/simple"
 export HOMEBREW_INSTALL_FROM_API=1
 export HOMEBREW_FORCE_BREWED_CURL=1
 
-# 加载 zinit 插件管理器
+# 临时禁用 zinit，使用基本的 zsh 配置
 if [[ -f ~/.local/share/zinit/zinit.git/zinit.zsh ]]; then
   source ~/.local/share/zinit/zinit.git/zinit.zsh
-  
+#   
   # 加载 zinit 插件配置
   [[ -f ~/.zinit-load.zsh ]] && source ~/.zinit-load.zsh
 fi
@@ -91,12 +94,18 @@ fi
   setopt PUSHD_SILENT
 } &!
 
-# Amazon Q 后加载块
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+# 直接加载常用别名和函数，不通过 zinit
+# [[ -f ~/.aliases.zsh ]] && source ~/.aliases.zsh
+# [[ -f ~/.funcs.zsh ]] && source ~/.funcs.zsh
+# [[ -f ~/.git.zsh ]] && source ~/.git.zsh
+# [[ -f ~/.proxy.zsh ]] && source ~/.proxy.zsh
 
+# Amazon Q 后加载块
 # 保留 zprof 以便查看优化效果
 # zprof
 
 # Conda initialization has been moved to funcs.zsh
 # Use the conda_init function when you need conda
 
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"

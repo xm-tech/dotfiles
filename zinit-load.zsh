@@ -1,5 +1,8 @@
 # zinit 插件管理器配置文件
 
+# 设置 FUNCNEST 以避免嵌套函数调用过深的问题
+FUNCNEST=500
+
 # 使用 Starship 提示工具
 zinit ice as"command" from"gh-r" \
   atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
@@ -7,12 +10,13 @@ zinit ice as"command" from"gh-r" \
 zinit light starship/starship
 
 # 使用 turbo 模式延迟加载插件，并优化自动建议插件
-zinit ice wait'2' lucid atload'_zsh_autosuggest_start'
-zinit light zsh-users/zsh-autosuggestions
+# 增加延迟时间，确保不与其他插件冲突
+# zinit ice wait'3' lucid atload'_zsh_autosuggest_start'
+# zinit light zsh-users/zsh-autosuggestions
 
-# 优化语法高亮插件
-zinit ice wait'2' lucid
-zinit light zdharma-continuum/fast-syntax-highlighting
+# 暂时禁用语法高亮插件，看看是否解决问题
+zinit ice wait'4' lucid
+zinit light zsh-users/zsh-syntax-highlighting
 
 # 延迟加载 fzf-git
 [[ -f ~/.fzf-git.sh ]] && {
