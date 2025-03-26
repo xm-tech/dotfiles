@@ -20,7 +20,7 @@ alias gcmb='git commit -m "build" '
 # alias gd='git diff'
 alias gd='git di'
 alias gdc='git diff --cached'
-alias git=hub
+# alias git=hub  # 已移除 hub 依赖，使用原生 git
 alias gl='git log --all --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
 alias glp='gl -p'
 alias gp='git push'

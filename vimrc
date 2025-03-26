@@ -38,7 +38,7 @@ Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 " File navigation and search
 Plug 'Yggdroot/LeaderF', {'do': ':LeaderfInstallCExtension'}
 Plug 'justinmk/vim-dirvish'
-Plug 'mileszs/ack.vim', {'on': 'Ack'}
+" Plug 'mileszs/ack.vim', {'on': 'Ack'} " 已移除，使用 LeaderF 替代
 
 " Markdown preview
 Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install_sync()}, 'for': ['markdown', 'md']}

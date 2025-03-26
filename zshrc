@@ -77,8 +77,7 @@ fi
   [[ -f ~/.cht.sh ]] && chmod +x ~/.cht.sh
   [[ -f ~/.ccls_load.sh ]] && chmod +x ~/.ccls_load.sh
   
-  # hub 别名设置
-  which hub > /dev/null && eval "$(hub alias -s)"
+  # hub 别名设置已移除，使用原生 git
 } &!
 
 # 优化 zsh 内置功能

@@ -69,6 +69,9 @@ Vim 编辑器在以下情况可能会出现卡顿：
 10. 移除默认加载的 coc-vimlsp 和 coc-rust-analyzer
 11. 将性能模式切换键从 F8 改为 `<leader>tp`，避免与 macOS 快捷键冲突
 12. 移除 vim-fugitive 插件减少加载时间
+13. 移除 ack.vim 插件及相关命令，使用 LeaderF 替代
+14. 优化 starship 加载方式，使用本地缓存避免网络请求
+15. 移除 hub 依赖，使用原生 git 命令
 
 ## 卡顿应急处理
 如果 Vim 严重卡顿无法操作：

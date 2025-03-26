@@ -76,9 +76,9 @@ function grevert(){
 }
 
 ## hub
-function fork(){
-    hub fork --remote-name origin
-}
+# function fork(){
+#     hub fork --remote-name origin
+# }
 
 ## k8s: proxy of kubectl get svc
 function kubesvc(){
