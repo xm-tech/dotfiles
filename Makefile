@@ -25,7 +25,7 @@ REQUIRED_COMMANDS := git curl vim nc
 all: install
 
 # 安装目标：创建目录、创建符号链接、设置git、创建hushlogin文件、安装TPM
-install: check_deps create_dirs create_symlinks git_setup create_hushlogin setup_vim_modular install_tmux_plugin_manager fix_submodules
+install: check_deps create_dirs create_symlinks git_setup create_hushlogin setup_vim_modular install_tmux_plugin_manager fix_submodules fix_submodules
 
 # 清理所有创建的符号链接
 clean: clean_vim_modular
@@ -269,8 +269,19 @@ reload_fpath:
 # ===================== 网络和工具 ================================
 # =================================================================
 
-# 安装命令行代理设置
-
+# 检查并修复 git 子模块状态
+fix_submodules:
+	@echo "Checking and fixing git submodules..."
+	@for submodule in $$(git submodule status | awk '{print $$2}'); do \
+		echo "Checking $$submodule..."; \
+		if [ -L "$$submodule/$$submodule" ]; then \
+			echo "Removing circular symlink in $$submodule"; \
+			rm -f "$$submodule/$$submodule"; \
+		fi; \
+	done
+	git submodule deinit -f --all
+	git submodule update --init --recursive
+	@echo "Git submodules fixed."
 
 # 修复githubusercontent访问问题
 fix_ghusercontent:
@@ -332,6 +343,7 @@ help:
 	@echo ""
 	@echo "$(BLUE)$(BOLD)Git 配置:$(RESET)"
 	@echo "  $(GREEN)git_setup$(RESET)         - Set up git configuration"
+	@echo "  $(GREEN)fix_submodules$(RESET)    - Check and fix git submodules"
 	@echo ""
 	@echo "$(BLUE)$(BOLD)Vim 配置:$(RESET)"
 	@echo "  $(GREEN)install_vim_plug$(RESET)  - Install vim-plug plugin manager"
@@ -359,4 +371,4 @@ help:
         dot_symlinks special_symlinks git_setup create_hushlogin fix_ghusercontent \
         install_vim_plug install_zinit init_starship \
         reload_zsh reload_fpath help setup_vim_modular clean_vim_modular \
-        install_tmux_plugin_manager
+        install_tmux_plugin_manager fix_submodules

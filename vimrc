@@ -75,25 +75,3 @@ source ~/.vim/config/filetypes.vim
 source ~/.vim/config/statusline.vim
 source ~/.vim/config/mappings.vim
 source ~/.vim/config/plugins.vim
-
-" Add a command to toggle performance mode
-command! TogglePerformanceMode call s:TogglePerformanceMode()
-function! s:TogglePerformanceMode()
-  if exists('g:performance_mode_enabled') && g:performance_mode_enabled
-    let g:performance_mode_enabled = 0
-    let g:coc_enabled = 1
-    syntax on
-    set showcmd
-    echo "Performance mode disabled"
-  else
-    let g:performance_mode_enabled = 1
-    let g:coc_enabled = 0
-    syntax off
-    set lazyredraw
-    set noshowcmd
-    set nocursorline
-    set nocursorcolumn
-    set norelativenumber
-    echo "Performance mode enabled - editor optimized for speed"
-  endif
-endfunction
