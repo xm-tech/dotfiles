@@ -203,7 +203,7 @@ endfunction
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
 " Add a shortcut to toggle performance mode
-nnoremap <F8> :TogglePerformanceMode<CR>
+nnoremap <leader>tp :TogglePerformanceMode<CR>
 
 " 紧急模式 - 当 Vim 卡顿时可以使用
 nnoremap <leader>em :syntax off<CR>:let g:coc_enabled=0<CR>:set lazyredraw<CR>:set nocursorline<CR>:set nocursorcolumn<CR>:echo "紧急模式已启用"<CR>
