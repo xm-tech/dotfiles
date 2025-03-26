@@ -134,8 +134,12 @@ nnoremap Y y$
 " Don't show q: window
 map q: :q
 
-" Don't move on *
-nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+" Don't move on * (暂时禁用，可能导致卡顿)
+" 此映射的功能：高亮当前单词但不移动光标位置
+" 在某些情况下可能导致性能问题，特别是在大文件中
+" nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+" 使用默认的 * 行为
+nnoremap * *
 
 " Search within visual selection
 vnoremap / <Esc>/\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
