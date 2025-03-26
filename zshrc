@@ -32,6 +32,10 @@ export HOMEBREW_PIP_INDEX_URL="https://pypi.mirrors.ustc.edu.cn/simple"
 export HOMEBREW_INSTALL_FROM_API=1
 export HOMEBREW_FORCE_BREWED_CURL=1
 
+# dotnet cnf
+export DOTNET_ROOT="/usr/local/share/dotnet"
+
+
 # 临时禁用 zinit，使用基本的 zsh 配置
 if [[ -f ~/.local/share/zinit/zinit.git/zinit.zsh ]]; then
   source ~/.local/share/zinit/zinit.git/zinit.zsh

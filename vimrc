@@ -60,6 +60,10 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
 Plug 'skywind3000/vim-preview', {'on': 'PreviewTag'}
 
+" Unity/C# 专用插件
+Plug 'OmniSharp/omnisharp-vim'                   " C# 语言服务器
+Plug 'nickspoons/vim-sharpenup'                  " 增强 OmniSharp 功能
+
 call plug#end()
 
 " Load modular configuration files
