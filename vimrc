@@ -20,15 +20,11 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Language support - use lazy loading for most plugins
 Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoUpdateBinaries'}
-Plug 'fatih/vim-hclfmt', {'for': 'hcl'}
-Plug 'fatih/vim-nginx', {'for': 'nginx'}
-Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'elzr/vim-json', {'for': 'json'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'vim-scripts/indentpython.vim', {'for': 'python'}
 Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
 Plug 'ekalinin/Dockerfile.vim', {'for': 'Dockerfile'}
-Plug 'hashivim/vim-hashicorp-tools', {'for': ['terraform', 'hcl', 'vagrant']}
 Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp', 'objc']}
 Plug 'skywind3000/vim-cppman', {'for': ['c', 'cpp']}
 
@@ -37,7 +33,7 @@ Plug 'arthurxavierx/vim-caser', {'on': ['Camelcase', 'Snakecase', 'Kebabcase', '
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 
 " Git integration
-Plug 'tpope/vim-fugitive', {'on': ['Git', 'Gblame', 'Gvdiffsplit']}
+" Plug 'tpope/vim-fugitive', {'on': ['Git', 'Gblame', 'Gvdiffsplit']} " 已移除以提高性能
 
 " File navigation and search
 Plug 'Yggdroot/LeaderF', {'do': ':LeaderfInstallCExtension'}
@@ -45,7 +41,7 @@ Plug 'justinmk/vim-dirvish'
 Plug 'mileszs/ack.vim', {'on': 'Ack'}
 
 " Markdown preview
-Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install_sync()}, 'for': ['markdown', 'vim-plug']}
+Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install_sync()}, 'for': ['markdown', 'md']}
 
 " Misc
 Plug 'corylanou/vim-present', {'for': 'present'}

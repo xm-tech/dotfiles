@@ -1,47 +1,29 @@
-My personal dotfiles
-====================
-
-Overview
---------
+# My personal dotfiles
 
 ![overview](img/overview.png "overview")
 
-Install & Usage
----------------
+## 安装与使用
 
-Precondition
+### 前提条件
 
 ```txt
-better on mac os, or else install the external softwares & plugins manually
+推荐在 macOS 上使用，其他系统需要手动安装外部软件和插件
 ```
 
-On the old machine(optional)
+### 在旧机器上（可选）
 
-Generate Brewfile
+生成 Brewfile
 
 ```shell
 make bundle
 ```
 
-On a new machine
+### 在新机器上
 
 ```shell
-# install all brew dependencies (optional)
+# 安装所有 brew 依赖（可选）
 make bundle_install
 
-# copy dotfiles to the appropriate places
+# 将配置文件复制到相应位置
 make install
 ```
-
-Neovim Configuration
--------------------
-
-This repository now includes a Neovim configuration that mirrors the Vim setup. The Neovim configuration is written in Lua and provides the same functionality as the Vim configuration.
-
-To install the Neovim configuration:
-
-```shell
-make install_nvim
-```
-
-After installation, run `nvim +PackerSync` to install all plugins.

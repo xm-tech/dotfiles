@@ -7,8 +7,6 @@ augroup filetypedetect
 
   " File type detection
   autocmd BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
-  autocmd BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
-  autocmd BufNewFile,BufRead *.hcl setf conf
   autocmd BufRead,BufNewFile *.gotmpl set filetype=gotexttmpl
   autocmd BufRead,BufNewFile *.puml setfiletype plantuml
 
@@ -18,7 +16,6 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead *.md setlocal expandtab ts=2 sw=2
   autocmd BufNewFile,BufRead *.html setlocal noet ts=4 sw=4
   autocmd BufNewFile,BufRead *.vim setlocal expandtab shiftwidth=2 tabstop=2
-  autocmd BufNewFile,BufRead *.hcl setlocal expandtab shiftwidth=2 tabstop=2
   autocmd BufNewFile,BufRead *.sh setlocal expandtab shiftwidth=2 tabstop=2
   autocmd BufNewFile,BufRead *.proto setlocal expandtab shiftwidth=2 tabstop=2
 

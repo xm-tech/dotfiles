@@ -44,13 +44,13 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 
 " ==================== Fugitive ====================
-vnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gb :Gblame<CR>
-
-" Fugitive Conflict Resolution
-nnoremap <leader>gd :Gvdiffsplit!<CR>
-nnoremap gdh :diffget //2<CR>
-nnoremap gdl :diffget //3<CR>
+" 已移除 vim-fugitive 插件以提高性能
+" 原有快捷键:
+" vnoremap <leader>gb :Gblame<CR>
+" nnoremap <leader>gb :Gblame<CR>
+" nnoremap <leader>gd :Gvdiffsplit!<CR>
+" nnoremap gdh :diffget //2<CR>
+" nnoremap gdl :diffget //3<CR>
 
 " ==================== delimitMate ====================
 let g:delimitMate_expand_cr = 1   
