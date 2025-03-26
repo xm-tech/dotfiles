@@ -46,3 +46,9 @@ alias duh='du -sh -h * .[^.]* 2> /dev/null | sort -h'
 alias week='date +%v'
 alias unixtime='date +%s'
 alias sed='gsed'
+
+# 轻量级 vim 模式，适用于大文件或性能受限环境
+alias lvim='vim -c "call s:EnableLightMode()"'
+
+# 无插件模式的 vim，适用于极端情况
+alias pvim='vim -u NONE'

@@ -32,7 +32,7 @@ nnoremap <silent> <leader>q :q!<CR>
 " Remove search highlight
 function! s:clear_highlight()
   let @/ = ""
-  if &filetype == 'go'
+  if &filetype == 'go' && exists('*go#guru#ClearSameIds')
     call go#guru#ClearSameIds()
   endif
 endfunction
@@ -143,8 +143,9 @@ vnoremap ? <Esc>?\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
 
 " Time out on key codes but not mappings
 if !has('gui_running')
-  set notimeout
+  set timeout
   set ttimeout
+  set timeoutlen=1000
   set ttimeoutlen=10
   augroup FastEscape
     autocmd!
@@ -191,12 +192,18 @@ map ` ~
 " Use ? to show documentation in preview window
 nnoremap ? :call <SID>show_documentation()<CR>
 function! s:show_documentation()
-	if (index(['vim','help'], &filetype) >= 0)
-		execute 'h '.expand('<cword>')
-	else
-		call CocAction('doHover')
-	endif
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif exists('*CocAction')
+    call CocAction('doHover')
+  endif
 endfunction
 
 " Save a file as root
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
+
+" Add a shortcut to toggle performance mode
+nnoremap <F8> :TogglePerformanceMode<CR>
+
+" 紧急模式 - 当 Vim 卡顿时可以使用
+nnoremap <F12> :syntax off<CR>:let g:coc_enabled=0<CR>:set lazyredraw<CR>:set nocursorline<CR>:set nocursorcolumn<CR>:echo "紧急模式已启用"<CR>
