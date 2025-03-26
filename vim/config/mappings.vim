@@ -4,8 +4,8 @@
 " Space key does nothing
 nnoremap <space> <Nop>
 
-" Use ; for commands
-map ; :
+" Use leader-; for commands (instead of remapping ; directly)
+nnoremap <leader>; :
 
 " Quickfix shortcuts
 map <C-n> :cn<CR>
@@ -57,15 +57,8 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" Better split window resize
-map <silent><C-t>l :vertical resize +5<CR> 
-map <silent><C-t>h :vertical resize -5<CR> 
-map <silent><C-t>k :resize +5<CR> 
-map <silent><C-t>j :resize -5<CR> 
-map <silent><C-t>L :vertical resize +15<CR> 
-map <silent><C-t>H :vertical resize -15<CR> 
-map <silent><C-t>K :resize +15<CR> 
-map <silent><C-t>J :resize -15<CR> 
+" Window resize can be done with mouse or native Vim commands
+" e.g. :resize +5 or :vertical resize -5
 
 " Print full path
 map <s-f> :echo expand("%:p")<cr>
@@ -193,8 +186,8 @@ inoremap <silent><c-l> <c-r>=Exec('norm! l')<cr>
 " Press ` to change case
 map ` ~
 
-" Use ? to show documentation in preview window
-nnoremap ? :call <SID>show_documentation()<CR>
+" Use K to show documentation in preview window (changed from ? to avoid conflict with search)
+nnoremap K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
