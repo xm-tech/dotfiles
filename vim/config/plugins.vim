@@ -11,7 +11,6 @@ augroup END
 " Limit the number of extensions to improve performance
 let g:coc_global_extensions = [
       \ 'coc-json',
-      \ 'coc-vimlsp',
       \ 'coc-pyright',
       \ 'coc-go'
       \ ]
@@ -21,14 +20,12 @@ command! LoadAllCocExtensions call s:LoadAllCocExtensions()
 function! s:LoadAllCocExtensions()
   let g:coc_global_extensions = [
         \ 'coc-json',
-        \ 'coc-vimlsp',
         \ 'coc-pyright',
         \ 'coc-sh',
         \ 'coc-go',
         \ 'coc-lua',
         \ 'coc-tsserver',
         \ 'coc-clangd',
-        \ 'coc-rust-analyzer',
         \ 'coc-snippets']
   CocRestart
   echo "All coc extensions loaded"

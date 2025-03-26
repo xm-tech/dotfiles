@@ -149,5 +149,11 @@ function! s:EnableLightMode()
   set nocursorline
   set nocursorcolumn
   set norelativenumber
+  set noshowcmd
+  set noruler
+  set noincsearch
+  set complete-=i
+  set complete-=t
+  set foldmethod=manual
   echo "Light mode enabled - performance optimized"
 endfunction
