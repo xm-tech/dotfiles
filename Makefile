@@ -25,7 +25,7 @@ REQUIRED_COMMANDS := git curl vim nc
 all: install
 
 # 安装目标：创建目录、创建符号链接、设置git、创建hushlogin文件、安装TPM
-install: check_deps create_dirs create_symlinks git_setup create_hushlogin setup_vim_modular install_tmux_plugin_manager
+install: check_deps create_dirs create_symlinks git_setup create_hushlogin setup_vim_modular install_tmux_plugin_manager fix_submodules
 
 # 清理所有创建的符号链接
 clean: clean_vim_modular
@@ -39,6 +39,11 @@ clean: clean_vim_modular
 	rm -f "$(HOME_DIR)/.z.lua"
 	rm -f "$(CONFIG_DIR)/starship.toml"
 	rm -f "$(HOME_DIR)/.vim/coc-settings.json"
+	@# 检查并删除可能存在的循环软链接
+	@if [ -L "$(DOTFILES)/tmux/plugins/tpm/tpm" ]; then \
+		echo "Removing circular symlink $(DOTFILES)/tmux/plugins/tpm/tpm"; \
+		rm -f "$(DOTFILES)/tmux/plugins/tpm/tpm"; \
+	fi
 	rm -f "$(HOME_DIR)/.tmux/plugins/tpm"
 	@echo "Removed symlink: $(HOME_DIR)/.tmux/plugins/tpm"
 	# rm -f /usr/local/include/{luaconf.h,lauxlib.h,lua.hpp,lualib.h,lua.h}
@@ -209,6 +214,11 @@ install_tmux_plugin_manager:
 		  git clone https://gitee.com/mirrors/tpm.git "$(DOTFILES)/tmux/plugins/tpm" || \
 		  { echo "Failed to install TPM"; exit 1; }; \
 		}; \
+	fi
+	@# 检查并删除可能存在的循环软链接
+	@if [ -L "$(DOTFILES)/tmux/plugins/tpm/tpm" ]; then \
+		echo "Removing circular symlink $(DOTFILES)/tmux/plugins/tpm/tpm"; \
+		rm -f "$(DOTFILES)/tmux/plugins/tpm/tpm"; \
 	fi
 	@if [ -d "$(HOME_DIR)/.tmux/plugins/tpm" ] && [ ! -L "$(HOME_DIR)/.tmux/plugins/tpm" ]; then \
 		echo "Backing up existing $(HOME_DIR)/.tmux/plugins/tpm to $(BACKUP_DIR)/"; \
