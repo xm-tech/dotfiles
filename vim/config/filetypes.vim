@@ -33,9 +33,4 @@ augroup filetypedetect
   autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
   autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
   autocmd FileType plantuml nnoremap <leader>r :!plantuml -tsvg %<CR>
-
-  " C# 和 Unity 特定配置 - 移到这里避免全局设置
-  autocmd FileType cs setlocal expandtab shiftwidth=4 tabstop=4
-  autocmd FileType cs let b:OmniSharp_highlight_types = 0
-  autocmd FileType cs let b:OmniSharp_timeout = 5
 augroup END

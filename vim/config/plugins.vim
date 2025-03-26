@@ -67,14 +67,6 @@ let g:vim_json_syntax_conceal = 0
 
 " ==================== Completion + Snippet ====================
 let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"  
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-" ================= omnisharp ======================
-" 全局设置，但在 filetypes.vim 中会被文件类型特定设置覆盖
-let g:OmniSharp_server_use_net6 = 1
-let g:OmniSharp_highlighting = 0
-let g:OmniSharp_selector_ui = 'fzf'
-let g:OmniSharp_timeout = 5

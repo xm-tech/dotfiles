@@ -60,10 +60,6 @@ Plug 'ludovicchabant/vim-gutentags', {'on': ['GutentagsToggleEnabled']}
 Plug 'skywind3000/gutentags_plus', {'on': ['GutentagsToggleEnabled']}
 Plug 'skywind3000/vim-preview', {'on': 'PreviewTag'}
 
-" Unity/C# 专用插件
-Plug 'OmniSharp/omnisharp-vim', {'for': 'cs'}                   " C# 语言服务器
-Plug 'nickspoons/vim-sharpenup', {'for': 'cs'}                  " 增强 OmniSharp 功能
-
 call plug#end()
 
 " Load performance.vim first to ensure optimizations are applied before other settings
