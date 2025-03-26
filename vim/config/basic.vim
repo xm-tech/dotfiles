@@ -7,6 +7,7 @@ filetype plugin indent on
 
 set ttyfast
 
+" Only set ttymouse in basic.vim, not in performance.vim to avoid conflicts
 if !has('nvim')
   set ttymouse=xterm2
   set ttyscroll=3
@@ -38,7 +39,6 @@ set smartcase                " ... but not it begins with upper case
 set completeopt=menu,menuone
 set nocursorcolumn           " speed up syntax highlighting
 set nocursorline
-set updatetime=300
 set pumheight=10             " Completion window max size
 set conceallevel=2           " Concealed text is completely hidden
 
@@ -63,11 +63,8 @@ let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
 " ~/.viminfo needs to be writable and readable
 set viminfo='1000
 
-" Persistent undo
-if has('persistent_undo')
-  set undofile
-  set undodir=~/.cache/vim
-endif
+" NOTE: Persistent undo is now handled in performance.vim
+" to avoid conflicts with noundofile setting
 
 " Color scheme
 syntax enable

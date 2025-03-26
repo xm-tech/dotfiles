@@ -8,17 +8,31 @@ augroup load_ultisnips
 augroup END
 
 " ==================== coc.nvim =====================
+" Limit the number of extensions to improve performance
 let g:coc_global_extensions = [
       \ 'coc-json',
       \ 'coc-vimlsp',
       \ 'coc-pyright',
-      \ 'coc-sh',
-      \ 'coc-go',
-      \ 'coc-lua',
-      \ 'coc-tsserver',
-      \ 'coc-clangd',
-      \ 'coc-rust-analyzer',
-      \ 'coc-snippets']
+      \ 'coc-go'
+      \ ]
+
+" Add command to load additional extensions on demand
+command! LoadAllCocExtensions call s:LoadAllCocExtensions()
+function! s:LoadAllCocExtensions()
+  let g:coc_global_extensions = [
+        \ 'coc-json',
+        \ 'coc-vimlsp',
+        \ 'coc-pyright',
+        \ 'coc-sh',
+        \ 'coc-go',
+        \ 'coc-lua',
+        \ 'coc-tsserver',
+        \ 'coc-clangd',
+        \ 'coc-rust-analyzer',
+        \ 'coc-snippets']
+  CocRestart
+  echo "All coc extensions loaded"
+endfunction
 
 " Use <c-space> to trigger completion
 if has('nvim')
@@ -63,3 +77,6 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " ================= omnisharp ======================
 let g:OmniSharp_server_use_net6 = 1
+let g:OmniSharp_highlighting = 0
+let g:OmniSharp_selector_ui = 'fzf'
+let g:OmniSharp_timeout = 5

@@ -18,7 +18,7 @@ Plug 'SirVer/ultisnips', {'on': []}
 Plug 'ervandew/supertab'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Language support
+" Language support - use lazy loading for most plugins
 Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoUpdateBinaries'}
 Plug 'fatih/vim-hclfmt', {'for': 'hcl'}
 Plug 'fatih/vim-nginx', {'for': 'nginx'}
@@ -55,21 +55,45 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tpope/vim-scriptease', {'for': 'vim'}
 Plug 'tyru/open-browser.vim', {'on': '<Plug>(openbrowser-smart-search)'}
 
-" Tags
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'skywind3000/gutentags_plus'
+" Tags - load gutentags only when explicitly requested
+Plug 'ludovicchabant/vim-gutentags', {'on': ['GutentagsToggleEnabled']}
+Plug 'skywind3000/gutentags_plus', {'on': ['GutentagsToggleEnabled']}
 Plug 'skywind3000/vim-preview', {'on': 'PreviewTag'}
 
 " Unity/C# 专用插件
-Plug 'OmniSharp/omnisharp-vim'                   " C# 语言服务器
-Plug 'nickspoons/vim-sharpenup'                  " 增强 OmniSharp 功能
+Plug 'OmniSharp/omnisharp-vim', {'for': 'cs'}                   " C# 语言服务器
+Plug 'nickspoons/vim-sharpenup', {'for': 'cs'}                  " 增强 OmniSharp 功能
 
 call plug#end()
 
-" Load modular configuration files
+" Load performance.vim first to ensure optimizations are applied before other settings
+source ~/.vim/config/performance.vim
+
+" Then load other modular configuration files
 source ~/.vim/config/basic.vim
 source ~/.vim/config/filetypes.vim
 source ~/.vim/config/statusline.vim
 source ~/.vim/config/mappings.vim
 source ~/.vim/config/plugins.vim
-source ~/.vim/config/performance.vim
+
+" Add a command to toggle performance mode
+command! TogglePerformanceMode call s:TogglePerformanceMode()
+function! s:TogglePerformanceMode()
+  if exists('g:performance_mode_enabled') && g:performance_mode_enabled
+    let g:performance_mode_enabled = 0
+    let g:coc_enabled = 1
+    syntax on
+    set showcmd
+    echo "Performance mode disabled"
+  else
+    let g:performance_mode_enabled = 1
+    let g:coc_enabled = 0
+    syntax off
+    set lazyredraw
+    set noshowcmd
+    set nocursorline
+    set nocursorcolumn
+    set norelativenumber
+    echo "Performance mode enabled - editor optimized for speed"
+  endif
+endfunction

@@ -1,31 +1,44 @@
 {
-  "coc.preferences.extensionUpdateCheck": "daily",
+  "coc.preferences.extensionUpdateCheck": "never",
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
-  "suggest.timeout": 5000,
+  "suggest.timeout": 2000,
+  "suggest.minTriggerInputLength": 2,
+  "suggest.maxCompleteItemCount": 10,
+  "suggest.triggerAfterInsertEnter": false,
+  "suggest.snippetIndicator": " ►",
+  "suggest.acceptSuggestionOnCommitCharacter": false,
+  
+  "diagnostic.level": "warning",
   "diagnostic.checkCurrentLine": true,
-  "coc.preferences.jumpCommand": "split",
-  "coc.preferences.messageLevel": "error",
+  "diagnostic.messageTarget": "float",
   "diagnostic.enableMessage": "jump",
   "diagnostic.virtualText": false,
   "diagnostic.enableHighlightLineNumber": false,
+  "diagnostic.refreshOnInsertMode": false,
+  
+  "coc.preferences.jumpCommand": "split",
+  "coc.preferences.messageLevel": "error",
+  "coc.preferences.formatOnSaveTimeout": 1000,
   "coc.preferences.formatOnSaveFiletypes": [
     "json",
     "python",
-    "py",
     "lua",
     "cs"
   ],
+  
   "omnisharp.useGlobalMono": "never",
   "omnisharp.path": "latest",
-  "omnisharp.enableRoslynAnalyzers": true,
+  "omnisharp.enableRoslynAnalyzers": false,
   "omnisharp.enableEditorConfigSupport": true,
   "omnisharp.enableImportCompletion": true,
-  "omnisharp.trace.server": "information",
+  "omnisharp.trace.server": "error",
   "omnisharp.debug.server": false,
+  
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
   "python.formatting.provider": "yapf",
+  
   "languageserver": {
     "golang": {
       "command": "gopls",
@@ -35,7 +48,13 @@
       ],
       "filetypes": [
         "go"
-      ]
+      ],
+      "initializationOptions": {
+        "staticcheck": false,
+        "usePlaceholders": false,
+        "completeUnimported": false,
+        "deepCompletion": false
+      }
     },
     "ccls": {
       "command": "ccls",
@@ -56,6 +75,9 @@
         },
         "client": {
           "snippetSupport": true
+        },
+        "index": {
+          "threads": 2
         }
       }
     }
