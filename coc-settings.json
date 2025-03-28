@@ -1,6 +1,6 @@
 {
   "coc.preferences.extensionUpdateCheck": "never",
-  "suggest.noselect": true,
+  "suggest.noselect": false,
   "suggest.enablePreselect": false,
   "suggest.timeout": 2000,
   "suggest.minTriggerInputLength": 2,
