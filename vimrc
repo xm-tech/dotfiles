@@ -52,11 +52,6 @@ Plug 'skywind3000/gutentags_plus', {'on': ['GutentagsToggleEnabled']}
 Plug 'skywind3000/vim-preview', {'on': 'PreviewTag'}
 
 
-" csharp
-Plug 'OmniSharp/omnisharp-vim'
-let g:OmniSharp_server_use_net6 = 1
-let g:OmniSharp_server_path = expand('~/.cache/omnisharp-vim/omnisharp-roslyn/OmniSharp')
-
 call plug#end()
 
 " Load modular configuration files in correct order

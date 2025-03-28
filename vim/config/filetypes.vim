@@ -25,7 +25,6 @@ augroup filetypedetect
   autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
   autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
   autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
-  autocmd FileType cs setlocal expandtab shiftwidth=4 tabstop=4 omnifunc=OmniSharp#Complete
 
   " Language specific mappings
   autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>

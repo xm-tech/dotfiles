@@ -1,7 +1,7 @@
 {
   "coc.preferences.extensionUpdateCheck": "never",
   "suggest.noselect": false,
-  "suggest.enablePreselect": false,
+  "suggest.enablePreselect": true,
   "suggest.timeout": 2000,
   "suggest.minTriggerInputLength": 2,
   "suggest.maxCompleteItemCount": 10,
@@ -69,17 +69,6 @@
         },
         "index": {
           "threads": 2
-        }
-      }
-    },
-    "omnisharp": {
-      "command": "/Users/maxiongmiao/.cache/omnisharp-vim/omnisharp-roslyn/OmniSharp",
-      "args": ["-lsp"],
-      "filetypes": ["cs"],
-      "rootPatterns": ["*.sln", "*.csproj", "project.json"],
-      "initializationOptions": {
-        "FormattingOptions": {
-          "EnableEditorConfigSupport": true
         }
       }
     }

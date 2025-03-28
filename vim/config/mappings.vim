@@ -19,52 +19,6 @@ augroup quickfix
   autocmd FileType qf setlocal wrap
 augroup END
 
-" C# OmniSharp mappings
-augroup omnisharp_commands
-  autocmd!
-  
-  " Show type information automatically when the cursor stops moving
-  autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
-  
-  " The following commands are contextual, based on the cursor position.
-  autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
-  autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
-  autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
-  autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
-  
-  " Finds members in the current buffer
-  autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
-  
-  " Cursor can be anywhere on the line containing an issue
-  autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
-  autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
-  autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
-  autocmd FileType cs nnoremap <buffer> <Leader>cc :OmniSharpGlobalCodeCheck<CR>
-  
-  " Navigate up and down by method/property/field
-  autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
-  autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
-  
-  " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
-  autocmd FileType cs nnoremap <buffer> <Leader>ca :OmniSharpGetCodeActions<CR>
-  
-  " Run code actions with text selected in visual mode to extract method
-  autocmd FileType cs xnoremap <buffer> <Leader>ca :call OmniSharp#GetCodeActions('visual')<CR>
-  
-  " Rename with dialog
-  autocmd FileType cs nnoremap <buffer> <Leader>nm :OmniSharpRename<CR>
-  
-  " Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
-  autocmd FileType cs command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
-  
-  " Force OmniSharp to reload the solution
-  autocmd FileType cs nnoremap <buffer> <Leader>rs :OmniSharpRestartServer<CR>
-  
-  " Start the omnisharp server for the current solution
-  autocmd FileType cs nnoremap <buffer> <Leader>ss :OmniSharpStartServer<CR>
-  autocmd FileType cs nnoremap <buffer> <Leader>sp :OmniSharpStopServer<CR>
-augroup END
-
 " Enter automatically into the files directory
 autocmd BufEnter * silent! lcd %:p:h
 
