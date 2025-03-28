@@ -5,7 +5,7 @@ set tags=./.tags;,.tags
 "set autochdir
 
 " gutentags 搜索工程目录的标志，当前文件路径向上递归直到碰到这些文件/目录名
-let g:gutentags_project_root = ['.git', '.hg', '.project', '.root']
+let g:gutentags_project_root = ['.git', '.svn', '.hg', '.project', '.root']
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
 
@@ -39,14 +39,6 @@ if g:ctags_version == "Universal"
   let g:gutentags_ctags_extra_args += ['--extras=+q', '--output-format=e-ctags']
 endif
 
-" 禁用 gutentags 自动加载 gtags 数据库的行为
-let g:gutentags_auto_add_gtags_cscope = 0
-"Change focus to quickfix window after search (optional).
-let g:gutentags_plus_switch = 1
-"Enable advanced commands: GutentagsToggleTrace, etc.
-let g:gutentags_define_advanced_commands = 1
-let g:gutentags_trace = 0
-
 
 " 告诉 gtags 默认 C/C++/Java 等六种原生支持的代码直接使用 gtags 本地分析器，而其他语言使用 pygments 模块
 let $GTAGSLABEL = 'native-pygments'
@@ -54,3 +46,4 @@ let $GTAGSLABEL = 'native-pygments'
 let $GTAGSCONF = '/opt/homebrew/etc/gtags.conf'
 " GTAGS_CONF_PATH should be defined in .zsh_private
 " let $GTAGSCONF = $GTAGS_CONF_PATH
+"

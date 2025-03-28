@@ -46,16 +46,19 @@ let g:coc_disable_startup_warning = 1
 let g:coc_filetype_map = {'markdown.mdx': 'markdown'}
 let g:coc_node_args = ['--max-old-space-size=2048']
 
-" Completely disable gutentags for better performance
-let g:gutentags_enabled = 0
-let g:gutentags_generate_on_new = 0
-let g:gutentags_generate_on_missing = 0
-let g:gutentags_generate_on_write = 0
-let g:gutentags_generate_on_empty_buffer = 0
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+
+" 优化 gutentags
+" 禁用 gutentags 自动加载 gtags 数据库的行为
+let g:gutentags_auto_add_gtags_cscope = 0
+"Change focus to quickfix window after search (optional).
+let g:gutentags_plus_switch = 1
+"Enable advanced commands: GutentagsToggleTrace, etc.
+let g:gutentags_define_advanced_commands = 1
+let g:gutentags_trace = 0
+
+
 let g:gutentags_ctags_exclude = [
-      \ '*.git', '*.svg', '*.hg',
-      \ 'build',
+      \ '*.git', '*.svg', '*.hg', '*.project', '*.root',
       \ 'dist',
       \ '*sites/*/files/*',
       \ 'bin',
@@ -99,6 +102,7 @@ let g:gutentags_ctags_exclude = [
       \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
       \ ]
+
 
 " Optimize LeaderF
 let g:Lf_MruMaxFiles = 50
