@@ -15,7 +15,6 @@ Plug 'tpope/vim-repeat'
 
 " Completion and snippets
 Plug 'SirVer/ultisnips', {'on': []}
-Plug 'ervandew/supertab'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Language support - use lazy loading for most plugins
@@ -51,6 +50,12 @@ Plug 'tyru/open-browser.vim', {'on': '<Plug>(openbrowser-smart-search)'}
 Plug 'ludovicchabant/vim-gutentags', {'on': ['GutentagsToggleEnabled']}
 Plug 'skywind3000/gutentags_plus', {'on': ['GutentagsToggleEnabled']}
 Plug 'skywind3000/vim-preview', {'on': 'PreviewTag'}
+
+
+" csharp
+Plug 'OmniSharp/omnisharp-vim'
+let g:OmniSharp_server_use_net6 = 1
+let g:OmniSharp_server_path = expand('~/.cache/omnisharp-vim/omnisharp-roslyn/OmniSharp')
 
 call plug#end()
 

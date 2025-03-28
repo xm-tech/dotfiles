@@ -35,7 +35,8 @@ set noshowmatch              " Do not show matching brackets by flickering
 set noshowmode               " We show the mode with airline or lightline
 set ignorecase               " Search case insensitive...
 set smartcase                " ... but not it begins with upper case 
-set completeopt=menu,menuone
+" Completion options
+set completeopt=menuone,noinsert
 set nocursorcolumn           " speed up syntax highlighting
 set nocursorline
 set pumheight=10             " Completion window max size

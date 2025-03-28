@@ -5,9 +5,13 @@
   "suggest.timeout": 2000,
   "suggest.minTriggerInputLength": 2,
   "suggest.maxCompleteItemCount": 10,
-  "suggest.triggerAfterInsertEnter": false,
+  "suggest.triggerAfterInsertEnter": true,
   "suggest.snippetIndicator": " ►",
-  "suggest.acceptSuggestionOnCommitCharacter": false,
+  "suggest.acceptSuggestionOnCommitCharacter": true,
+  "suggest.enablePreview": true,
+  "suggest.floatEnable": true,
+  "suggest.autoTrigger": "always",
+  "suggest.echodocSupport": true,
   "diagnostic.level": "warning",
   "diagnostic.checkCurrentLine": true,
   "diagnostic.messageTarget": "float",
@@ -21,8 +25,7 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "json",
     "python",
-    "lua",
-    "cs"
+    "lua"
   ],
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
@@ -66,6 +69,17 @@
         },
         "index": {
           "threads": 2
+        }
+      }
+    },
+    "omnisharp": {
+      "command": "/Users/maxiongmiao/.cache/omnisharp-vim/omnisharp-roslyn/OmniSharp",
+      "args": ["-lsp"],
+      "filetypes": ["cs"],
+      "rootPatterns": ["*.sln", "*.csproj", "project.json"],
+      "initializationOptions": {
+        "FormattingOptions": {
+          "EnableEditorConfigSupport": true
         }
       }
     }
