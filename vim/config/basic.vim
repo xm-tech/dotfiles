@@ -7,9 +7,8 @@ filetype plugin indent on
 
 set ttyfast
 
-" Only set ttymouse in basic.vim, not in performance.vim to avoid conflicts
+" Mouse settings moved to performance.vim to avoid conflicts
 if !has('nvim')
-  set ttymouse=xterm2
   set ttyscroll=3
 endif
 

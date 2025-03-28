@@ -32,13 +32,9 @@ Plug 'skywind3000/vim-cppman', {'for': ['c', 'cpp']}
 Plug 'arthurxavierx/vim-caser', {'on': ['Camelcase', 'Snakecase', 'Kebabcase', 'Pascalcase']}
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 
-" Git integration
-" Plug 'tpope/vim-fugitive', {'on': ['Git', 'Gblame', 'Gvdiffsplit']} " 已移除以提高性能
-
 " File navigation and search
 Plug 'Yggdroot/LeaderF', {'do': ':LeaderfInstallCExtension'}
 Plug 'justinmk/vim-dirvish'
-" Plug 'mileszs/ack.vim', {'on': 'Ack'} " 已移除，使用 LeaderF 替代
 
 " Markdown preview
 Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install_sync()}, 'for': ['markdown', 'md']}
@@ -58,11 +54,9 @@ Plug 'skywind3000/vim-preview', {'on': 'PreviewTag'}
 
 call plug#end()
 
-" Load performance.vim first to ensure optimizations are applied before other settings
-source ~/.vim/config/performance.vim
-
-" Then load other modular configuration files
+" Load modular configuration files in correct order
 source ~/.vim/config/basic.vim
+source ~/.vim/config/performance.vim
 source ~/.vim/config/filetypes.vim
 source ~/.vim/config/statusline.vim
 source ~/.vim/config/mappings.vim

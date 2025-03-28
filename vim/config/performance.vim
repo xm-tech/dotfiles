@@ -162,24 +162,44 @@ function! s:EnableLightMode()
   echo "Light mode enabled - performance optimized"
 endfunction
 
-" Toggle performance mode
+" Enhanced performance mode with 3 levels
 command! TogglePerformanceMode call s:TogglePerformanceMode()
 function! s:TogglePerformanceMode()
-  if exists('g:performance_mode_enabled') && g:performance_mode_enabled
-    let g:performance_mode_enabled = 0
+  if !exists('g:performance_mode_level')
+    let g:performance_mode_level = 0
+  endif
+
+  let g:performance_mode_level = (g:performance_mode_level + 1) % 3
+
+  if g:performance_mode_level == 0
+    " Normal mode
     let g:coc_enabled = 1
     syntax on
     set showcmd
-    echo "Performance mode disabled"
+    set cursorline
+    set cursorcolumn
+    set relativenumber
+    set nolazyredraw
+    echo "Performance mode: Normal"
+  elseif g:performance_mode_level == 1
+    " Light mode
+    let g:coc_enabled = 1
+    syntax on
+    set showcmd
+    set nocursorline
+    set nocursorcolumn
+    set norelativenumber
+    set lazyredraw
+    echo "Performance mode: Light"
   else
-    let g:performance_mode_enabled = 1
+    " Heavy mode
     let g:coc_enabled = 0
     syntax off
-    set lazyredraw
     set noshowcmd
     set nocursorline
     set nocursorcolumn
     set norelativenumber
-    echo "Performance mode enabled - editor optimized for speed"
+    set lazyredraw
+    echo "Performance mode: Heavy"
   endif
 endfunction
