@@ -42,7 +42,6 @@ Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install_sync()}, 'for
 Plug 'corylanou/vim-present', {'for': 'present'}
 Plug 'fatih/molokai'
 Plug 'roxma/vim-tmux-clipboard'
-" Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tpope/vim-scriptease', {'for': 'vim'}
 Plug 'tyru/open-browser.vim', {'on': '<Plug>(openbrowser-smart-search)'}
 
