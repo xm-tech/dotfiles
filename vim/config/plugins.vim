@@ -31,12 +31,15 @@ function! s:LoadAllCocExtensions()
   echo "All coc extensions loaded"
 endfunction
 
+" ==================== coc-browser ====================
 " Use <c-space> to trigger completion
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
 else
   inoremap <silent><expr> <c-space> coc#refresh()
 endif
+" Make <CR> auto-select the first completion item
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 
 
 " ==================== open-browser ====================
@@ -60,9 +63,6 @@ let g:delimitMate_smart_quotes = 1
 let g:delimitMate_expand_inside_quotes = 0    
 let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'   
 
-
-" Make <CR> auto-select the first completion item
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 
 " ==================== UltiSnips ====================
 let g:UltiSnipsExpandTrigger="<c-j>"
