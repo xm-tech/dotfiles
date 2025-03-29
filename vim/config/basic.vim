@@ -14,7 +14,15 @@ endif
 
 set laststatus=2
 set encoding=utf-8              " Set default encoding to UTF-8
+
 set autoread                    " Automatically reread changed files without asking me anything
+if has('autocmd')
+  augroup AutoReloadFile
+    autocmd!
+    autocmd FocusGained,BufEnter * checktime
+  augroup END
+endif
+
 set autoindent                  
 set backspace=indent,eol,start  " Makes backspace key more powerful.
 set incsearch                   " Shows the match while typing

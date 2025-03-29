@@ -31,7 +31,7 @@ function! s:LoadAllCocExtensions()
   echo "All coc extensions loaded"
 endfunction
 
-" ==================== coc-browser ====================
+" FIXME replace c-space ==================== coc-browser ====================
 " Use <c-space> to trigger completion
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
