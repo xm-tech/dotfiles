@@ -39,7 +39,6 @@ Plug 'justinmk/vim-dirvish'
 Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install_sync()}, 'for': ['markdown', 'md']}
 
 " Misc
-Plug 'corylanou/vim-present', {'for': 'present'}
 Plug 'fatih/molokai'
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'tpope/vim-scriptease', {'for': 'vim'}
