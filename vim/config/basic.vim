@@ -19,6 +19,7 @@ set autoread                    " Automatically reread changed files without ask
 if has('autocmd')
   augroup AutoReloadFile
     autocmd!
+    " FIXME 在 tmux 的另一个面板中编辑了相同文件后，光标再次聚焦到当前文件时不会刷新内容
     autocmd FocusGained,BufEnter * checktime
   augroup END
 endif

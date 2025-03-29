@@ -69,7 +69,8 @@ create_dirs:
 	mkdir -p $(HOME_DIR)/.vim/autoload
 	mkdir -p $(CONFIG_DIR)
 	mkdir -p $(BACKUP_DIR)
-	cp -rf $(DOTFILES)/plugin/* $(HOME_DIR)/.vim/plugin/
+	# cp -rf $(DOTFILES)/plugin/* $(HOME_DIR)/.vim/plugin/
+	rsync -avz --progress --delete $(DOT_FILES)/plugin/* ~/.vim/plugin/
 
 # 创建hushlogin文件（用于禁止登录信息显示）
 create_hushlogin:
@@ -166,6 +167,11 @@ git_setup:
 # 安装vim-plug插件管理器
 install_vim_plug:
 	@echo "Installing vim-plug..."
+	@mkdir -p $(HOME_DIR)/.vim/autoload/ && \cp -f $(DOTFILES)/plug.vim $(HOME_DIR)/.vim/autoload/plug.vim
+
+# 更新vim-plug插件管理器
+update_vim_plug:
+	@echo "Installing vim-plug..."
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || \
 		{ echo "Error downloading vim-plug. Trying alternative URL..."; \
@@ -173,6 +179,8 @@ install_vim_plug:
 		  https://cdn.jsdelivr.net/gh/junegunn/vim-plug/plug.vim || \
 		  { echo "Failed to install vim-plug"; exit 1; }; \
 		}
+	# 当前目录备份1份
+	@\cp -f ~/.vim/autoload/plug.vim .
 	@echo "vim-plug installed successfully."
 
 # 设置vim模块化配置
