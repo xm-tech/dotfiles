@@ -31,11 +31,11 @@
   "diagnostic.checkCurrentLine": true,
   // 诊断消息的显示位置，"float"表示使用浮动窗口显示
   "diagnostic.messageTarget": "float",
-  // 何时显示诊断消息，"jump"表示仅在跳转到诊断位置时显示
-  // 改为"always"可以在鼠标悬停时显示错误信息
+  // 何时显示诊断消息，"never"表示不自动显示，只通过<leader>e手动触发 
+  // "always"的话会悬停时展示, jump 的话会跳转到对应位置时展示
   "diagnostic.enableMessage": "jump",
   // 是否使用虚拟文本显示诊断信息，false表示不在行尾显示诊断信息
-  "diagnostic.virtualText": false,
+  "diagnostic.virtualText": true,
   // 是否高亮显示行号，false可减少视觉干扰
   "diagnostic.enableHighlightLineNumber": false,
   // 是否在插入模式下刷新诊断信息，false可提高编辑大文件时的性能

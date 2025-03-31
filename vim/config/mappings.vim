@@ -196,6 +196,14 @@ function! s:show_documentation()
   endif
 endfunction
 
+" Use <leader>e to show diagnostics for current line
+nnoremap <leader>e :call <SID>show_line_diagnostics()<CR>
+function! s:show_line_diagnostics()
+  if exists('*CocAction')
+    call CocAction('diagnosticInfo')
+  endif
+endfunction
+
 " Save a file as root
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
