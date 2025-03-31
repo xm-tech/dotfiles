@@ -75,7 +75,6 @@ fi
 {
   # 设置可执行权限
   [[ -f ~/.cht.sh ]] && chmod +x ~/.cht.sh
-  [[ -f ~/.ccls_load.sh ]] && chmod +x ~/.ccls_load.sh
   
   # hub 别名设置已移除，使用原生 git
 } &!

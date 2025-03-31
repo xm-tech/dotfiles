@@ -12,7 +12,7 @@ BACKUP_DIR := $(HOME_DIR)/.dotfiles_backup/$(shell date +%Y%m%d_%H%M%S)
 # 移除了gitconfig, fzf-git.sh和z.lua，因为它们有特殊处理方式
 DOT_FILES := vimrc bashrc zshrc tmux.conf tigrc aliases.zsh funcs.zsh \
              git.zsh zinit-load.zsh proxy.zsh \
-             cht.sh ccls_load.sh fix_gh_contribution.sh
+             cht.sh fix_gh_contribution.sh
 
 # 检查必要的命令是否存在
 REQUIRED_COMMANDS := git curl vim nc
@@ -70,7 +70,7 @@ create_dirs:
 	mkdir -p $(CONFIG_DIR)
 	mkdir -p $(BACKUP_DIR)
 	# cp -rf $(DOTFILES)/plugin/* $(HOME_DIR)/.vim/plugin/
-	rsync -avz --progress --delete $(DOT_FILES)/plugin/* ~/.vim/plugin/
+	rsync -avz --progress --delete $(DOTFILES)/plugin/* ~/.vim/plugin/
 
 # 创建hushlogin文件（用于禁止登录信息显示）
 create_hushlogin:

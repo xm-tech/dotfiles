@@ -1,171 +1,121 @@
 {
   // 禁用扩展自动更新检查，减少启动时间和网络请求
   "coc.preferences.extensionUpdateCheck": "never",
-  
   // 是否自动选择第一个补全项，false表示自动选择第一项
   "suggest.noselect": false,
-  
   // 启用预选功能，与noselect配合使用，确保始终有一个项目被选中
   "suggest.enablePreselect": true,
-  
   // 补全请求的超时时间(毫秒)，平衡性能和响应性
   "suggest.timeout": 2000,
-  
   // 触发补全的最小字符数，减少不必要的补全弹出
   "suggest.minTriggerInputLength": 2,
-  
   // 显示的最大补全项数量，限制可提高性能并减少视觉干扰
   "suggest.maxCompleteItemCount": 10,
-  
   // 进入插入模式后自动触发补全，提高编码效率
   "suggest.triggerAfterInsertEnter": true,
-  
   // 在补全菜单中显示的代码片段指示符号
   "suggest.snippetIndicator": " ►",
-  
   // 输入特定字符(如.或()时自动接受当前选中的补全项
   "suggest.acceptSuggestionOnCommitCharacter": true,
-  
   // 在补全菜单中启用预览窗口，显示更多关于当前选中项的信息
   "suggest.enablePreview": true,
-  
   // 使用浮动窗口显示补全菜单，提供更现代的UI体验
   "suggest.floatEnable": true,
-  
   // 控制补全的触发方式，"always"表示始终自动触发
   "suggest.autoTrigger": "always",
-  
   // 启用echodoc支持，在命令行显示函数签名等信息
   "suggest.echodocSupport": true,
-  
   // 显示的最低诊断级别，设为"warning"会显示警告和错误，但忽略信息和提示
   "diagnostic.level": "warning",
-  
   // 是否检查当前行的诊断信息，有助于立即发现问题
   "diagnostic.checkCurrentLine": true,
-  
   // 诊断消息的显示位置，"float"表示使用浮动窗口显示
   "diagnostic.messageTarget": "float",
-  
   // 何时显示诊断消息，"jump"表示仅在跳转到诊断位置时显示
   // 改为"always"可以在鼠标悬停时显示错误信息
   "diagnostic.enableMessage": "jump",
-  
   // 是否使用虚拟文本显示诊断信息，false表示不在行尾显示诊断信息
   "diagnostic.virtualText": false,
-  
   // 是否高亮显示行号，false可减少视觉干扰
   "diagnostic.enableHighlightLineNumber": false,
-  
   // 是否在插入模式下刷新诊断信息，false可提高编辑大文件时的性能
   "diagnostic.refreshOnInsertMode": false,
-  
   // 跳转命令，"split"表示在新的水平分割窗口中打开跳转目标
   "coc.preferences.jumpCommand": "split",
-  
   // coc.nvim自身消息的显示级别，"error"表示只显示错误消息
   "coc.preferences.messageLevel": "error",
-  
   // 保存时格式化的超时时间(毫秒)，防止大文件格式化时间过长
   "coc.preferences.formatOnSaveTimeout": 1000,
-  
   // 保存时自动格式化的文件类型列表，只对指定类型进行格式化，节省资源
   "coc.preferences.formatOnSaveFiletypes": [
     "json",
     "python",
     "lua"
   ],
-  
   // 是否启用Python代码检查
   "python.linting.enabled": true,
-  
   // 是否启用pylint作为Python代码检查工具
   "python.linting.pylintEnabled": true,
-  
   // Python代码格式化工具，使用yapf
   "python.formatting.provider": "yapf",
-  
   // 语言服务器配置部分，为不同语言提供智能功能
   "languageserver": {
     // Go语言服务器配置
     "golang": {
       // Go语言服务器命令
       "command": "gopls",
-      
       // 项目根目录标识文件，用于确定工作区范围
       "rootPatterns": [
         "go.mod",
         ".git/"
       ],
-      
       // 该服务器处理的文件类型
       "filetypes": [
         "go"
       ],
-      
       // 初始化选项，优化性能
       "initializationOptions": {
         // 禁用静态检查，减少CPU使用
         "staticcheck": false,
-        
         // 禁用占位符，简化补全
         "usePlaceholders": false,
-        
         // 禁用未导入包的补全，提高性能
         "completeUnimported": false,
-        
         // 禁用深度补全，提高性能
         "deepCompletion": false
       }
     },
-    
-    // C/C++语言服务器配置
-    "ccls": {
-      // C/C++语言服务器命令
-      "command": "ccls",
-      
-      // 该服务器处理的文件类型
+    "clangd": {
+      "command": "clangd",
+      "rootPatterns": [
+        ".git",
+        ".svn",
+        ".hg",
+        ".root",
+        ".project"
+      ],
       "filetypes": [
         "c",
+        "cc",
         "cpp",
-        "cuda",
+        "c++",
         "objc",
         "objcpp"
       ],
-      
-      // 项目根目录标识文件
-      "rootPatterns": [
-        ".ccls-root",
-        "compile_commands.json"
-      ],
-      
-      // 初始化选项
       "initializationOptions": {
-        // 缓存目录，提高性能
-        "cache": {
-          "directory": "~/.ccls-cache"
-        },
-        
-        // 启用代码片段支持
-        "client": {
-          "snippetSupport": true
-        },
-        
-        // 索引线程数，控制CPU使用量
-        "index": {
-          "threads": 2
-        }
+        "fallbackFlags": [
+          "-Ie:/local/vcpkg/installed/x86-mingw-dynamic/include",
+          "-Wall"
+        ]
       }
-    }
+    },
   },
-  
   // 添加浮动窗口配置，改善鼠标悬停显示错误信息的体验
   "diagnostic.floatConfig": {
     "border": true,
     "rounded": true,
     "maxWidth": 80
   },
-  
   // 添加悬停窗口配置
   "hover.floatConfig": {
     "border": true,
