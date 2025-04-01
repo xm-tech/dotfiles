@@ -16,13 +16,13 @@ set laststatus=2
 set encoding=utf-8              " Set default encoding to UTF-8
 
 set autoread                    " Automatically reread changed files without asking me anything
-if has('autocmd')
-  augroup AutoReloadFile
-    autocmd!
-    " FIXME 在 tmux 的另一个面板中编辑了相同文件后，光标再次聚焦到当前文件时不会刷新内容
-    autocmd FocusGained,BufEnter * checktime
-  augroup END
-endif
+" if has('autocmd')
+"   augroup AutoReloadFile
+"     autocmd!
+"     " FIXME 在 tmux 的另一个面板中编辑了相同文件后，光标再次聚焦到当前文件时不会刷新内容
+"     autocmd FocusGained,BufEnter * checktime
+"   augroup END
+" endif
 
 set autoindent                  
 set backspace=indent,eol,start  " Makes backspace key more powerful.
