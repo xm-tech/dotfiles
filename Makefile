@@ -187,7 +187,7 @@ update_vim_plug:
 setup_vim_modular:
 	@echo "Setting up modular Vim configuration..."
 	@mkdir -p $(HOME_DIR)/.vim/config
-	@for file in basic.vim filetypes.vim statusline.vim mappings.vim plugins.vim performance.vim; do \
+	@for file in basic.vim filetypes.vim statusline.vim mappings.vim plugins.vim performance.vim logging.vim; do \
 		if [ -f "$(HOME_DIR)/.vim/config/$$file" ] && [ ! -L "$(HOME_DIR)/.vim/config/$$file" ]; then \
 			echo "Backing up existing $(HOME_DIR)/.vim/config/$$file to $(BACKUP_DIR)/"; \
 			mkdir -p "$(BACKUP_DIR)/vim/config"; \
@@ -201,7 +201,7 @@ setup_vim_modular:
 # 清理vim模块化配置
 clean_vim_modular:
 	@echo "Cleaning up modular Vim configuration..."
-	@for file in basic.vim filetypes.vim statusline.vim mappings.vim plugins.vim performance.vim; do \
+	@for file in basic.vim filetypes.vim statusline.vim mappings.vim plugins.vim performance.vim logging.vim; do \
 		rm -f "$(HOME_DIR)/.vim/config/$$file"; \
 		echo "Removed symlink: $(HOME_DIR)/.vim/config/$$file"; \
 	done

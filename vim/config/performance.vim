@@ -130,7 +130,7 @@ let g:vim_markdown_folding_disabled = 1
 if exists('$TMUX')
   " Only set ttymouse if not already set in basic.vim
   if !exists('&ttymouse')
-    set ttymouse=xterm2
+    set ttymouse=sgr
   endif
   
   set ttimeoutlen=10

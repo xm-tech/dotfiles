@@ -93,3 +93,5 @@ source ~/.vim/config/statusline.vim
 source ~/.vim/config/mappings.vim
 " 插件特定配置
 source ~/.vim/config/plugins.vim
+" 日志配置
+source ~/.vim/config/logging.vim
