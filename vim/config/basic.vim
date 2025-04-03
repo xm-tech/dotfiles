@@ -28,7 +28,7 @@ set autoindent
 set backspace=indent,eol,start  " Makes backspace key more powerful.
 set incsearch                   " Shows the match while typing
 set hlsearch                    " Highlight found searches
-set mouse=a                     " Enable mouse mode
+set mouse=                      " Disable mouse mode
 
 set noerrorbells             " No beeps
 set number                   " Show line numbers
