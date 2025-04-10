@@ -35,7 +35,12 @@ disabled = true
 disabled = true
 
 [python]
-disabled = true
+disabled = false
+format = '[(\($virtualenv\) )]($style)'
+style = "green bold"
+detect_extensions = ["py"]
+detect_files = ["requirements.txt", "pyproject.toml", "setup.py", "Pipfile", "tox.ini"]
+python_binary = ["python", "python3", "python2"]
 
 [ruby]
 disabled = true
